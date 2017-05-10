@@ -30,6 +30,9 @@ namespace Microsoft.VsTemplateDesigner
     /// </summary>
     public partial class VsDesignerControl : UserControl
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public VsDesignerControl()
         {
             InitializeComponent();

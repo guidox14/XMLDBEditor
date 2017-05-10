@@ -68,6 +68,13 @@ namespace Microsoft.VsTemplateDesigner
 
         LanguageService _xmlLanguageService;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="xmlStore">THe XML Store</param>
+        /// <param name="xmlModel">The XML Model</param>
+        /// <param name="provider">The Service Provider</param>
+        /// <param name="buffer">The buffer</param>
         public ViewModel(XmlStore xmlStore, XmlModel xmlModel, IServiceProvider provider, IVsTextLines buffer)
         {
             if (xmlModel == null)
