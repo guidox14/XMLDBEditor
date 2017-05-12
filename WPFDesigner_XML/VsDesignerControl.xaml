@@ -53,16 +53,16 @@
 							<DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
 									<StackPanel Orientation="Horizontal" Margin="4 0 0 0">
-										<TextBlock Text="{Binding name, NotifyOnValidationError=True, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,ValidatesOnExceptions=True}"/>
+										<TextBlock Text="{Binding name, NotifyOnValidationError=True, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,ValidatesOnExceptions=True,Mode=TwoWay}"/>
 										<TextBlock Text=" ("/>
-										<TextBlock Text="{Binding friendlyName, NotifyOnValidationError=True, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,ValidatesOnExceptions=True}"/>
+										<TextBlock Text="{Binding friendlyName, NotifyOnValidationError=True, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,ValidatesOnExceptions=True,Mode=TwoWay}"/>
 										<TextBlock Text=")"/>
 									</StackPanel>
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
 							<DataGridTemplateColumn.CellEditingTemplate>
 								<DataTemplate>
-									<TextBox x:Name="EntityNameTextBox" Text="{Binding Name, NotifyOnValidationError=True, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,ValidatesOnExceptions=True, Mode=TwoWay}" AcceptsReturn="False" Loaded="EntityNameTextBox_Loaded" />
+									<TextBox x:Name="EntityNameTextBox" Text="{Binding name, NotifyOnValidationError=True, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True,ValidatesOnExceptions=True, Mode=TwoWay}" AcceptsReturn="False" Loaded="EntityNameTextBox_Loaded" />
 								</DataTemplate>
 							</DataGridTemplateColumn.CellEditingTemplate>
 						</DataGridTemplateColumn>
@@ -111,7 +111,7 @@
 								</Grid.ColumnDefinitions>
 								<TextBlock Grid.Column="0" Text="Friendly Name:" Margin="5" VerticalAlignment="Center" TextAlignment="Right"/>
 								<TextBox Grid.Column="1" x:Name="TxtFriendlyName" TextAlignment="Left" Margin="5,5,5,5" VerticalAlignment="Center" TextChanged="TxtFriendlyName_TextChanged"
-										 Text="{Binding friendlyName}" />
+										 Text="{Binding friendlyName}" LostFocus="TxtFriendlyName_LostFocus" />
 							</Grid>
 							<Grid Grid.Row="0" Grid.Column="2">
 								<Grid.ColumnDefinitions>
@@ -181,34 +181,34 @@
 									</DataGridTemplateColumn.CellTemplate>
 									<DataGridTemplateColumn.CellEditingTemplate>
 										<DataTemplate>
-											<TextBox x:Name="AttributeNameTextBox" AcceptsReturn="False" Loaded="AttributeNameTextBox_Loaded" />
+											<TextBox x:Name="AttributeNameTextBox" AcceptsReturn="False" Loaded="AttributeNameTextBox_Loaded" LostFocus="AttributeNameTextBox_LostFocus" />
 										</DataTemplate>
 									</DataGridTemplateColumn.CellEditingTemplate>
 								</DataGridTemplateColumn>
-								<!--<DataGridTemplateColumn Header="Type" Width="Auto">
+								<DataGridTemplateColumn Header="Type" Width="Auto">
 									<DataGridTemplateColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding AttributeType, Converter={StaticResource EnumItemsConverter}}" Margin="4 0 0 0" />
+											<TextBlock x:Name="AttributeType_TextBox" Text="{Binding attributeType}" Margin="4 0 0 0" />
 										</DataTemplate>
 									</DataGridTemplateColumn.CellTemplate>
 									<DataGridTemplateColumn.CellEditingTemplate>
 										<DataTemplate>
-											<ComboBox x:Name="TypeComboBox" SelectedItem="{Binding AttributeType, Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource AttributeTypes}}" >
-												<ComboBox.ItemTemplate>
-													<DataTemplate>
-														<TextBlock Text="{Binding Path=., Mode=OneWay, Converter={StaticResource EnumItemsConverter}}"/>
-													</DataTemplate>
-												</ComboBox.ItemTemplate>
+											<ComboBox x:Name="TypeComboBox" Loaded="AttributeTypeComboBox_Loaded" SelectionChanged="TypeComboBox_SelectionChanged" >
 											</ComboBox>
 										</DataTemplate>
 									</DataGridTemplateColumn.CellEditingTemplate>
-								</DataGridTemplateColumn>-->
+								</DataGridTemplateColumn>
 								<DataGridTemplateColumn Header="Description" Width="*">
 									<DataGridTemplateColumn.CellTemplate>
 										<DataTemplate>
 											<TextBlock x:Name="AttributeDescription" Margin="4 0 0 0" Text="{Binding description}" />
 										</DataTemplate>
 									</DataGridTemplateColumn.CellTemplate>
+									<DataGridTemplateColumn.CellEditingTemplate>
+										<DataTemplate>
+											<TextBox x:Name="AttributeDescriptionTextBox" AcceptsReturn="False" Loaded="AttributeDescriptionTextBox_Loaded" LostFocus="AttributeDescriptionTextBox_LostFocus"/>
+										</DataTemplate>
+									</DataGridTemplateColumn.CellEditingTemplate>
 								</DataGridTemplateColumn>
 							</DataGrid.Columns>
 						</DataGrid>

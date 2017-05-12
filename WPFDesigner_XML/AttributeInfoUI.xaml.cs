@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using DBXTemplateDesigner;
 using WPFDesigner_XML;
+using DBXTemplateDesigner.Models;
 
 namespace Microsoft.XmlTemplateDesigner
 {
@@ -40,8 +40,8 @@ namespace Microsoft.XmlTemplateDesigner
                 //this.chkAllowForMap.IsChecked = this.Attribute.AllowForMap;
                 //this.EditableCheckBox.IsChecked = this.Attribute.AttributeInfo.IsEditable;
                 //this.LevelComboBox.SelectedItem = this.Attribute.AttributeInfo.AttributeLevel;
-                this.IndexedCheckBox.IsChecked = Helper.ValidateBoolFromString( this.Attribute.indexed );
-                this.ChkPrimaryKey.IsChecked = Helper.ValidateBoolFromString( this.Attribute.isPrimaryKey );
+                this.IndexedCheckBox.IsChecked = Helper.ValidateBoolFromString( this.Attribute.indexed == null ? "False" : this.Attribute.indexed);
+                this.ChkPrimaryKey.IsChecked = Helper.ValidateBoolFromString( this.Attribute.isPrimaryKey == null ? "False" : this.Attribute.isPrimaryKey );
                 //this.ChkSQLiteDb.IsChecked = this.Attribute.AttributeInfo.PresentInSQLiteDB;
                 //this.ChkClientKey.IsChecked = this.Attribute.IsClientKey;
                 //this.TxtDefaultValue.Text = this.Attribute.AttributeInfo.DefaultValue;

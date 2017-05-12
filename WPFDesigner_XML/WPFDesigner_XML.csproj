@@ -136,10 +136,25 @@
     <Compile Include="Common\TrulyObservableCollection.cs" />
     <Compile Include="EditorFactory.cs" />
     <Compile Include="EditorPane.cs" />
+    <Compile Include="EditorPane.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EditorPane.resx</DependentUpon>
+    </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="ImagesResources.Designer.cs" />
+    <Compile Include="ImagesResources1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ImagesResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="IViewModel.cs" />
-    <Compile Include="MessageResources.Designer.cs" />
+    <Compile Include="MessageResources1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MessageResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeleteFunctionality.cs" />
     <Compile Include="Models\EVTOrderingDB.cs" />
     <Compile Include="Models\EVTOrderingDB.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -231,9 +246,18 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="EditorPane.resx" />
-    <EmbeddedResource Include="ImagesResources.resx" />
-    <EmbeddedResource Include="MessageResources.resx" />
+    <EmbeddedResource Include="EditorPane.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditorPane.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImagesResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ImagesResources1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageResources.resx">
+      <LastGenOutput>MessageResources1.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources1.Designer.cs</LastGenOutput>

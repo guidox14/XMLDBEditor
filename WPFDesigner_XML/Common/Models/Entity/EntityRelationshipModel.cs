@@ -208,8 +208,8 @@ namespace WPFDesigner_XML.Common.Models.Entity
         /// </summary>
         public EntityRelationshipModel() : base()
         {
-            this.TargetTableName = "No Destination";//Resources.NoDestination;
-            this.InverseRelationshipName = "No Inverse"; //Resources.NoInverse;
+            this.TargetTableName = Resources.NoDestination;
+            this.InverseRelationshipName = Resources.NoInverse;
             this.ClientKeys = new ObservableCollection<ClientKey>();
         }
 
@@ -278,7 +278,7 @@ namespace WPFDesigner_XML.Common.Models.Entity
                 relationship.SetAttributeValue("deletionRule", this.DeletionRule);
             }
 
-            if (!string.IsNullOrEmpty(this.InverseRelationshipName) && !this.InverseRelationshipName.Equals("No Inverse"))
+            if (!string.IsNullOrEmpty(this.InverseRelationshipName) && !this.InverseRelationshipName.Equals(Resources.NoInverse))
             {
                 relationship.SetAttributeValue("inverseName", this.InverseRelationshipName);
                 relationship.SetAttributeValue("inverseEntity", this.TargetTableName);

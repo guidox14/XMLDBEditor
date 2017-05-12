@@ -8,24 +8,18 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 
 ***************************************************************************/
 
-using DBXTemplateDesigner;
-using MobiseStudio.Resources;
+using DBXTemplateDesigner.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WPFDesigner_XML;
+using WPFDesigner_XML.Common.Models.Entity;
 
 namespace Microsoft.XmlTemplateDesigner
 {
@@ -174,8 +168,8 @@ namespace Microsoft.XmlTemplateDesigner
             var comboBox = sender as ComboBox;
             /*if (!viewModel.IsLocationFieldSpecified)
             {*/
-                // don't show selection in combobox if there was no data in file
-                comboBox.SelectedIndex = -1;
+            // don't show selection in combobox if there was no data in file
+            comboBox.SelectedIndex = -1;
             //}
         }
 
@@ -199,8 +193,10 @@ namespace Microsoft.XmlTemplateDesigner
         /// <param name="e">The <see cref="System.Windows.Controls.DataGridCellEditEndingEventArgs"/> instance containing the event data.</param>
         private void EntitiesDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            /*if (ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity != null)
+            if (SelectedEntity != null)
             {
+                List<modelEntity> entities = ((ViewModel)DataContext).XmlTemplateModel.entity;
+
                 FrameworkElement element1 = AttributeDataGrid.Columns[0].GetCellContent(e.Row);
                 TextBox entityNameTextBox = GetChildControl(element1, "EntityNameTextBox") as TextBox;
                 if (entityNameTextBox != null)
@@ -210,14 +206,14 @@ namespace Microsoft.XmlTemplateDesigner
                         bool isValid = char.IsLetter(entityNameTextBox.Text.FirstOrDefault()) && entityNameTextBox.Text.FirstOrDefault() == char.ToUpper(entityNameTextBox.Text.FirstOrDefault());
                         if (isValid)
                         {
-                            EntityModel ent = ApplicationController.ApplicationMainController.CurrentModel.Entities.FirstOrDefault(entity => entity.Name == entityNameTextBox.Text);
-                            if (ApplicationController.ApplicationMainController.CurrentModel.Entities != null && ent == null)
+                            modelEntity ent = entities.FirstOrDefault(entity => entity.name == entityNameTextBox.Text);
+                            if (entities != null && ent == null)
                             {
-                                ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Name = entityNameTextBox.Text;
+                                SelectedEntity.name = entityNameTextBox.Text;
                             }
                             else
                             {
-                                if (ent != ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity)
+                                if (ent != SelectedEntity)
                                 {
                                     MessageBox.Show(MessageResources.NameBeenUsedEntity, MessageResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                                 }
@@ -233,7 +229,7 @@ namespace Microsoft.XmlTemplateDesigner
                         MessageBox.Show(MessageResources.EmptyEntityName, MessageResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
-            }*/
+            }
         }
 
         /// <summary>
@@ -259,16 +255,16 @@ namespace Microsoft.XmlTemplateDesigner
 
                 this.Attributes = new ObservableCollection<modelEntityAttribute>(this.SelectedEntity.attribute.ToList());
                 this.Relationships = new ObservableCollection<modelEntityRelationship>(this.SelectedEntity.relationship.ToList());
-                this.CkbIsRoot.IsChecked = Helper.ValidateBoolFromString( SelectedEntity.isRoot);
-                this.CkbIsRootRelated.IsChecked = Helper.ValidateBoolFromString(SelectedEntity.isRootRelated);
-                this.ChbEnableTracing.IsChecked = Helper.ValidateBoolFromString( SelectedEntity.enableTracing);
+                this.CkbIsRoot.IsChecked = Helper.ValidateBoolFromString(SelectedEntity.isRoot == null ? "False" : SelectedEntity.isRoot);
+                this.CkbIsRootRelated.IsChecked = Helper.ValidateBoolFromString(SelectedEntity.isRootRelated == null ? "False" : SelectedEntity.isRootRelated);
+                this.ChbEnableTracing.IsChecked = Helper.ValidateBoolFromString(SelectedEntity.enableTracing == null ? "False" : SelectedEntity.enableTracing);
                 this.TxtSyncOrder.Text = SelectedEntity.syncOrder;
                 this.TxtDescription.Text = SelectedEntity.description;
                 this.TxtFriendlyName.Text = SelectedEntity.friendlyName;
-                this.CkbIsMediaEntity.IsChecked = Helper.ValidateBoolFromString(SelectedEntity.isMediaEntity);
+                this.CkbIsMediaEntity.IsChecked = Helper.ValidateBoolFromString(SelectedEntity.isMediaEntity == null ? "False" : SelectedEntity.isMediaEntity);
                 this.txtBackendQuery.Text = SelectedEntity.backendQuery;
-                /*this.RuleComboBox.SelectedItem = SelectedEntity.conflictResolutionRule;
-                this.SyncComboBox.SelectedItem = SelectedEntity.syncType;*/
+                this.RuleComboBox.SelectedItem = SelectedEntity.conflictResolutionRule;
+                this.SyncComboBox.SelectedItem = SelectedEntity.syncType;
                 this.AttributeDataGrid.ItemsSource = SelectedEntity.attribute.Where(a => !a.name.EndsWith("_mb")).ToList();
                 this.AttributeDataGrid.SelectedIndex = 0;
                 this.RelationshipDataGrid.ItemsSource = this.Relationships;
@@ -279,8 +275,8 @@ namespace Microsoft.XmlTemplateDesigner
                 this.AttributeDataGrid.ItemsSource = new ObservableCollection<modelEntityAttribute>();
                 this.AttributeDataGrid.SelectedIndex = -1;
                 this.RelationshipDataGrid.ItemsSource = new ObservableCollection<modelEntityRelationship>();
-                /*this.RuleComboBox.SelectedItem = ConflictResolutionRule.mbSyncWin;
-                this.SyncComboBox.SelectedItem = SyncType.syncBothDirections;*/
+                this.RuleComboBox.SelectedItem = ConflictResolutionRule.mbSyncWin;
+                this.SyncComboBox.SelectedItem = SyncType.syncBothDirections;
                 this.RelationshipDataGrid.SelectedIndex = -1;
                 this.CkbIsRoot.IsChecked = false;
                 this.CkbIsRootRelated.IsChecked = false;
@@ -300,12 +296,12 @@ namespace Microsoft.XmlTemplateDesigner
         private void EntityNameTextBox_Loaded(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
-            /*if (textBox != null && ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity != null)
+            if (textBox != null && SelectedEntity != null)
             {
-                textBox.Text = ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Name;
+                textBox.Text = SelectedEntity.name;
                 textBox.SelectAll();
                 textBox.Focus();
-            }*/
+            }
         }
 
         /// <summary>
@@ -323,7 +319,8 @@ namespace Microsoft.XmlTemplateDesigner
         /// </summary>
         public void AddNewEntity()
         {
-            /*EntityModel newEntity = new EntityModel(ApplicationController.ApplicationMainController.CurrentModel);
+            //EntityModel newEntity = new EntityModel(ApplicationController.ApplicationMainController.CurrentModel);
+            modelEntity newEntity = new modelEntity();
             bool notListed = false;
             int i = 0;
             while (!notListed)
@@ -339,18 +336,19 @@ namespace Microsoft.XmlTemplateDesigner
                 }
 
                 ++i;
-                if (ApplicationController.ApplicationMainController.CurrentModel.Entities.FirstOrDefault(ent => ent.Name == tempName) == null)
+                if (((ViewModel)DataContext).XmlTemplateModel.entity.FirstOrDefault(ent => ent.name == tempName) == null)
                 {
                     notListed = true;
-                    newEntity.Name = tempName;
+                    newEntity.name = tempName;
+                    newEntity.friendlyName = tempName;
                 }
             }
-
-            ApplicationController.ApplicationMainController.CurrentModel.Entities.Add(newEntity);
-            this.EntitiesDataGrid.ItemsSource = new ObservableCollection<EntityModel>(ApplicationController.ApplicationMainController.CurrentModel.Entities.Where(e => !e.Name.EndsWith("_mb")).ToList());
+            List<modelEntity> entities = ((ViewModel)DataContext).XmlTemplateModel.entity;
+            entities.Add(newEntity);
+            this.EntitiesDataGrid.ItemsSource = new ObservableCollection<modelEntity>(entities.Where(e => !e.name.EndsWith("_mb")).ToList());
             this.EntitiesDataGrid.UpdateLayout();
 
-            this.EntitiesDataGrid.SelectedItem = newEntity;*/
+            this.EntitiesDataGrid.SelectedItem = newEntity;
         }
 
         /// <summary>
@@ -368,38 +366,39 @@ namespace Microsoft.XmlTemplateDesigner
         /// </summary>
         public void DeleteSelectedEntity()
         {
+            List<modelEntity> entities = ((ViewModel)DataContext).XmlTemplateModel.entity;
             if (this.EntitiesDataGrid.SelectedItem != null)
             {
-                /*EntityModel entity = this.EntitiesDataGrid.SelectedItem as EntityModel;
+                modelEntity entity = (modelEntity)this.EntitiesDataGrid.SelectedItem;
                 if (entity != null)
                 {
                     if (MessageBox.Show(MessageResources.DeleteEntityWarning, MessageResources.Confirmation, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
-                        foreach (EntityModel ent in ApplicationController.ApplicationMainController.CurrentModel.Entities)
+                        foreach (modelEntity ent in entities)
                         {
                             if (ent != entity)
                             {
-                                List<EntityRelationshipModel> relationships = ent.Relationships.ToList();
-                                foreach (EntityRelationshipModel rel in relationships)
+                                List<modelEntityRelationship> relationships = ent.relationship;
+                                foreach (modelEntityRelationship rel in relationships)
                                 {
-                                    if (rel.TargetTableName == entity.Name)
+                                    if (rel.destinationEntity == entity.name)
                                     {
-                                        rel.TargetTableName = Resource.NoDestination;
-                                        if (rel.InverseRelationshipName != Resource.NoInverse)
+                                        rel.destinationEntity = WPFDesigner_XML.Resources.NoDestination;
+                                        if (rel.inverseEntity != WPFDesigner_XML.Resources.NoInverse)
                                         {
-                                            rel.InverseRelationshipName = Resource.NoInverse;
+                                            rel.inverseEntity = WPFDesigner_XML.Resources.NoInverse;
                                         }
                                     }
                                 }
                             }
                         }
 
-                        ApplicationController.ApplicationMainController.CurrentModel.Entities.Remove(entity);
-                        this.EntitiesDataGrid.ItemsSource = new ObservableCollection<EntityModel>(ApplicationController.ApplicationMainController.CurrentModel.Entities.Where(e => !e.Name.EndsWith("_mb")).ToList());
+                        entities.Remove(entity);
+                        this.EntitiesDataGrid.ItemsSource = new ObservableCollection<modelEntity>(entities.Where(e => !e.name.EndsWith("_mb")).ToList());
                         this.EntitiesDataGrid.UpdateLayout();
                         this.EntitiesDataGrid.SelectedIndex = 0;
                     }
-                }*/
+                }
             }
         }
 
@@ -418,9 +417,10 @@ namespace Microsoft.XmlTemplateDesigner
         /// </summary>
         public void AddNewAttribute()
         {
-            /*if (ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity != null)
+            if (SelectedEntity != null)
             {
-                EntityAttributeModel attr = new EntityAttributeModel(ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity);
+                modelEntityAttribute attr = new modelEntityAttribute(SelectedEntity);
+                //EntityAttributeModel attr = new EntityAttributeModel(SelectedEntity);
                 bool notListed = false;
                 int i = 0;
                 while (!notListed)
@@ -436,21 +436,21 @@ namespace Microsoft.XmlTemplateDesigner
                     }
 
                     ++i;
-                    if (ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Attributes.FirstOrDefault(a => a.Name == tempName) == null)
+                    if (SelectedEntity.attribute.FirstOrDefault(a => a.name == tempName) == null)
                     {
                         notListed = true;
-                        attr.Name = tempName;
+                        attr.name = tempName;
                     }
                 }
 
-                attr.AttributeType = AttributeType.Undefined;
-                ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Attributes.Add(attr);
+                attr.attributeType = Helper.ConvertAttTypeToString(AttributeType.Undefined);
+                SelectedEntity.attribute.Add(attr);
                 this.Attributes.Add(attr);
-                this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.Name.EndsWith("_mb")).ToList();
+                this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.name.EndsWith("_mb")).ToList();
                 this.AttributeDataGrid.UpdateLayout();
 
                 this.AttributeDataGrid.SelectedItem = attr;
-            }*/
+            }
         }
 
         /// <summary>
@@ -468,18 +468,19 @@ namespace Microsoft.XmlTemplateDesigner
         /// </summary>
         public void DeleteSelectedAttribute()
         {
-            /*if (ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity != null)
+            if (SelectedEntity != null)
             {
-                EntityAttributeModel attr = this.AttributeDataGrid.SelectedItem as EntityAttributeModel;
+                modelEntityAttribute attr = (modelEntityAttribute)this.AttributeDataGrid.SelectedItem;
                 if (attr != null)
                 {
-                    if (!attr.IsDefault)
+                    if (!attr.isDefault.Equals("True") ? true : false)
                     {
                         if (MessageBox.Show(MessageResources.DeleteAttributeWarning, MessageResources.Confirmation, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
-                            ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.DeleteAttribute(attr);
+                            DeleteFunctionality newDelete = new DeleteFunctionality(SelectedEntity);
+                            newDelete.DeleteAttribute(attr);
                             this.Attributes.Remove(attr);
-                            this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.Name.EndsWith("_mb")).ToList();
+                            this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.name.EndsWith("_mb")).ToList();
                             this.AttributeDataGrid.UpdateLayout();
                             this.AttributeDataGrid.SelectedIndex = 0;
                         }
@@ -489,7 +490,7 @@ namespace Microsoft.XmlTemplateDesigner
                         MessageBox.Show(MessageResources.DefaultAttributeChanges, MessageResources.Information, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
-            }*/
+            }
         }
 
         /// <summary>
@@ -499,10 +500,10 @@ namespace Microsoft.XmlTemplateDesigner
         /// <param name="e">The <see cref="SelectionChangedEventArgs" /> instance containing the event data.</param>
         private void RuleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            /*if (ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity != null)
+            if (SelectedEntity != null)
             {
-                ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.ConflictResolutionRule = (ConflictResolutionRule)this.RuleComboBox.SelectedItem;
-            }*/
+                SelectedEntity.conflictResolutionRule = Helper.ConvertConflictResRuleToString((ConflictResolutionRule)this.RuleComboBox.SelectedItem);
+            }
         }
 
         /// <summary>
@@ -515,7 +516,7 @@ namespace Microsoft.XmlTemplateDesigner
             TextBox tb = sender as TextBox;
             if (tb != null)
             {
-                //ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Description = tb.Text;
+                SelectedEntity.description = tb.Text;
             }
         }
 
@@ -524,46 +525,46 @@ namespace Microsoft.XmlTemplateDesigner
             TextBox tb = sender as TextBox;
             if (tb != null)
             {
-                //ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.FriendlyName = tb.Text;
+                SelectedEntity.friendlyName = tb.Text;
             }
         }
 
         private void ChbEnableTracing_Checked(object sender, RoutedEventArgs e)
         {
-            /*if (ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity != null)
+            if (SelectedEntity != null)
             {
-                ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.EnableTracing = true;
-            }*/
+                SelectedEntity.enableTracing = "True";
+            }
         }
 
         private void ChbEnableTracing_Unchecked(object sender, RoutedEventArgs e)
         {
-            /*if (ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity != null)
+            if (SelectedEntity != null)
             {
-                ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.EnableTracing = false;
-            }*/
+                SelectedEntity.enableTracing = "False";
+            }
         }
 
         private void CkbIsRootRelated_Checked(object sender, RoutedEventArgs e)
         {
-            /*if (ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity != null)
+            if (SelectedEntity != null)
             {
-                ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.IsRootRelated = true;
+                SelectedEntity.isRootRelated = "True";
                 AddAttibute("parcelNbr_mb", "string");
                 this.AttributeDataGrid.ItemsSource = null;
-                this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.Name.EndsWith("_mb")).ToList();
-            }*/
+                this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.name.EndsWith("_mb")).ToList();
+            }
         }
 
         private void CkbIsRootRelated_Unchecked(object sender, RoutedEventArgs e)
         {
-            /*if (ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity != null)
+            if (SelectedEntity != null)
             {
-                ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.IsRootRelated = false;
+                SelectedEntity.isRootRelated = "False";
                 RemoveAttribute("parcelNbr_mb");
                 this.AttributeDataGrid.ItemsSource = null;
-                this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.Name.EndsWith("_mb")).ToList();
-            }*/
+                this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.name.EndsWith("_mb")).ToList();
+            }
         }
 
         private void txtBackendQuery_TextChanged(object sender, TextChangedEventArgs e)
@@ -571,16 +572,16 @@ namespace Microsoft.XmlTemplateDesigner
             TextBox tb = sender as TextBox;
             if (tb != null)
             {
-                //ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.BackendQuery = tb.Text;
+                SelectedEntity.backendQuery = tb.Text;
             }
         }
 
         private void SyncComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            /*if (ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity != null)
+            if (this.SelectedEntity != null && SyncComboBox.SelectedItem != null)
             {
-                ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.SyncType = (SyncType)this.SyncComboBox.SelectedItem;
-            }*/
+                this.SelectedEntity.syncType = Helper.ConvertSyncTypeToString((SyncType)this.SyncComboBox.SelectedItem);
+            }
         }
 
         /// <summary>
@@ -590,18 +591,18 @@ namespace Microsoft.XmlTemplateDesigner
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void CkbIsRoot_Checked(object sender, RoutedEventArgs e)
         {
-            /*if (ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity != null)
+            if (SelectedEntity != null)
             {
-                ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.IsRoot = true;
+                SelectedEntity.isRoot = "True";
                 AddAttibute("editState_mb", "int");
                 this.AttributeDataGrid.ItemsSource = null;
-                this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.Name.EndsWith("_mb")).ToList();
+                this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.name.EndsWith("_mb")).ToList();
                 //ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.AllowForMaps = true;
-                if (!ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.IsRoot)
+                if (!SelectedEntity.isRoot.Equals("True"))
                 {
                     this.CkbIsRoot.IsChecked = false;
                 }
-            }*/
+            }
         }
 
         /// <summary>
@@ -611,14 +612,14 @@ namespace Microsoft.XmlTemplateDesigner
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void CkbIsRoot_Unchecked(object sender, RoutedEventArgs e)
         {
-            /*if (ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity != null)
+            if (SelectedEntity != null)
             {
-                ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.IsRoot = false;
+                SelectedEntity.isRoot = "False";
                 RemoveAttribute("editState_mb");
                 this.AttributeDataGrid.ItemsSource = null;
-                this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.Name.EndsWith("_mb")).ToList();
+                this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.name.EndsWith("_mb")).ToList();
                 //ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.AllowForMaps = false;
-            }*/
+            }
         }
 
         /// <summary>
@@ -630,13 +631,16 @@ namespace Microsoft.XmlTemplateDesigner
         {
             TextBox tb = sender as TextBox;
             int value;
-            if (Int32.TryParse(tb.Text, out value))
+            if (SelectedEntity != null)
             {
-                //ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.SyncOrder = value;
-            }
-            else
-            {
-                //tb.Text = ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.SyncOrder.ToString();
+                if (Int32.TryParse(tb.Text, out value))
+                {
+                    SelectedEntity.syncOrder = value.ToString();
+                }
+                else
+                {
+                    tb.Text = SelectedEntity.syncOrder;
+                }
             }
         }
 
@@ -647,9 +651,9 @@ namespace Microsoft.XmlTemplateDesigner
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void CkbIsMediaEntity_Checked(object sender, RoutedEventArgs e)
         {
-            /*if (ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity != null)
+            if (SelectedEntity != null)
             {
-                ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.IsMediaEntity = true;
+                SelectedEntity.isMediaEntity = "True";
                 AddAttibute("imageSourceURI_mb", "string");
                 AddAttibute("imageType_mb", "string");
                 AddAttibute("imageFilter_mb", "int");
@@ -665,9 +669,8 @@ namespace Microsoft.XmlTemplateDesigner
                 AddAttibute("createdDate_mb", "date");
                 AddAttibute("updatedDate_mb", "date");
                 this.AttributeDataGrid.ItemsSource = null;
-                this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.Name.EndsWith("_mb")).ToList();
-
-            }*/
+                this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.name.EndsWith("_mb")).ToList();
+            }
         }
 
 
@@ -679,9 +682,9 @@ namespace Microsoft.XmlTemplateDesigner
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void CkbIsMediaEntity_Unchecked(object sender, RoutedEventArgs e)
         {
-            /*if (ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity != null)
+            if (SelectedEntity != null)
             {
-                ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.IsMediaEntity = false;
+                SelectedEntity.isMediaEntity = "False";
                 RemoveAttribute("imageSourceURI_mb");
                 RemoveAttribute("imageType_mb");
                 RemoveAttribute("imageFilter_mb");
@@ -697,40 +700,76 @@ namespace Microsoft.XmlTemplateDesigner
                 RemoveAttribute("createdDate_mb");
                 RemoveAttribute("updatedDate_mb");
                 this.AttributeDataGrid.ItemsSource = null;
-                this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.Name.EndsWith("_mb")).ToList();
-            }*/
+                this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.name.EndsWith("_mb")).ToList();
+            }
         }
 
         private void AddAttibute(string attrName, string attributeType)
         {
-            /*EntityAttributeModel attr = null;
+            modelEntityAttribute attr = null;
             switch (attributeType)
             {
                 case "string":
-                    if (!ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Attributes.Any(a => a.Name == attrName))
-                        attr = new EntityAttributeModel(ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity) { AttributeType = AttributeType.String, Name = attrName, AttributeInfo = new AttributeInfoString() { IsIndexed = false, MaxChars = 4000 }, IsDefault = true };
+                    if (!SelectedEntity.attribute.Any(a => a.name == attrName))
+                        attr = new modelEntityAttribute(SelectedEntity)
+                        {
+                            attributeType = Helper.ConvertAttTypeToString(AttributeType.String),
+                            name = attrName,
+                            //attributeInfo = new AttributeInfoString() { IsIndexed = false, MaxChars = 4000 },
+                            isDefault = "True"
+                        };
                     break;
                 case "text":
-                    if (!ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Attributes.Any(a => a.Name == attrName))
-                        attr = new EntityAttributeModel(ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity) { AttributeType = AttributeType.Text, Name = attrName, AttributeInfo = new AttributeInfoString() { IsIndexed = false, MaxChars = 4000 }, IsDefault = true };
+                    if (!SelectedEntity.attribute.Any(a => a.name == attrName))
+                        attr = new modelEntityAttribute(SelectedEntity)
+                        {
+                            attributeType = Helper.ConvertAttTypeToString(AttributeType.Text),
+                            name = attrName,
+                            //AttributeInfo = new AttributeInfoString() { IsIndexed = false, MaxChars = 4000 },
+                            isDefault = "True"
+                        };
                     break;
 
                 case "double":
-                    if (!ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Attributes.Any(a => a.Name == attrName))
-                        attr = new EntityAttributeModel(ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity) { AttributeType = AttributeType.Double, Name = attrName, AttributeInfo = new AttributeInfoDouble() { IsIndexed = false }, IsDefault = true };
+                    if (!SelectedEntity.attribute.Any(a => a.name == attrName))
+                        attr = new modelEntityAttribute(SelectedEntity)
+                        {
+                            attributeType = Helper.ConvertAttTypeToString(AttributeType.Double),
+                            name = attrName,
+                            //AttributeInfo = new AttributeInfoDouble() { IsIndexed = false },
+                            isDefault = "True"
+                        };
                     break;
                 case "boolean":
-                    if (!ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Attributes.Any(a => a.Name == attrName))
-                        attr = new EntityAttributeModel(ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity) { AttributeType = AttributeType.Boolean, Name = attrName, AttributeInfo = new AttributeInfo() { IsIndexed = false }, IsDefault = true };
+                    if (!SelectedEntity.attribute.Any(a => a.name == attrName))
+                        attr = new modelEntityAttribute(SelectedEntity)
+                        {
+                            attributeType = Helper.ConvertAttTypeToString(AttributeType.Boolean),
+                            name = attrName,
+                            //AttributeInfo = new AttributeInfo() { IsIndexed = false },
+                            isDefault = "True"
+                        };
                     break;
                 case "int":
-                    if (!ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Attributes.Any(a => a.Name == attrName))
-                        attr = new EntityAttributeModel(ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity) { AttributeType = AttributeType.Integer32, Name = attrName, AttributeInfo = new AttributeInfoInteger() { IsIndexed = false }, IsDefault = true };
+                    if (!SelectedEntity.attribute.Any(a => a.name == attrName))
+                        attr = new modelEntityAttribute(SelectedEntity)
+                        {
+                            attributeType = Helper.ConvertAttTypeToString(AttributeType.Integer32),
+                            name = attrName,
+                            //AttributeInfo = new AttributeInfoInteger() { IsIndexed = false },
+                            isDefault = "True"
+                        };
                     break;
 
                 case "date":
-                    if (!ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Attributes.Any(a => a.Name == attrName))
-                        attr = new EntityAttributeModel(ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity) { AttributeType = AttributeType.Date, Name = attrName, AttributeInfo = new AttributeInfoDate() { IsIndexed = false }, IsDefault = true };
+                    if (!SelectedEntity.attribute.Any(a => a.name == attrName))
+                        attr = new modelEntityAttribute(SelectedEntity)
+                        {
+                            attributeType = Helper.ConvertAttTypeToString(AttributeType.Date),
+                            name = attrName,
+                            //AttributeInfo = new AttributeInfoDate() { IsIndexed = false },
+                            isDefault = "True"
+                        };
                     break;
 
                 default:
@@ -739,20 +778,20 @@ namespace Microsoft.XmlTemplateDesigner
 
             if (attr != null)
             {
-                ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Attributes.Add(attr);
+                SelectedEntity.attribute.Add(attr);
                 this.Attributes.Add(attr);
-            }*/
+            }
         }
 
         private void RemoveAttribute(string attrName)
         {
-            /*EntityAttributeModel attr;
-            attr = ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Attributes.FirstOrDefault(a => a.Name == attrName);
+            modelEntityAttribute attr;
+            attr = SelectedEntity.attribute.FirstOrDefault(a => a.name == attrName);
             if (attr != null)
             {
-                ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Attributes.Remove(attr);
+                SelectedEntity.attribute.Remove(attr);
                 this.Attributes.Remove(attr);
-            }*/
+            }
         }
 
         /// <summary> 
@@ -795,7 +834,7 @@ namespace Microsoft.XmlTemplateDesigner
         {
             if (this.SelectedAttribute != null)
             {
-                if (! Helper.ValidateBoolFromString( this.SelectedAttribute.isDefault) )
+                if (!Helper.ValidateBoolFromString(this.SelectedAttribute.isDefault == null ? "False" : this.SelectedAttribute.isDefault))
                 {
                     FrameworkElement element1 = AttributeDataGrid.Columns[0].GetCellContent(e.Row);
                     modelEntityAttribute attr = null;
@@ -855,7 +894,7 @@ namespace Microsoft.XmlTemplateDesigner
 
                         if (attr != null)
                         {
-                            if (!attr.attributeType.Equals( attributeTypeComboBox.SelectedItem.ToString()))
+                            if (!attr.attributeType.Equals(attributeTypeComboBox.SelectedItem.ToString()))
                             {
                                 attr.attributeType = attributeTypeComboBox.SelectedItem.ToString();
                                 //attr.AttributeInfo = DatabaseManagementHelper.GetAttributeInfoFromType(attr.AttributeType);
@@ -880,16 +919,16 @@ namespace Microsoft.XmlTemplateDesigner
         /// <param name="e">The <see cref="System.Windows.Controls.SelectionChangedEventArgs"/> Instance containing the event data.</param>
         private void AttributeDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.SelectedAttribute = (modelEntityAttribute) this.AttributeDataGrid.SelectedItem;
+            this.SelectedAttribute = (modelEntityAttribute)this.AttributeDataGrid.SelectedItem;
 
             if (this.AttributeDataGrid.SelectedItem != null)
             {
-                this.SelectedAttribute = (modelEntityAttribute) this.AttributeDataGrid.SelectedItem;
+                this.SelectedAttribute = (modelEntityAttribute)this.AttributeDataGrid.SelectedItem;
                 if (this.SelectedAttribute != null)
                 {
                     this.SelectedAttribute.AttributeTypeChanged += new EventHandler(SelectedAttribute_AttributeTypeChanged);
                     this.AttributeInformation.SetAttribute(this.SelectedAttribute);
-                    this.AttributeInformation.IsEnabled = ! Helper.ValidateBoolFromString( this.SelectedAttribute.isDefault );
+                    this.AttributeInformation.IsEnabled = !Helper.ValidateBoolFromString(this.SelectedAttribute.isDefault == null ? "False" : this.SelectedAttribute.isDefault);
                 }
             }
             else
@@ -915,10 +954,10 @@ namespace Microsoft.XmlTemplateDesigner
         /// <param name="e">The <see cref="System.Windows.Controls.DataGridRowEventArgs"/> instance containing the event data.</param>
         private void AttributeDataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
         {
-            modelEntityAttribute attribute = (modelEntityAttribute) e.Row.DataContext;
+            modelEntityAttribute attribute = (modelEntityAttribute)e.Row.DataContext;
             if (attribute != null)
             {
-                if (Helper.ValidateBoolFromString(attribute.isDefault))
+                if (Helper.ValidateBoolFromString(attribute.isDefault == null ? "False" : attribute.isDefault))
                     e.Row.Background = new SolidColorBrush(Colors.AliceBlue);
             }
         }
@@ -1084,6 +1123,73 @@ namespace Microsoft.XmlTemplateDesigner
             newSyncType.Add(SyncType.syncToMiddleTier);
 
             SyncComboBox.ItemsSource = newSyncType;
+        }
+
+        private void AttributeTypeComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<AttributeType> attTypeList = new List<AttributeType>();
+            attTypeList.Add(AttributeType.Undefined);
+            attTypeList.Add(AttributeType.Integer16);
+            attTypeList.Add(AttributeType.Integer32);
+            attTypeList.Add(AttributeType.Integer64);
+            attTypeList.Add(AttributeType.Boolean);
+            attTypeList.Add(AttributeType.Double);
+            attTypeList.Add(AttributeType.String);
+            attTypeList.Add(AttributeType.Date);
+            attTypeList.Add(AttributeType.BLOB);
+            attTypeList.Add(AttributeType.GUID);
+            attTypeList.Add(AttributeType.Text);
+
+            ComboBox attTypeComboBox = (ComboBox)sender;
+            attTypeComboBox.ItemsSource = attTypeList;
+        }
+
+        private void TypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox attTypeComboBox = (ComboBox)sender;
+            if (this.SelectedAttribute != null)
+            {
+                this.SelectedAttribute.attributeType = Helper.ConvertAttTypeToString((AttributeType)attTypeComboBox.SelectedItem);
+            }
+        }
+
+        private void AttributeDescriptionTextBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null && this.SelectedAttribute != null)
+            {
+                textBox.Text = this.SelectedAttribute.description;
+                textBox.SelectAll();
+                textBox.Focus();
+            }
+        }
+
+        private void AttributeDescriptionTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox descriptionTB = (TextBox)sender;
+            if (SelectedAttribute != null)
+            {
+                SelectedAttribute.description = descriptionTB.Text;
+            }
+        }
+
+        private void AttributeNameTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox nameTB = (TextBox)sender;
+            if (SelectedAttribute != null)
+            {
+                SelectedAttribute.name = nameTB.Text;
+            }
+        }
+
+        private void TxtFriendlyName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox friendlyName = (TextBox)sender;
+            //this.SelectedEntity = (modelEntity)EntitiesDataGrid.SelectedItem;
+            if (this.SelectedEntity != null)
+            {
+                SelectedEntity.friendlyName = friendlyName.Text;
+            }
         }
     }
 }
