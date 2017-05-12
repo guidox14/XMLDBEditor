@@ -1,79 +1,113 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-  <xs:element name="model">
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="model" msprop:Generator_TableClassName="modelDataTable" msprop:Generator_TableVarName="tablemodel" msprop:Generator_TablePropName="model" msprop:Generator_RowDeletingName="modelRowDeleting" msprop:Generator_RowChangingName="modelRowChanging" msprop:Generator_RowEvHandlerName="modelRowChangeEventHandler" msprop:Generator_RowDeletedName="modelRowDeleted" msprop:Generator_UserTableName="model" msprop:Generator_RowChangedName="modelRowChanged" msprop:Generator_RowEvArgName="modelRowChangeEvent" msprop:Generator_RowClassName="modelRow">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="entity" minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="entity" msprop:Generator_TableClassName="entityDataTable" msprop:Generator_TableVarName="tableentity" msprop:Generator_TablePropName="entity" msprop:Generator_RowDeletingName="entityRowDeleting" msprop:Generator_RowChangingName="entityRowChanging" msprop:Generator_RowEvHandlerName="entityRowChangeEventHandler" msprop:Generator_RowDeletedName="entityRowDeleted" msprop:Generator_UserTableName="entity" msprop:Generator_RowChangedName="entityRowChanged" msprop:Generator_RowEvArgName="entityRowChangeEvent" msprop:Generator_RowClassName="entityRow" minOccurs="0" maxOccurs="unbounded">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="attribute" minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="attribute" msprop:Generator_TableClassName="attributeDataTable" msprop:Generator_TableVarName="tableattribute" msprop:Generator_TablePropName="attribute" msprop:Generator_RowDeletingName="attributeRowDeleting" msprop:Generator_RowChangingName="attributeRowChanging" msprop:Generator_RowEvHandlerName="attributeRowChangeEventHandler" msprop:Generator_RowDeletedName="attributeRowDeleted" msprop:Generator_UserTableName="attribute" msprop:Generator_RowChangedName="attributeRowChanged" msprop:Generator_RowEvArgName="attributeRowChangeEvent" msprop:Generator_RowClassName="attributeRow" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
-                  <xs:attribute name="optional" type="xs:string" />
-                  <xs:attribute name="syncable" type="xs:string" />
-                  <xs:attribute name="name" type="xs:string" />
-                  <xs:attribute name="attributeType" type="xs:string" />
-                  <xs:attribute name="isDefault" type="xs:string" />
-                  <xs:attribute name="indexed" type="xs:string" />
-                  <xs:attribute name="isEditable" type="xs:string" />
-                  <xs:attribute name="isPrimaryKey" type="xs:string" />
-                  <xs:attribute name="attributeLevel" type="xs:string" />
-                  <xs:attribute name="inSQLiteDB" type="xs:string" />
-                  <xs:attribute name="infoType" type="xs:string" />
-                  <xs:attribute name="maxChars" type="xs:string" />
-                  <xs:attribute name="canBeEmpty" type="xs:string" />
-                  <xs:attribute name="decimals" type="xs:string" />
-                  <xs:attribute name="moneySymbol" type="xs:string" />
-                  <xs:attribute name="isTimeOnly" type="xs:string" />
-                  <xs:attribute name="isDateOnly" type="xs:string" />
-                  <xs:attribute name="description" type="xs:string" />
-                  <xs:attribute name="defaultValue" type="xs:string" />
-                  <xs:attribute name="lookupScript" type="xs:string" />
+                  <xs:attribute name="optional" msprop:Generator_ColumnVarNameInTable="columnoptional" msprop:Generator_ColumnPropNameInRow="optional" msprop:Generator_ColumnPropNameInTable="optionalColumn" msprop:Generator_UserColumnName="optional" type="xs:string" />
+                  <xs:attribute name="syncable" msprop:Generator_ColumnVarNameInTable="columnsyncable" msprop:Generator_ColumnPropNameInRow="syncable" msprop:Generator_ColumnPropNameInTable="syncableColumn" msprop:Generator_UserColumnName="syncable" type="xs:string" />
+                  <xs:attribute name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" />
+                  <xs:attribute name="attributeType" msprop:Generator_ColumnVarNameInTable="columnattributeType" msprop:Generator_ColumnPropNameInRow="attributeType" msprop:Generator_ColumnPropNameInTable="attributeTypeColumn" msprop:Generator_UserColumnName="attributeType" type="xs:string" />
+                  <xs:attribute name="isDefault" msprop:Generator_ColumnVarNameInTable="columnisDefault" msprop:Generator_ColumnPropNameInRow="isDefault" msprop:Generator_ColumnPropNameInTable="isDefaultColumn" msprop:Generator_UserColumnName="isDefault" type="xs:string" />
+                  <xs:attribute name="indexed" msprop:Generator_ColumnVarNameInTable="columnindexed" msprop:Generator_ColumnPropNameInRow="indexed" msprop:Generator_ColumnPropNameInTable="indexedColumn" msprop:Generator_UserColumnName="indexed" type="xs:string" />
+                  <xs:attribute name="isEditable" msprop:Generator_ColumnVarNameInTable="columnisEditable" msprop:Generator_ColumnPropNameInRow="isEditable" msprop:Generator_ColumnPropNameInTable="isEditableColumn" msprop:Generator_UserColumnName="isEditable" type="xs:string" />
+                  <xs:attribute name="isPrimaryKey" msprop:Generator_ColumnVarNameInTable="columnisPrimaryKey" msprop:Generator_ColumnPropNameInRow="isPrimaryKey" msprop:Generator_ColumnPropNameInTable="isPrimaryKeyColumn" msprop:Generator_UserColumnName="isPrimaryKey" type="xs:string" />
+                  <xs:attribute name="attributeLevel" msprop:Generator_ColumnVarNameInTable="columnattributeLevel" msprop:Generator_ColumnPropNameInRow="attributeLevel" msprop:Generator_ColumnPropNameInTable="attributeLevelColumn" msprop:Generator_UserColumnName="attributeLevel" type="xs:string" />
+                  <xs:attribute name="inSQLiteDB" msprop:Generator_ColumnVarNameInTable="columninSQLiteDB" msprop:Generator_ColumnPropNameInRow="inSQLiteDB" msprop:Generator_ColumnPropNameInTable="inSQLiteDBColumn" msprop:Generator_UserColumnName="inSQLiteDB" type="xs:string" />
+                  <xs:attribute name="infoType" msprop:Generator_ColumnVarNameInTable="columninfoType" msprop:Generator_ColumnPropNameInRow="infoType" msprop:Generator_ColumnPropNameInTable="infoTypeColumn" msprop:Generator_UserColumnName="infoType" type="xs:string" />
+                  <xs:attribute name="maxChars" msprop:Generator_ColumnVarNameInTable="columnmaxChars" msprop:Generator_ColumnPropNameInRow="maxChars" msprop:Generator_ColumnPropNameInTable="maxCharsColumn" msprop:Generator_UserColumnName="maxChars" type="xs:string" />
+                  <xs:attribute name="canBeEmpty" msprop:Generator_ColumnVarNameInTable="columncanBeEmpty" msprop:Generator_ColumnPropNameInRow="canBeEmpty" msprop:Generator_ColumnPropNameInTable="canBeEmptyColumn" msprop:Generator_UserColumnName="canBeEmpty" type="xs:string" />
+                  <xs:attribute name="decimals" msprop:Generator_ColumnVarNameInTable="columndecimals" msprop:Generator_ColumnPropNameInRow="decimals" msprop:Generator_ColumnPropNameInTable="decimalsColumn" msprop:Generator_UserColumnName="decimals" type="xs:string" />
+                  <xs:attribute name="moneySymbol" msprop:Generator_ColumnVarNameInTable="columnmoneySymbol" msprop:Generator_ColumnPropNameInRow="moneySymbol" msprop:Generator_ColumnPropNameInTable="moneySymbolColumn" msprop:Generator_UserColumnName="moneySymbol" type="xs:string" />
+                  <xs:attribute name="isTimeOnly" msprop:Generator_ColumnVarNameInTable="columnisTimeOnly" msprop:Generator_ColumnPropNameInRow="isTimeOnly" msprop:Generator_ColumnPropNameInTable="isTimeOnlyColumn" msprop:Generator_UserColumnName="isTimeOnly" type="xs:string" />
+                  <xs:attribute name="isDateOnly" msprop:Generator_ColumnVarNameInTable="columnisDateOnly" msprop:Generator_ColumnPropNameInRow="isDateOnly" msprop:Generator_ColumnPropNameInTable="isDateOnlyColumn" msprop:Generator_UserColumnName="isDateOnly" type="xs:string" />
+                  <xs:attribute name="description" msprop:Generator_ColumnVarNameInTable="columndescription" msprop:Generator_ColumnPropNameInRow="description" msprop:Generator_ColumnPropNameInTable="descriptionColumn" msprop:Generator_UserColumnName="description" type="xs:string" />
+                  <xs:attribute name="defaultValue" msprop:Generator_ColumnVarNameInTable="columndefaultValue" msprop:Generator_ColumnPropNameInRow="defaultValue" msprop:Generator_ColumnPropNameInTable="defaultValueColumn" msprop:Generator_UserColumnName="defaultValue" type="xs:string" />
+                  <xs:attribute name="lookupScript" msprop:Generator_ColumnVarNameInTable="columnlookupScript" msprop:Generator_ColumnPropNameInRow="lookupScript" msprop:Generator_ColumnPropNameInTable="lookupScriptColumn" msprop:Generator_UserColumnName="lookupScript" type="xs:string" />
+                  <xs:attribute name="entity_Id" msprop:Generator_ColumnVarNameInTable="columnentity_Id" msprop:Generator_ColumnPropNameInRow="entity_Id" msprop:Generator_ColumnPropNameInTable="entity_IdColumn" msprop:Generator_UserColumnName="entity_Id" type="xs:int" use="prohibited" />
                 </xs:complexType>
               </xs:element>
-              <xs:element name="relationship" minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="relationship" msprop:Generator_TableClassName="relationshipDataTable" msprop:Generator_TableVarName="tablerelationship" msprop:Generator_TablePropName="relationship" msprop:Generator_RowDeletingName="relationshipRowDeleting" msprop:Generator_RowChangingName="relationshipRowChanging" msprop:Generator_RowEvHandlerName="relationshipRowChangeEventHandler" msprop:Generator_RowDeletedName="relationshipRowDeleted" msprop:Generator_UserTableName="relationship" msprop:Generator_RowChangedName="relationshipRowChanged" msprop:Generator_RowEvArgName="relationshipRowChangeEvent" msprop:Generator_RowClassName="relationshipRow" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
-                  <xs:attribute name="optional" type="xs:string" />
-                  <xs:attribute name="syncable" type="xs:string" />
-                  <xs:attribute name="name" type="xs:string" />
-                  <xs:attribute name="destinationEntity" type="xs:string" />
-                  <xs:attribute name="minCount" type="xs:string" />
-                  <xs:attribute name="maxCount" type="xs:string" />
-                  <xs:attribute name="deletionRule" type="xs:string" />
-                  <xs:attribute name="inverseName" type="xs:string" />
-                  <xs:attribute name="inverseEntity" type="xs:string" />
-                  <xs:attribute name="toMany" type="xs:string" />
+                  <xs:attribute name="optional" msprop:Generator_ColumnVarNameInTable="columnoptional" msprop:Generator_ColumnPropNameInRow="optional" msprop:Generator_ColumnPropNameInTable="optionalColumn" msprop:Generator_UserColumnName="optional" type="xs:string" />
+                  <xs:attribute name="syncable" msprop:Generator_ColumnVarNameInTable="columnsyncable" msprop:Generator_ColumnPropNameInRow="syncable" msprop:Generator_ColumnPropNameInTable="syncableColumn" msprop:Generator_UserColumnName="syncable" type="xs:string" />
+                  <xs:attribute name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" />
+                  <xs:attribute name="destinationEntity" msprop:Generator_ColumnVarNameInTable="columndestinationEntity" msprop:Generator_ColumnPropNameInRow="destinationEntity" msprop:Generator_ColumnPropNameInTable="destinationEntityColumn" msprop:Generator_UserColumnName="destinationEntity" type="xs:string" />
+                  <xs:attribute name="minCount" msprop:Generator_ColumnVarNameInTable="columnminCount" msprop:Generator_ColumnPropNameInRow="minCount" msprop:Generator_ColumnPropNameInTable="minCountColumn" msprop:Generator_UserColumnName="minCount" type="xs:string" />
+                  <xs:attribute name="maxCount" msprop:Generator_ColumnVarNameInTable="columnmaxCount" msprop:Generator_ColumnPropNameInRow="maxCount" msprop:Generator_ColumnPropNameInTable="maxCountColumn" msprop:Generator_UserColumnName="maxCount" type="xs:string" />
+                  <xs:attribute name="deletionRule" msprop:Generator_ColumnVarNameInTable="columndeletionRule" msprop:Generator_ColumnPropNameInRow="deletionRule" msprop:Generator_ColumnPropNameInTable="deletionRuleColumn" msprop:Generator_UserColumnName="deletionRule" type="xs:string" />
+                  <xs:attribute name="inverseName" msprop:Generator_ColumnVarNameInTable="columninverseName" msprop:Generator_ColumnPropNameInRow="inverseName" msprop:Generator_ColumnPropNameInTable="inverseNameColumn" msprop:Generator_UserColumnName="inverseName" type="xs:string" />
+                  <xs:attribute name="inverseEntity" msprop:Generator_ColumnVarNameInTable="columninverseEntity" msprop:Generator_ColumnPropNameInRow="inverseEntity" msprop:Generator_ColumnPropNameInTable="inverseEntityColumn" msprop:Generator_UserColumnName="inverseEntity" type="xs:string" />
+                  <xs:attribute name="toMany" msprop:Generator_ColumnVarNameInTable="columntoMany" msprop:Generator_ColumnPropNameInRow="toMany" msprop:Generator_ColumnPropNameInTable="toManyColumn" msprop:Generator_UserColumnName="toMany" type="xs:string" />
+                  <xs:attribute name="entity_Id" msprop:Generator_ColumnVarNameInTable="columnentity_Id" msprop:Generator_ColumnPropNameInRow="entity_Id" msprop:Generator_ColumnPropNameInTable="entity_IdColumn" msprop:Generator_UserColumnName="entity_Id" type="xs:int" use="prohibited" />
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
-            <xs:attribute name="name" type="xs:string" />
-            <xs:attribute name="representedClassName" type="xs:string" />
-            <xs:attribute name="syncable" type="xs:string" />
-            <xs:attribute name="isRoot" type="xs:string" />
-            <xs:attribute name="isRootRelated" type="xs:string" />
-            <xs:attribute name="syncOrder" type="xs:string" />
-            <xs:attribute name="defaultProcess" type="xs:string" />
-            <xs:attribute name="isDefault" type="xs:string" />
-            <xs:attribute name="externalReferences" type="xs:string" />
-            <xs:attribute name="isMediaEntity" type="xs:string" />
-            <xs:attribute name="conflictResolutionRule" type="xs:string" />
-            <xs:attribute name="syncType" type="xs:string" />
-            <xs:attribute name="description" type="xs:string" />
-            <xs:attribute name="friendlyName" type="xs:string" />
-            <xs:attribute name="allowForMaps" type="xs:string" />
-            <xs:attribute name="enableTracing" type="xs:string" />
-            <xs:attribute name="backendQuery" type="xs:string" />
+            <xs:attribute name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" />
+            <xs:attribute name="representedClassName" msprop:Generator_ColumnVarNameInTable="columnrepresentedClassName" msprop:Generator_ColumnPropNameInRow="representedClassName" msprop:Generator_ColumnPropNameInTable="representedClassNameColumn" msprop:Generator_UserColumnName="representedClassName" type="xs:string" />
+            <xs:attribute name="syncable" msprop:Generator_ColumnVarNameInTable="columnsyncable" msprop:Generator_ColumnPropNameInRow="syncable" msprop:Generator_ColumnPropNameInTable="syncableColumn" msprop:Generator_UserColumnName="syncable" type="xs:string" />
+            <xs:attribute name="isRoot" msprop:Generator_ColumnVarNameInTable="columnisRoot" msprop:Generator_ColumnPropNameInRow="isRoot" msprop:Generator_ColumnPropNameInTable="isRootColumn" msprop:Generator_UserColumnName="isRoot" type="xs:string" />
+            <xs:attribute name="isRootRelated" msprop:Generator_ColumnVarNameInTable="columnisRootRelated" msprop:Generator_ColumnPropNameInRow="isRootRelated" msprop:Generator_ColumnPropNameInTable="isRootRelatedColumn" msprop:Generator_UserColumnName="isRootRelated" type="xs:string" />
+            <xs:attribute name="syncOrder" msprop:Generator_ColumnVarNameInTable="columnsyncOrder" msprop:Generator_ColumnPropNameInRow="syncOrder" msprop:Generator_ColumnPropNameInTable="syncOrderColumn" msprop:Generator_UserColumnName="syncOrder" type="xs:string" />
+            <xs:attribute name="defaultProcess" msprop:Generator_ColumnVarNameInTable="columndefaultProcess" msprop:Generator_ColumnPropNameInRow="defaultProcess" msprop:Generator_ColumnPropNameInTable="defaultProcessColumn" msprop:Generator_UserColumnName="defaultProcess" type="xs:string" />
+            <xs:attribute name="isDefault" msprop:Generator_ColumnVarNameInTable="columnisDefault" msprop:Generator_ColumnPropNameInRow="isDefault" msprop:Generator_ColumnPropNameInTable="isDefaultColumn" msprop:Generator_UserColumnName="isDefault" type="xs:string" />
+            <xs:attribute name="externalReferences" msprop:Generator_ColumnVarNameInTable="columnexternalReferences" msprop:Generator_ColumnPropNameInRow="externalReferences" msprop:Generator_ColumnPropNameInTable="externalReferencesColumn" msprop:Generator_UserColumnName="externalReferences" type="xs:string" />
+            <xs:attribute name="isMediaEntity" msprop:Generator_ColumnVarNameInTable="columnisMediaEntity" msprop:Generator_ColumnPropNameInRow="isMediaEntity" msprop:Generator_ColumnPropNameInTable="isMediaEntityColumn" msprop:Generator_UserColumnName="isMediaEntity" type="xs:string" />
+            <xs:attribute name="conflictResolutionRule" msprop:Generator_ColumnVarNameInTable="columnconflictResolutionRule" msprop:Generator_ColumnPropNameInRow="conflictResolutionRule" msprop:Generator_ColumnPropNameInTable="conflictResolutionRuleColumn" msprop:Generator_UserColumnName="conflictResolutionRule" type="xs:string" />
+            <xs:attribute name="syncType" msprop:Generator_ColumnVarNameInTable="columnsyncType" msprop:Generator_ColumnPropNameInRow="syncType" msprop:Generator_ColumnPropNameInTable="syncTypeColumn" msprop:Generator_UserColumnName="syncType" type="xs:string" />
+            <xs:attribute name="description" msprop:Generator_ColumnVarNameInTable="columndescription" msprop:Generator_ColumnPropNameInRow="description" msprop:Generator_ColumnPropNameInTable="descriptionColumn" msprop:Generator_UserColumnName="description" type="xs:string" />
+            <xs:attribute name="friendlyName" msprop:Generator_ColumnVarNameInTable="columnfriendlyName" msprop:Generator_ColumnPropNameInRow="friendlyName" msprop:Generator_ColumnPropNameInTable="friendlyNameColumn" msprop:Generator_UserColumnName="friendlyName" type="xs:string" />
+            <xs:attribute name="allowForMaps" msprop:Generator_ColumnVarNameInTable="columnallowForMaps" msprop:Generator_ColumnPropNameInRow="allowForMaps" msprop:Generator_ColumnPropNameInTable="allowForMapsColumn" msprop:Generator_UserColumnName="allowForMaps" type="xs:string" />
+            <xs:attribute name="enableTracing" msprop:Generator_ColumnVarNameInTable="columnenableTracing" msprop:Generator_ColumnPropNameInRow="enableTracing" msprop:Generator_ColumnPropNameInTable="enableTracingColumn" msprop:Generator_UserColumnName="enableTracing" type="xs:string" />
+            <xs:attribute name="backendQuery" msprop:Generator_ColumnVarNameInTable="columnbackendQuery" msprop:Generator_ColumnPropNameInRow="backendQuery" msprop:Generator_ColumnPropNameInTable="backendQueryColumn" msprop:Generator_UserColumnName="backendQuery" type="xs:string" />
+            <xs:attribute name="entity_Id" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnentity_Id" msprop:Generator_ColumnPropNameInRow="entity_Id" msprop:Generator_ColumnPropNameInTable="entity_IdColumn" msprop:Generator_UserColumnName="entity_Id" type="xs:int" msdata:AllowDBNull="false" use="prohibited" />
+            <xs:attribute name="model_Id" msprop:Generator_ColumnVarNameInTable="columnmodel_Id" msprop:Generator_ColumnPropNameInRow="model_Id" msprop:Generator_ColumnPropNameInTable="model_IdColumn" msprop:Generator_UserColumnName="model_Id" type="xs:int" use="prohibited" />
           </xs:complexType>
         </xs:element>
       </xs:sequence>
-      <xs:attribute name="name" type="xs:string" />
-      <xs:attribute name="databaseVersion" type="xs:string" />
+      <xs:attribute name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" />
+      <xs:attribute name="databaseVersion" msprop:Generator_ColumnVarNameInTable="columndatabaseVersion" msprop:Generator_ColumnPropNameInRow="databaseVersion" msprop:Generator_ColumnPropNameInTable="databaseVersionColumn" msprop:Generator_UserColumnName="databaseVersion" type="xs:string" />
+      <xs:attribute name="model_Id" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnmodel_Id" msprop:Generator_ColumnPropNameInRow="model_Id" msprop:Generator_ColumnPropNameInTable="model_IdColumn" msprop:Generator_UserColumnName="model_Id" type="xs:int" msdata:AllowDBNull="false" use="prohibited" />
     </xs:complexType>
   </xs:element>
-  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="NewDataSet" msprop:Generator_UserDSName="NewDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element ref="model" />
       </xs:choice>
     </xs:complexType>
+    <xs:unique name="entity_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//entity" />
+      <xs:field xpath="@entity_Id" />
+    </xs:unique>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//model" />
+      <xs:field xpath="@model_Id" />
+    </xs:unique>
+    <xs:keyref name="model_entity" refer="Constraint1" msdata:IsNested="true" msprop:rel_Generator_UserChildTable="entity" msprop:rel_Generator_ChildPropName="GetentityRows" msprop:rel_Generator_UserRelationName="model_entity" msprop:rel_Generator_ParentPropName="modelRow" msprop:rel_Generator_RelationVarName="relationmodel_entity" msprop:rel_Generator_UserParentTable="model">
+      <xs:selector xpath=".//entity" />
+      <xs:field xpath="@model_Id" />
+    </xs:keyref>
+    <xs:keyref name="entity_relationship" refer="entity_Constraint1" msdata:IsNested="true" msprop:rel_Generator_UserChildTable="relationship" msprop:rel_Generator_ChildPropName="GetrelationshipRows" msprop:rel_Generator_UserRelationName="entity_relationship" msprop:rel_Generator_ParentPropName="entityRow" msprop:rel_Generator_RelationVarName="relationentity_relationship" msprop:rel_Generator_UserParentTable="entity">
+      <xs:selector xpath=".//relationship" />
+      <xs:field xpath="@entity_Id" />
+    </xs:keyref>
+    <xs:keyref name="entity_attribute" refer="entity_Constraint1" msdata:IsNested="true" msprop:rel_Generator_UserChildTable="attribute" msprop:rel_Generator_ChildPropName="GetattributeRows" msprop:rel_Generator_UserRelationName="entity_attribute" msprop:rel_Generator_ParentPropName="entityRow" msprop:rel_Generator_RelationVarName="relationentity_attribute" msprop:rel_Generator_UserParentTable="entity">
+      <xs:selector xpath=".//attribute" />
+      <xs:field xpath="@entity_Id" />
+    </xs:keyref>
   </xs:element>
 </xs:schema>

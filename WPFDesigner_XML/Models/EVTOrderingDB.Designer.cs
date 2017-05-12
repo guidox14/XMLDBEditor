@@ -578,6 +578,7 @@ namespace WPFDesigner_XML.Models {
                 this.columnmodel_Id.AutoIncrement = true;
                 this.columnmodel_Id.AllowDBNull = false;
                 this.columnmodel_Id.Unique = true;
+                this.columnmodel_Id.Namespace = "";
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1120,6 +1121,8 @@ namespace WPFDesigner_XML.Models {
                 this.columnentity_Id.AutoIncrement = true;
                 this.columnentity_Id.AllowDBNull = false;
                 this.columnentity_Id.Unique = true;
+                this.columnentity_Id.Namespace = "";
+                this.columnmodel_Id.Namespace = "";
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1691,6 +1694,7 @@ namespace WPFDesigner_XML.Models {
                 this.columndescription.Namespace = "";
                 this.columndefaultValue.Namespace = "";
                 this.columnlookupScript.Namespace = "";
+                this.columnentity_Id.Namespace = "";
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2091,6 +2095,7 @@ namespace WPFDesigner_XML.Models {
                 this.columninverseName.Namespace = "";
                 this.columninverseEntity.Namespace = "";
                 this.columntoMany.Namespace = "";
+                this.columnentity_Id.Namespace = "";
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

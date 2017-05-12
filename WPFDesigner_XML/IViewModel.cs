@@ -16,7 +16,7 @@ using System.IO;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace Microsoft.VsTemplateDesigner
+namespace Microsoft.XmlTemplateDesigner
 {
     public interface IViewModel
     {

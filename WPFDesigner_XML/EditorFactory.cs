@@ -21,7 +21,7 @@ using Microsoft.VisualStudio.OLE.Interop;
 
 using IOleServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
-namespace Microsoft.VsTemplateDesigner
+namespace Microsoft.XmlTemplateDesigner
 {
     /// <summary>
     /// Factory for creating our editor object. Extends from the IVsEditoryFactory interface

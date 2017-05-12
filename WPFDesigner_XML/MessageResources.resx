@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="ConnectionFailedError" xml:space="preserve">
+    <value>Cannot connect to database. Make sure the data input is corret and try again.</value>
+  </data>
+  <data name="ConnectionSucess" xml:space="preserve">
+    <value>You connected succesfuly to the data store.</value>
+  </data>
+  <data name="CurrentProjectNull" xml:space="preserve">
+    <value>The current project cannot be NULL.</value>
+  </data>
+  <data name="DatabaseCreationError" xml:space="preserve">
+    <value>There was an error creatin the database.</value>
+  </data>
+  <data name="DatabaseCreationSucess" xml:space="preserve">
+    <value>The database was created successfully.</value>
+  </data>
+  <data name="DefaultAttributeChanges" xml:space="preserve">
+    <value>The default attributes cannot be changed or deleted!</value>
+  </data>
+  <data name="DeleteAttributeWarning" xml:space="preserve">
+    <value>Are you sure you want to delete the selected attribute?</value>
+  </data>
+  <data name="DeleteEntityWarning" xml:space="preserve">
+    <value>Are you sure you want to delete the selected entity?</value>
+  </data>
+  <data name="DeleteLookupTableWarning" xml:space="preserve">
+    <value>Are you sure you want to delete the selected lookup table?</value>
+  </data>
+  <data name="DeleteRelationshipWarning" xml:space="preserve">
+    <value>Are you sure you want to delete the selected relationship?</value>
+  </data>
+  <data name="DirectoryAlreadyExists" xml:space="preserve">
+    <value>The ouput directory already exists. Please check the directory name or choose another location.</value>
+  </data>
+  <data name="EmptyAttributeName" xml:space="preserve">
+    <value>The attribute's name cannot be empty. Please enter a valid name.</value>
+  </data>
+  <data name="EmptyEntityName" xml:space="preserve">
+    <value>The entity's name cannot be empty. Please enter a valid name.</value>
+  </data>
+  <data name="EmptyLookupTableName" xml:space="preserve">
+    <value>The lookup table's name cannot be empty. Please enter a valid name.</value>
+  </data>
+  <data name="EmptyRelationshipName" xml:space="preserve">
+    <value>The relationship's name cannot be empty. Please enter a valid name.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorAlteringTable" xml:space="preserve">
+    <value>There was an error when trying to alter the table {0}, Do you want to force a table update (The process will drop and create the table) ?</value>
+  </data>
+  <data name="ErrorCopyingDatabase" xml:space="preserve">
+    <value>Something went wrong while copying the database to the project folder. Please try again later.</value>
+  </data>
+  <data name="ErrorDeletingFile" xml:space="preserve">
+    <value>Something went wrong while trying to delete the file from disk. Please try again later.</value>
+  </data>
+  <data name="ErrorDeletingFolder" xml:space="preserve">
+    <value>Something went wrong while trying to delete the folder from disk. Please try again later.</value>
+  </data>
+  <data name="ErrorEntityRoot" xml:space="preserve">
+    <value>It's not possible save the model {0} because none or more than one entity has been marked as root.</value>
+  </data>
+  <data name="ErrorExistingModel" xml:space="preserve">
+    <value>There is another entity model with that name. Please choose a different name.</value>
+  </data>
+  <data name="ErrorExistingScreenDefinitionOrCustomControl" xml:space="preserve">
+    <value>There is another screen definition or custom control with that name. Please choose a different name.</value>
+  </data>
+  <data name="ErrorMoreAttributesUndefined" xml:space="preserve">
+    <value>The following entities have one ore more attributes that are undefined. Please select an attribute type for each of those attributes. \nEntities: {1}.</value>
+  </data>
+  <data name="ErrorMoreRelationshipsNoDestination" xml:space="preserve">
+    <value>The following entities have one ore more relationships that have no destination. Please select a destination for each of those relationships. \nEntities: {1}.</value>
+  </data>
+  <data name="ErrorOneAttributeUndefined" xml:space="preserve">
+    <value>The entity '{0}' has one ore more attributes that are undefined. Please select an attribute type for each of those attributes.</value>
+  </data>
+  <data name="ErrorOneRelationshipNoDestination" xml:space="preserve">
+    <value>The entity '{0}' has one ore more relationships that have no destination. Please select a destination for each of those relationships.</value>
+  </data>
+  <data name="ErrorPreviousEntityRoot" xml:space="preserve">
+    <value>You can't set this entity as root because the entity {0} is already marked as root.</value>
+  </data>
+  <data name="ErrorReadingFile" xml:space="preserve">
+    <value>Something went wrong while reading the file. Please check if the file is valid.</value>
+  </data>
+  <data name="ErrorRegEx" xml:space="preserve">
+    <value>Something went wrong while validating the regular expression. Please check the expression and try again.</value>
+  </data>
+  <data name="ErrorRemoveMappingFolder" xml:space="preserve">
+    <value>The file can't be removed because it is part of the current Mapping. You will need to remove the Mapping FolderModel.</value>
+  </data>
+  <data name="ErrorSavingFile" xml:space="preserve">
+    <value>Something went wrong while saving the file. Please try again later.</value>
+  </data>
+  <data name="ErrorSavingModel" xml:space="preserve">
+    <value>Something went wrong while saving the model. Please try again later.</value>
+  </data>
+  <data name="ErrorSavingUIDesigner" xml:space="preserve">
+    <value>Something went wrong while saving the file. Please try again later.</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Error Summary</value>
+  </data>
+  <data name="ExistingFolder" xml:space="preserve">
+    <value>There is already a folder in that location with that name. Please change the location or choose another name.</value>
+  </data>
+  <data name="ExportSuccess" xml:space="preserve">
+    <value>The export was completed succesfully.</value>
+  </data>
+  <data name="FileSaved" xml:space="preserve">
+    <value>The file was successfully saved.</value>
+  </data>
+  <data name="FilesSaved" xml:space="preserve">
+    <value>All the models were successfully saved.</value>
+  </data>
+  <data name="ImportSuccess" xml:space="preserve">
+    <value>Import successfully.</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="InvalidAttributeName" xml:space="preserve">
+    <value>The attribute's name must start with a lowercase letter. Please enter a valid name.</value>
+  </data>
+  <data name="InvalidEntityName" xml:space="preserve">
+    <value>The entity's name must start with an uppercase letter. Please enter a valid name.</value>
+  </data>
+  <data name="InvalidRelationshipName" xml:space="preserve">
+    <value>The relationship's name must start with a lowercase letter. Please enter a valid name.</value>
+  </data>
+  <data name="LookupTableBeenUsed" xml:space="preserve">
+    <value>The selected lookup table is being used by one or more attributes, so it cannot be deleted.</value>
+  </data>
+  <data name="LookupTableConectionError" xml:space="preserve">
+    <value>Unable to connect to the {0} lookup table data store.</value>
+  </data>
+  <data name="LookupTableNeededFields" xml:space="preserve">
+    <value>Please select the lookup table, the key, the item and the description. At least one of them is missing.</value>
+  </data>
+  <data name="LookupTableSameValues" xml:space="preserve">
+    <value>The lookup key and the item cannot have the same value. Please change one of them.</value>
+  </data>
+  <data name="MinValueLessThanMaxValue" xml:space="preserve">
+    <value>The Min value cannot be higher than the Max value.</value>
+  </data>
+  <data name="NameBeenUsedAttribute" xml:space="preserve">
+    <value>The name you entered, is already being used by another attribute. Please use another name.</value>
+  </data>
+  <data name="NameBeenUsedEntity" xml:space="preserve">
+    <value>The name you entered is already being used by another entity. Please use another name.</value>
+  </data>
+  <data name="NameBeenUsedRelationship" xml:space="preserve">
+    <value>The name you entered, is already being used by another relationship. Please use another name.</value>
+  </data>
+  <data name="NewFileWarning" xml:space="preserve">
+    <value>Are you sure you want to create a new file? Note: All previous changes will be lost.</value>
+  </data>
+  <data name="NoDatabaseNameError" xml:space="preserve">
+    <value>You need write a name for the database.</value>
+  </data>
+  <data name="NoDatabaseSelected" xml:space="preserve">
+    <value>You need to select a database file to create a lookup table. Please select a SQLite file.</value>
+  </data>
+  <data name="NoEntitiesToSyncSchema" xml:space="preserve">
+    <value>The current model contains no entities to sync. Add Some entities and try again.</value>
+  </data>
+  <data name="NoPasswordError" xml:space="preserve">
+    <value>You need to input a valid password.</value>
+  </data>
+  <data name="NotRelationsNeedPK" xml:space="preserve">
+    <value>The entity {0} does not contains a primary key. The relationships associated with it cannot be created.</value>
+  </data>
+  <data name="OverrideFileWarning" xml:space="preserve">
+    <value>The file '{0}' already exists in the project. Do you want to override it?</value>
+  </data>
+  <data name="ProjectCannotBeOpened" xml:space="preserve">
+    <value>The selected project cannot be opened. Please check the project file.</value>
+  </data>
+  <data name="ReservedWordUsed" xml:space="preserve">
+    <value>Can't use that name because is a reserved word. Please enter a valid name.</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="SyncSchameFailedError" xml:space="preserve">
+    <value>The sync process of the database schema failed.</value>
+  </data>
+  <data name="SyncSchameSuccess" xml:space="preserve">
+    <value>The sync process of the database finished succesfully.</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+</root>

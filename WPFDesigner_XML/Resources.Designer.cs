@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.VsTemplateDesigner {
+namespace Microsoft.XmlTemplateDesigner {
     using System;
     
     

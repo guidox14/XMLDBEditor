@@ -75,9 +75,71 @@
     <StartArguments>/rootsuffix Exp</StartArguments>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AttributeInfoUI.xaml.cs">
+      <DependentUpon>AttributeInfoUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Converters\AttributeValueConverter.cs" />
+    <Compile Include="Common\Converters\EnumToFriendlyNameConverter.cs" />
+    <Compile Include="Common\Converters\StyleHelper.cs" />
+    <Compile Include="Common\DynamicContext\DynamicEntityBase.cs" />
+    <Compile Include="Common\DynamicContext\DynamicEntityTypeManger.cs" />
+    <Compile Include="Common\DynamicContext\DynamicMBContext.cs" />
+    <Compile Include="Common\DynamicContext\DynamicTypeInfo.cs" />
+    <Compile Include="Common\DynamicContext\IExternalDataConnector.cs" />
+    <Compile Include="Common\MobiseModel.cs" />
+    <Compile Include="Common\MobiseObject.cs" />
+    <Compile Include="Common\Models\ConfigurationSectionModel.cs" />
+    <Compile Include="Common\Models\ControllerModels\ControllerDefinitionModel.cs" />
+    <Compile Include="Common\Models\ControllerModels\ControllerModel.cs" />
+    <Compile Include="Common\Models\DataBaseModel.cs" />
+    <Compile Include="Common\Models\DeviceModel.cs" />
+    <Compile Include="Common\Models\DeviceSettingModel.cs" />
+    <Compile Include="Common\Models\Entity\AttributeInfo.cs" />
+    <Compile Include="Common\Models\Entity\AttributeInfoDate.cs" />
+    <Compile Include="Common\Models\Entity\AttributeInfoDouble.cs" />
+    <Compile Include="Common\Models\Entity\AttributeInfoInteger.cs" />
+    <Compile Include="Common\Models\Entity\AttributeInfoIntegerDetail.cs" />
+    <Compile Include="Common\Models\Entity\AttributeInfoString.cs" />
+    <Compile Include="Common\Models\Entity\AttributeInfoText.cs" />
+    <Compile Include="Common\Models\Entity\DatabaseConnectionModel.cs" />
+    <Compile Include="Common\Models\Entity\EntityAttributeModel.cs" />
+    <Compile Include="Common\Models\Entity\EntityModel.cs" />
+    <Compile Include="Common\Models\Entity\EntityRelationshipModel.cs" />
+    <Compile Include="Common\Models\Entity\LocalizableDescriptionAttribute.cs" />
+    <Compile Include="Common\Models\Entity\LookupTableModel.cs" />
+    <Compile Include="Common\Models\FileModel.cs" />
+    <Compile Include="Common\Models\FileSystemObjectModel.cs" />
+    <Compile Include="Common\Models\FolderModel.cs" />
+    <Compile Include="Common\Models\MobiseConfiguration.cs" />
+    <Compile Include="Common\Models\PluginModel.cs" />
+    <Compile Include="Common\Models\ProjectModel.cs" />
+    <Compile Include="Common\Models\ReferencesModel.cs" />
+    <Compile Include="Common\Models\ScreenResolutionModel.cs" />
+    <Compile Include="Common\Models\ScriptableControlMetadata\FunctionParamModel.cs" />
+    <Compile Include="Common\Models\ScriptableControlMetadata\MBObjectModel.cs" />
+    <Compile Include="Common\Models\ScriptableControlMetadata\ScriptableFunctionModel.cs" />
+    <Compile Include="Common\Models\ScriptableControlMetadata\ScriptablePropertyModel.cs" />
+    <Compile Include="Common\Models\SettingModel.cs" />
+    <Compile Include="Common\Models\UIModels\AttributeCategoryModel.cs" />
+    <Compile Include="Common\Models\UIModels\AttributeModel.cs" />
+    <Compile Include="Common\Models\UIModels\ScreenModel.cs" />
+    <Compile Include="Common\Models\UIModels\UIControlDefinitionModel.cs" />
+    <Compile Include="Common\Models\UIModels\UIControlInstanceModel.cs" />
+    <Compile Include="Common\Models\UIModels\ValidationModel.cs" />
+    <Compile Include="Common\Models\UIModels\VisualStateDefinitionModel.cs" />
+    <Compile Include="Common\Models\UIStyleModels\ClassStyleModel.cs" />
+    <Compile Include="Common\Models\UIStyleModels\ProjectThemesModel.cs" />
+    <Compile Include="Common\Models\UIStyleModels\StyleAttributeDefaultValueModel.cs" />
+    <Compile Include="Common\Models\UIStyleModels\StyleSchemaMappingModel.cs" />
+    <Compile Include="Common\Models\UIStyleModels\TargetModel.cs" />
+    <Compile Include="Common\Models\UIStyleModels\ThemeModel.cs" />
+    <Compile Include="Common\TrulyObservableCollection.cs" />
     <Compile Include="EditorFactory.cs" />
     <Compile Include="EditorPane.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="ImagesResources.Designer.cs" />
     <Compile Include="IViewModel.cs" />
+    <Compile Include="MessageResources.Designer.cs" />
     <Compile Include="Models\EVTOrderingDB.cs" />
     <Compile Include="Models\EVTOrderingDB.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -88,6 +150,11 @@
     <Compile Include="Properties\GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs" />
+    <Compile Include="Resources1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel.cs" />
     <Compile Include="VsDesignerControl.xaml.cs">
       <DependentUpon>VsDesignerControl.xaml</DependentUpon>
@@ -115,7 +182,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\EVTOrderingDB.xml" />
+    <Content Include="Images\brick.png" />
+    <Content Include="Images\customcontrol.png" />
+    <Content Include="Images\database.png" />
+    <Content Include="Images\database_link.png" />
+    <Content Include="Images\document_empty.png" />
+    <Content Include="Images\file_extension_dll.png" />
+    <Content Include="Images\folder.png" />
+    <Content Include="Images\image.png" />
+    <Content Include="Images\new doc.png" />
+    <Content Include="Images\picture.png" />
+    <Content Include="Images\report.png" />
+    <Content Include="Images\style.png" />
+    <Content Include="Models\EVTOrderingDB.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Resources\Package.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -138,6 +219,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Design" />
@@ -150,10 +232,19 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EditorPane.resx" />
-    <EmbeddedResource Include="Resources.resx" />
+    <EmbeddedResource Include="ImagesResources.resx" />
+    <EmbeddedResource Include="MessageResources.resx" />
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="AttributeInfoUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="VsDesignerControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -174,6 +265,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>

@@ -13,6 +13,12 @@
 // 
 namespace DBXTemplateDesigner
 {
+    using Microsoft.XmlTemplateDesigner;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using WPFDesigner_XML.Common.Models.Entity;
+
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
@@ -22,8 +28,8 @@ namespace DBXTemplateDesigner
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
     public partial class model {
-
-        private modelEntity[] entityField;
+        
+        private List<modelEntity> entityField;
         
         private string nameField;
         
@@ -31,7 +37,7 @@ namespace DBXTemplateDesigner
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("entity", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public modelEntity[] entity {
+        public List<modelEntity> entity {
             get {
                 return this.entityField;
             }
@@ -71,9 +77,9 @@ namespace DBXTemplateDesigner
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
     public partial class modelEntity {
         
-        private modelEntityAttribute[] attributeField;
+        private List<modelEntityAttribute> attributeField;
         
-        private modelEntityRelationship[] relationshipField;
+        private List<modelEntityRelationship> relationshipField;
         
         private string nameField;
         
@@ -111,7 +117,7 @@ namespace DBXTemplateDesigner
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("attribute", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public modelEntityAttribute[] attribute {
+        public List<modelEntityAttribute> attribute {
             get {
                 return this.attributeField;
             }
@@ -122,7 +128,7 @@ namespace DBXTemplateDesigner
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("relationship", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public modelEntityRelationship[] relationship {
+        public List<modelEntityRelationship> relationship {
             get {
                 return this.relationshipField;
             }
@@ -318,7 +324,110 @@ namespace DBXTemplateDesigner
             }
         }
     }
-    
+
+    /// <summary>
+    /// The list of possible values types for the Attribute.
+    /// </summary>
+    public enum AttributeType
+    {
+        /// <summary>
+        /// The type is undefined.
+        /// </summary>
+        [LocalizableDescription(@"Undefined", typeof(Resources))]
+        Undefined = 0,
+
+        /// <summary>
+        /// The type is an Integer16.
+        /// </summary>
+        [LocalizableDescription(@"Integer16", typeof(Resources))]
+        Integer16 = 1,
+
+        /// <summary>
+        /// The type is an Integer32.
+        /// </summary>
+        [LocalizableDescription(@"Integer32", typeof(Resources))]
+        Integer32 = 2,
+
+        /// <summary>
+        /// The type is an Integer64.
+        /// </summary>
+        [LocalizableDescription(@"Integer64", typeof(Resources))]
+        Integer64 = 3,
+
+        /// <summary>
+        /// The type is an Boolean.
+        /// </summary>
+        [LocalizableDescription(@"Boolean", typeof(Resources))]
+        Boolean = 4,
+
+        /// <summary>
+        /// The type is an Double.
+        /// </summary>
+        [LocalizableDescription(@"Double", typeof(Resources))]
+        Double = 5,
+
+        /////// <summary>
+        /////// The type is an Float.
+        /////// </summary>
+        ////[LocalizableDescription(@"Float", typeof(Resources))]
+        ////Float = 6,
+
+        /// <summary>
+        /// The type is an String.
+        /// </summary>
+        [LocalizableDescription(@"String", typeof(Resources))]
+        String = 7,
+
+        /// <summary>
+        /// The type is an Date.
+        /// </summary>
+        [LocalizableDescription(@"Date", typeof(Resources))]
+        Date = 8,
+
+        /// <summary>
+        /// The type is an Blob.
+        /// </summary>
+        [LocalizableDescription(@"BLOB", typeof(Resources))]
+        BLOB = 9,
+
+        /// <summary>
+        /// The type is an Blob.
+        /// </summary>
+        [LocalizableDescription(@"Guid", typeof(Resources))]
+        GUID = 10,
+
+        /// <summary>
+        /// The type is an TEXT.
+        /// </summary>
+        [LocalizableDescription(@"Text", typeof(Resources))]
+        Text = 11
+    }
+
+    /// <summary>
+    /// The list of possible attribute levels.
+    /// </summary>
+    public enum AttributeLevel
+    {
+        /// <summary>
+        /// The attribute level 0.
+        /// </summary>
+        [LocalizableDescription(@"Level0", typeof(Resources))]
+        Level0 = 0,
+
+        /// <summary>
+        /// The attribute level 1.
+        /// </summary>
+        [LocalizableDescription(@"Level1", typeof(Resources))]
+        Level1 = 1,
+
+        /// <summary>
+        /// The attribute level 2.
+        /// </summary>
+        [LocalizableDescription(@"Level2", typeof(Resources))]
+        Level2 = 2,
+    }
+
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
@@ -326,7 +435,12 @@ namespace DBXTemplateDesigner
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
     public partial class modelEntityAttribute {
-        
+
+        /// <summary>
+        /// Occurs when [attribute type changed].
+        /// </summary>
+        public event EventHandler AttributeTypeChanged;
+
         private string optionalField;
         
         private string syncableField;

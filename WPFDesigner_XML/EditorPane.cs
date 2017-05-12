@@ -23,7 +23,7 @@ using Microsoft.VisualStudio.XmlEditor;
 
 using VSStd97CmdID = Microsoft.VisualStudio.VSConstants.VSStd97CmdID;
 
-namespace Microsoft.VsTemplateDesigner
+namespace Microsoft.XmlTemplateDesigner
 {
     /// <summary>
     /// This control hosts the editor and is responsible for

@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="Microsoft.XmlTemplateDesigner.AttributeInfoUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="250">
+    <UserControl.Resources>
+        <!--<ObjectDataProvider x:Key="AttributeTypes"
+                    MethodName="GetValues" 
+                    ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="models:AttributeType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>-->
+
+        <!--<ObjectDataProvider x:Key="AttributeLevels"
+                    MethodName="GetValues" 
+                    ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="models:AttributeLevel" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>-->
+
+		<!--<conv:EnumToFriendlyNameConverter x:Key="EnumItemsConverter"/>-->
+	</UserControl.Resources>
+    <Grid Width="250">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Rectangle Grid.Row="1" Grid.RowSpan="8" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+            Margin="5 0 5 5" RadiusX="10" RadiusY="10" Fill="#F5F5F5" Stroke="#B6B6B6" StrokeThickness="1" />
+        <TextBlock Text="Attribute Info" FontWeight="Bold" Foreground="Gray" Grid.Row="0" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="5"/>
+        <TextBlock Text="Type" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5 10 5 5" />
+        <!--<ComboBox x:Name="TypeComboBox" SelectedIndex="0" ItemsSource="{Binding Source={StaticResource AttributeTypes}}"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 10 5 5" MinWidth="75" SelectionChanged="TypeComboBox_SelectionChanged" IsReadOnly="True">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=., Mode=OneWay, Converter={StaticResource EnumItemsConverter}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>-->
+		
+        <!--<CheckBox x:Name="EditableCheckBox" Content="Editable" IsChecked="True" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Checked="EditableCheckBox_Checked" Unchecked="EditableCheckBox_Unchecked"/>-->
+        <!--<ComboBox x:Name="LevelComboBox" SelectedIndex="0" ItemsSource="{Binding Source={StaticResource AttributeLevels}}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" MinWidth="75" IsEnabled="{Binding ElementName=EditableCheckBox, Path=IsChecked}" SelectionChanged="LevelComboBox_SelectionChanged" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=., Mode=OneWay, Converter={StaticResource EnumItemsConverter}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>-->
+        <CheckBox x:Name="IndexedCheckBox" Content="Indexed" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Checked="IndexedCheckBox_Checked" Unchecked="IndexedCheckBox_Unchecked" />
+        <CheckBox x:Name="ChkPrimaryKey" IsEnabled="False" Content="Primary Key" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Checked="ChkPrimaryKey_Checked"  Unchecked="ChkPrimaryKey_Unchecked" />
+        <!--<CheckBox x:Name="ChkSQLiteDb" Content="Present in SQLite Database" Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="33 5 5 5" Checked="ChkSQLiteDb_Checked" Unchecked="ChkSQLiteDb_Unchecked" />-->
+		<!--<CheckBox x:Name="ChkClientKey" Content="Is Client Key Field" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-16 5 5 5" Checked="ChkClientKey_Checked" Unchecked="ChkClientKey_Unchecked" />-->
+		<!--<TextBlock Text="Default Value:" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" />-->
+        <!--<TextBox x:Name="TxtDefaultValue" Grid.Row="6" Grid.Column="1" Margin="5,5,10,5" VerticalAlignment="Center" TextChanged="TxtDefaultValue_TextChanged" />-->
+        <TextBlock Text="Description:" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5 5 5 15"/>
+        <TextBox x:Name="TxtFieldDescription" Grid.Row="7" Grid.Column="1" Margin="5,5,10,15" VerticalAlignment="Center" TextChanged="TxtFieldDescription_TextChanged" />
+        <TextBlock Text="Lookup Script:" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5 5 5 15"/>
+        <TextBox x:Name="TxtFieldLookupScript" Grid.Row="8" Grid.Column="1" Margin="5,5,10,15" VerticalAlignment="Center" TextChanged="TxtFieldLookupScript_TextChanged" />
+
+        <!--<TextBlock Text="Map Slicer Info" FontWeight="Bold" Foreground="Gray" Grid.Row="9" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="5"/>-->
+        <!--<Border Grid.Row="10" CornerRadius="10" Background="#F5F5F5" BorderBrush="#B6B6B6" BorderThickness="1" MinHeight="40" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="5 0 5 5" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <CheckBox x:Name="chkAllowForMap" Grid.Row="0" Grid.Column="0" Content="Allow it for map slicers" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="10" Checked="chkAllowForMap_Checked" />
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Alias:"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" />
+                <TextBox x:Name="TxtMapAlias" Grid.Row="1" Grid.Column="1" Margin="5,5,5,5" VerticalAlignment="Center" IsEnabled="{Binding ElementName=chkAllowForMap, Path=IsChecked}" TextChanged="TxtMapAlias_TextChanged" />
+            </Grid>
+        </Border>-->
+
+        <Canvas x:Name="TypeCanvas" Grid.Row="11" />
+    </Grid>
+</UserControl>
+
+    

@@ -11,7 +11,6 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Xml;
@@ -25,9 +24,54 @@ using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.XmlEditor;
 using IOleServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 using DBXTemplateDesigner;
+using WPFDesigner_XML.Common.Models.Entity;
 
-namespace Microsoft.VsTemplateDesigner
+namespace Microsoft.XmlTemplateDesigner
 {
+    /// <summary>
+    /// Conflict Resolution Rule options
+    /// </summary>
+    public enum ConflictResolutionRule
+    {
+
+        /// <summary>
+        /// The conflict resolution MBSync Win Rule
+        /// </summary>
+        [LocalizableDescription(@"MBSyncWin", typeof(Resources))]
+        mbSyncWin = 0,
+
+        /// <summary>
+        /// The conflict resolution Production Win Rule
+        /// </summary>
+        [LocalizableDescription(@"ProductionWin", typeof(Resources))]
+        productionWin = 1
+    }
+
+    /// <summary>
+    /// Sync Direction Type options
+    /// </summary>
+    public enum SyncType
+    {
+
+        /// <summary>
+        /// Sync to both directions type
+        /// </summary>
+        [LocalizableDescription(@"SyncBothDirections", typeof(Resources))]
+        syncBothDirections = 0,
+
+        /// <summary>
+        /// Sync to device only type
+        /// </summary>
+        [LocalizableDescription(@"SyncToDevice", typeof(Resources))]
+        syncToDevice = 1,
+
+        /// <summary>
+        /// Sync to middler tier only type
+        /// </summary>
+        [LocalizableDescription(@"SyncToMiddleTier", typeof(Resources))]
+        syncToMiddleTier = 2
+    }
+
     public class ResourceInfo
     {
         public static string ErrorMessageBoxTitle = "VsTemplateDesigner";
@@ -55,7 +99,18 @@ namespace Microsoft.VsTemplateDesigner
         XmlModel _xmlModel;
         XmlStore _xmlStore;
         //VSTemplate _vstemplateModel;
-        model _xmltemplatemodel;
+        private model _xmltemplatemodel;
+        public model XmlTemplateModel
+        {
+            get
+            {
+                return _xmltemplatemodel;
+            }
+            set
+            {
+                _xmltemplatemodel = value;
+            }
+        }
 
         IServiceProvider _serviceProvider;
         IVsTextLines _buffer;
@@ -216,7 +271,7 @@ namespace Microsoft.VsTemplateDesigner
             {
                 //Display error message
                 ErrorHandler.ThrowOnFailure(VsShellUtilities.ShowMessageBox(_serviceProvider,
-                    ResourceInfo.InvalidVsTemplateData + e.Message,
+                    e.Message,
                     ResourceInfo.ErrorMessageBoxTitle,
                     OLEMSGICON.OLEMSGICON_CRITICAL,
                     OLEMSGBUTTON.OLEMSGBUTTON_OK,

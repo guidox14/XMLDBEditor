@@ -11,7 +11,7 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 // MUST match guids.h
 using System;
 
-namespace Microsoft.VsTemplateDesigner
+namespace Microsoft.XmlTemplateDesigner
 {
     static class GuidList
     {

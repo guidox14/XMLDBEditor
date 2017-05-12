@@ -129,16 +129,37 @@
   <data name="InvalidVsTemplateData" xml:space="preserve">
     <value>The vstemplate file you are attempting to load is missing TemplateData</value>
   </data>
+  <data name="MBSyncWin" xml:space="preserve">
+    <value>MBSync Win</value>
+  </data>
+  <data name="ProductionWin" xml:space="preserve">
+    <value>Production Win</value>
+  </data>
   <data name="ReformatBuffer" xml:space="preserve">
     <value>Reformat</value>
   </data>
+  <data name="SyncBothDirections" xml:space="preserve">
+    <value>Sync Both Directions</value>
+  </data>
   <data name="SynchronizeBuffer" xml:space="preserve">
     <value>Synchronize XML file with view</value>
+  </data>
+  <data name="SyncToDevice" xml:space="preserve">
+    <value>Sync to Device Only</value>
+  </data>
+  <data name="SyncToMiddleTier" xml:space="preserve">
+    <value>Sync to Middle Tier Only</value>
   </data>
   <data name="ValidationFieldMaxLength" xml:space="preserve">
     <value>{0} must be {1} characters or less.</value>
   </data>
   <data name="ValidationRequiredField" xml:space="preserve">
     <value>{0} is a required value.</value>
+  </data>
+  <data name="NoDestination" xml:space="preserve">
+    <value>No Destination</value>
+  </data>
+  <data name="NoInverse" xml:space="preserve">
+    <value>No Inverse</value>
   </data>
 </root>
