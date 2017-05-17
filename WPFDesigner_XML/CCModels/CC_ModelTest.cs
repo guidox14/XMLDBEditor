@@ -13,6 +13,7 @@
 // 
 namespace DBXTemplateDesigner.CCModels {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Xml.Serialization;
     
     
@@ -717,7 +718,7 @@ namespace DBXTemplateDesigner.CCModels {
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
     public partial class modelEntityRelationship {
         
-        private modelEntityRelationshipClientKey[] clientKeyField;
+        private ObservableCollection<modelEntityRelationshipClientKey> clientKeyField;
         
         private string optionalField;
         
@@ -741,7 +742,7 @@ namespace DBXTemplateDesigner.CCModels {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("clientKey", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public modelEntityRelationshipClientKey[] clientKey {
+        public ObservableCollection<modelEntityRelationshipClientKey> clientKey {
             get {
                 return this.clientKeyField;
             }
@@ -925,8 +926,17 @@ namespace DBXTemplateDesigner.CCModels {
                 this.destinationNameField = value;
             }
         }
+
+        public modelEntityRelationshipClientKey() { }
+
+        public modelEntityRelationshipClientKey(string source, string destination)
+        {
+            this.sourceName = source;
+            this.destinationName = destination;
+        }
+
     }
-    
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]

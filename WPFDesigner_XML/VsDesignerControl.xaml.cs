@@ -1196,27 +1196,66 @@ namespace Microsoft.XmlTemplateDesigner
             }
         }
 
-        /*public void SaveEntityModel(DatabaseModel model)
-        {
-            if (model != null && !string.IsNullOrEmpty(model.Path) && model.Entities.Count > 0)
-            {
-                if (model.EntitiesRootCounter == 1)
-                {
-                    if (!XmlFileController.SaveRPXCDFile(model.Path, model, string.Empty))
-                    {
-                        MessageBox.Show(MessageResources.ErrorSavingModel, MessageResources.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(string.Format(MessageResources.ErrorEntityRoot, model.Name), MessageResources.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        */
-
         private void SaveToXML_Btn_Click(object sender, RoutedEventArgs e)
         {
             ((ViewModel)DataContext).SaveModelToXmlModel(string.Empty);
+        }
+
+        private void AttributeIndexedCheckBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            if (checkBox != null && this.SelectedAttribute != null)
+            {
+                checkBox.IsChecked = Helper.ValidateBoolFromString( this.SelectedAttribute.indexed);
+                checkBox.Focus();
+            }
+        }
+
+        private void AttributeIndexedCheckBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            CheckBox indexedCB = (CheckBox)sender;
+            if (SelectedAttribute != null)
+            {
+                SelectedAttribute.indexed = Helper.ConvertBoolToString( indexedCB.IsChecked);
+            }
+        }
+
+        private void AttributeIsClientKeyCheckBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            if (checkBox != null && this.SelectedAttribute != null)
+            {
+                checkBox.IsChecked = Helper.ValidateBoolFromString(this.SelectedAttribute.isClientKey);
+                checkBox.Focus();
+            }
+        }
+
+        private void AttributeIsClientKeyCheckBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            CheckBox indexedCB = (CheckBox)sender;
+            if (SelectedAttribute != null)
+            {
+                SelectedAttribute.isClientKey = Helper.ConvertBoolToString(indexedCB.IsChecked);
+            }
+        }
+
+        private void AttributeToManyCheckBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            if (checkBox != null && this.SelectedRelationship != null)
+            {
+                checkBox.IsChecked = Helper.ValidateBoolFromString(this.SelectedRelationship.toMany);
+                checkBox.Focus();
+            }
+        }
+
+        private void AttributeToManyCheckBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            CheckBox indexedCB = (CheckBox)sender;
+            if (SelectedRelationship != null)
+            {
+                SelectedRelationship.toMany = Helper.ConvertBoolToString(indexedCB.IsChecked);
+            }
         }
     }
 }

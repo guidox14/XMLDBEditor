@@ -24,7 +24,7 @@ namespace Microsoft.XmlTemplateDesigner
         /// <summary>
         /// Observable collection of client keys
         /// </summary>
-        private ObservableCollection<ClientKey> clientKeys = new ObservableCollection<ClientKey>();
+        private ObservableCollection<modelEntityRelationshipClientKey> clientKeys = new ObservableCollection<modelEntityRelationshipClientKey>();
 
         /// <summary>
         /// Name of destination entity
@@ -88,7 +88,7 @@ namespace Microsoft.XmlTemplateDesigner
             if (parentWindow.SelectedEntity != null)
             {
                 List<string> attrsName = new List<string>();
-                //parentWindow.SelectedEntity.attribute.Where(a => a.AttributeInfo != null && a.AttributeInfo.IsClientKey).ToList().ForEach(a => attrsName.Add(a.Name));
+                parentWindow.SelectedEntity.attribute.Where(a => a != null && Helper.ValidateBoolFromString( a.isClientKey) ).ToList().ForEach(a => attrsName.Add(a.name));
                 this.SourceKeyComboBox.ItemsSource = new ObservableCollection<string>(attrsName);
             }
         }
@@ -114,7 +114,7 @@ namespace Microsoft.XmlTemplateDesigner
             {
                 this.EntityRelationshipModel.name = this.RelationshipNameTextBox.Text;
                 this.DialogResult = true;
-                //this.EntityRelationshipModel.ClientKeys = clientKeys;
+                this.EntityRelationshipModel.clientKey = clientKeys;
                 this.EntityRelationshipModel.destinationEntity = destination;
                 this.EntityRelationshipModel.inverseEntity = this.InverseComboBox.SelectedItem.ToString();
             }
@@ -169,9 +169,9 @@ namespace Microsoft.XmlTemplateDesigner
             string selected = this.DestinationComboBox.SelectedItem.ToString();
             destination = selected;
             clientKeys.Clear();
-            if (destination == this.EntityRelationshipModel.destinationEntity)
+            if (destination == this.EntityRelationshipModel.destinationEntity && EntityRelationshipModel.clientKey != null)
             {
-                //this.EntityRelationshipModel.ClientKeys.ToList().ForEach(r => clientKeys.Add(r));
+                this.EntityRelationshipModel.clientKey.ToList().ForEach(r => clientKeys.Add(r));
             }
 
             if (selected != WPFDesigner_XML.Resources.NoDestination)
@@ -282,7 +282,7 @@ namespace Microsoft.XmlTemplateDesigner
         {
             if (SourceKeyComboBox.SelectedIndex >= 0 && DestinationKeyComboBox.SelectedIndex >= 0)
             {
-                ClientKey clientKey = new ClientKey(SourceKeyComboBox.SelectedValue.ToString(), DestinationKeyComboBox.SelectedValue.ToString());
+                modelEntityRelationshipClientKey clientKey = new modelEntityRelationshipClientKey(SourceKeyComboBox.SelectedValue.ToString(), DestinationKeyComboBox.SelectedValue.ToString());
                 if (!clientKeys.Contains(clientKey))
                 {
                     clientKeys.Add(clientKey);

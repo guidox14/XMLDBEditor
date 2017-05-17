@@ -203,6 +203,30 @@
 										</DataTemplate>
 									</DataGridTemplateColumn.CellEditingTemplate>
 								</DataGridTemplateColumn>
+								<DataGridTemplateColumn Header="Indexed" Width="*">
+									<DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock x:Name="AttributeIsIndexed" Margin="4 0 0 0" Text="{Binding indexed}" />
+										</DataTemplate>
+									</DataGridTemplateColumn.CellTemplate>
+									<DataGridTemplateColumn.CellEditingTemplate>
+										<DataTemplate>
+											<CheckBox x:Name="AttributeIndexedCheckBox" Loaded="AttributeIndexedCheckBox_Loaded" LostFocus="AttributeIndexedCheckBox_LostFocus"/>
+										</DataTemplate>
+									</DataGridTemplateColumn.CellEditingTemplate>
+								</DataGridTemplateColumn>
+								<DataGridTemplateColumn Header="IsClientKey" Width="*">
+									<DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock x:Name="AttributeIsClientKey" Margin="4 0 0 0" Text="{Binding isClientKey}" />
+										</DataTemplate>
+									</DataGridTemplateColumn.CellTemplate>
+									<DataGridTemplateColumn.CellEditingTemplate>
+										<DataTemplate>
+											<CheckBox x:Name="AttributeIsClientKeyCheckBox" Loaded="AttributeIsClientKeyCheckBox_Loaded" LostFocus="AttributeIsClientKeyCheckBox_LostFocus"/>
+										</DataTemplate>
+									</DataGridTemplateColumn.CellEditingTemplate>
+								</DataGridTemplateColumn>
 								<DataGridTemplateColumn Header="Description" Width="*">
 									<DataGridTemplateColumn.CellTemplate>
 										<DataTemplate>
@@ -242,17 +266,29 @@
 										</DataTemplate>
 									</DataGridTemplateColumn.CellTemplate>
 								</DataGridTemplateColumn>
+								<DataGridTemplateColumn Header="To Many?" Width="*">
+									<DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock x:Name="AttributeIsIndexed" Margin="4 0 0 0" Text="{Binding toMany}" />
+										</DataTemplate>
+									</DataGridTemplateColumn.CellTemplate>
+									<DataGridTemplateColumn.CellEditingTemplate>
+										<DataTemplate>
+											<CheckBox x:Name="AttributeToManyCheckBox" Loaded="AttributeToManyCheckBox_Loaded" LostFocus="AttributeToManyCheckBox_LostFocus"/>
+										</DataTemplate>
+									</DataGridTemplateColumn.CellEditingTemplate>
+								</DataGridTemplateColumn>
 								<DataGridTemplateColumn Header="Destination" MinWidth="150">
 									<DataGridTemplateColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding destinationEntity}"  Margin="4 0 0 0" />
+											<TextBlock Text="{Binding name}"  Margin="4 0 0 0" />
 										</DataTemplate>
 									</DataGridTemplateColumn.CellTemplate>
 								</DataGridTemplateColumn>
 								<DataGridTemplateColumn Header="Inverse" Width="*">
 									<DataGridTemplateColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding inverseEntity}" Margin="4 0 0 0" />
+											<TextBlock Text="{Binding inverseName}" Margin="4 0 0 0" />
 										</DataTemplate>
 									</DataGridTemplateColumn.CellTemplate>
 								</DataGridTemplateColumn>

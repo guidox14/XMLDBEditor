@@ -11,6 +11,8 @@ namespace WPFDesigner_XML
     {
         public static bool ValidateBoolFromString(string currentBool)
         {
+            if (currentBool == null)
+                return false;
             if (currentBool.ToLower().Equals("false"))
                 return false;
             else
@@ -57,6 +59,16 @@ namespace WPFDesigner_XML
         {
             string newConflictRule = conflictRule.ToString();
             return newConflictRule;
+        }
+
+        public static string ConvertBoolToString(bool? value)
+        {
+            if (value == null)
+                return "False";
+            if ( (bool) value)
+                return "True";
+            else
+                return "False";
         }
     }
 }
