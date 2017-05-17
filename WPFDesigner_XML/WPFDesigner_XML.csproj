@@ -78,6 +78,13 @@
     <Compile Include="AttributeInfoUI.xaml.cs">
       <DependentUpon>AttributeInfoUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CCModels\CC_ModelTest.cs" />
+    <Compile Include="CCModels\CC_ModelTest.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CC_ModelTest.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="CCModels\DeleteFunctionality.cs" />
     <Compile Include="Common\Converters\AttributeValueConverter.cs" />
     <Compile Include="Common\Converters\EnumToFriendlyNameConverter.cs" />
     <Compile Include="Common\Converters\StyleHelper.cs" />
@@ -164,6 +171,9 @@
     <Compile Include="Properties\Guids.cs" />
     <Compile Include="Properties\GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelationshipManagementWindow.xaml.cs">
+      <DependentUpon>RelationshipManagementWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources.Designer.cs" />
     <Compile Include="Resources1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -178,6 +188,17 @@
     <Compile Include="VsTemplateSchema.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CCModels\CC_ModelTest.xsc">
+      <DependentUpon>CC_ModelTest.xsd</DependentUpon>
+    </None>
+    <None Include="CCModels\CC_ModelTest.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CC_ModelTest.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="CCModels\CC_ModelTest.xss">
+      <DependentUpon>CC_ModelTest.xsd</DependentUpon>
+    </None>
     <None Include="Key.snk" />
     <None Include="Models\EVTOrderingDB.dbx" />
     <None Include="Models\EVTOrderingDB.xsc">
@@ -197,6 +218,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CCModels\CC_ModelTest.xml" />
     <Content Include="Images\brick.png" />
     <Content Include="Images\customcontrol.png" />
     <Content Include="Images\database.png" />
@@ -266,6 +288,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="AttributeInfoUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RelationshipManagementWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

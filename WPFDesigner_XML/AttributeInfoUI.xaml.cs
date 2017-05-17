@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using WPFDesigner_XML;
-using DBXTemplateDesigner.Models;
+using DBXTemplateDesigner.CCModels;
 
 namespace Microsoft.XmlTemplateDesigner
 {

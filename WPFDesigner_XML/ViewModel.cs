@@ -23,7 +23,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.XmlEditor;
 using IOleServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
-using DBXTemplateDesigner.Models;
+using DBXTemplateDesigner.CCModels;
 
 namespace Microsoft.XmlTemplateDesigner
 {
@@ -78,6 +78,8 @@ namespace Microsoft.XmlTemplateDesigner
 
         LanguageService _xmlLanguageService;
 
+        string m_FileName;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -85,7 +87,7 @@ namespace Microsoft.XmlTemplateDesigner
         /// <param name="xmlModel">The XML Model</param>
         /// <param name="provider">The Service Provider</param>
         /// <param name="buffer">The buffer</param>
-        public ViewModel(XmlStore xmlStore, XmlModel xmlModel, IServiceProvider provider, IVsTextLines buffer)
+        public ViewModel(XmlStore xmlStore, XmlModel xmlModel, IServiceProvider provider, IVsTextLines buffer, string fileName)
         {
             if (xmlModel == null)
                 throw new ArgumentNullException("xmlModel");
@@ -114,6 +116,8 @@ namespace Microsoft.XmlTemplateDesigner
             // BufferReloaded
             _bufferReloadedHandler += new EventHandler(BufferReloaded);
             _xmlModel.BufferReloaded += _bufferReloadedHandler;
+
+            m_FileName = fileName;
 
             LoadModelFromXmlModel();
         }
@@ -325,7 +329,7 @@ namespace Microsoft.XmlTemplateDesigner
         /// underlying buffer.
         /// </summary>
         /// <param name="undoEntry"></param>
-        void SaveModelToXmlModel(string undoEntry)
+        public void SaveModelToXmlModel(string undoEntry)
         {
             LanguageService langsvc = GetXmlLanguageService();
 
@@ -342,47 +346,48 @@ namespace Microsoft.XmlTemplateDesigner
                 //PopulateModelFromReferencesBindingList();
                 //PopulateModelFromContentBindingList();
 
-                XmlSerializer serializer = new XmlSerializer(typeof(VSTemplate));
+                XmlSerializer serializer = new XmlSerializer(typeof(model));
                 XDocument documentFromDesignerState = new XDocument();
                 using (XmlWriter w = documentFromDesignerState.CreateWriter())
                 {
                     serializer.Serialize(w, _xmltemplatemodel);
                 }
 
-                _synchronizing = true;
                 XDocument document = GetParseTree();
+                /*_synchronizing = true;
                 Source src = GetSource();
                 if (src == null || langsvc == null)
                 {
                     return;
                 }
 
-                langsvc.IsParsing = true; // lock out the background parse thread.
+                langsvc.IsParsing = true; // lock out the background parse thread.*/
 
                 // Wrap the buffer sync and the formatting in one undo unit.
-                using (CompoundAction ca = new CompoundAction(src, ResourceInfo.SynchronizeBuffer))
-                {
-                    using (XmlEditingScope scope = _xmlStore.BeginEditingScope(ResourceInfo.SynchronizeBuffer, this))
+                /*using (CompoundAction ca = new CompoundAction(src, ResourceInfo.SynchronizeBuffer))
+                {*/
+                using (XmlEditingScope scope = _xmlStore.BeginEditingScope(ResourceInfo.SynchronizeBuffer, this))
                     {
                         //Replace the existing XDocument with the new one we just generated.
                         document.Root.ReplaceWith(documentFromDesignerState.Root);
+                        document.Save(m_FileName);
                         scope.Complete();
                     }
-                    ca.FlushEditActions();
+                    /*ca.FlushEditActions();
                     FormatBuffer(src);
                 }
-                DesignerDirty = false;
+                DesignerDirty = false;*/
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // if the synchronization fails then we'll just try again in a second.
                 _dirtyTime = Environment.TickCount;
             }
-            finally
+            /*finally
             {
                 langsvc.IsParsing = false;
                 _synchronizing = false;
-            }
+            }*/
         }
 
         /// <summary>

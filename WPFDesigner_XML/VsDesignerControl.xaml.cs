@@ -8,7 +8,7 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 
 ***************************************************************************/
 
-using DBXTemplateDesigner.Models;
+using DBXTemplateDesigner.CCModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +19,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using WPFDesigner_XML;
+using WPFDesigner_XML.Common.Models;
 using WPFDesigner_XML.Common.Models.Entity;
 
 namespace Microsoft.XmlTemplateDesigner
@@ -926,7 +927,7 @@ namespace Microsoft.XmlTemplateDesigner
                 this.SelectedAttribute = (modelEntityAttribute)this.AttributeDataGrid.SelectedItem;
                 if (this.SelectedAttribute != null)
                 {
-                    this.SelectedAttribute.AttributeTypeChanged += new EventHandler(SelectedAttribute_AttributeTypeChanged);
+                    //this.SelectedAttribute.AttributeTypeChanged += new EventHandler(SelectedAttribute_AttributeTypeChanged);
                     this.AttributeInformation.SetAttribute(this.SelectedAttribute);
                     this.AttributeInformation.IsEnabled = !Helper.ValidateBoolFromString(this.SelectedAttribute.isDefault == null ? "False" : this.SelectedAttribute.isDefault);
                 }
@@ -969,7 +970,7 @@ namespace Microsoft.XmlTemplateDesigner
         /// <param name="e">The <see cref="System.Windows.Controls.SelectionChangedEventArgs"/> instance containing the event data.</param>
         private void RelationshipDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //this.SelectedRelationship = this.RelationshipDataGrid.SelectedItem as EntityRelationshipModel;
+            this.SelectedRelationship = (modelEntityRelationship) this.RelationshipDataGrid.SelectedItem;
         }
 
         /// <summary>
@@ -1000,16 +1001,16 @@ namespace Microsoft.XmlTemplateDesigner
                 DataGrid grid = sender as DataGrid;
                 if (grid != null && grid.SelectedItems != null && grid.SelectedItems.Count == 1)
                 {
-                    /*EntityRelationshipModel selectedRelationship = grid.SelectedItem as EntityRelationshipModel;
-                    RelationshipManagementWindow relWindow = new RelationshipManagementWindow(selectedRelationship);
-                    relWindow.Owner = App.Current.MainWindow;
+                    modelEntityRelationship selectedRelationship = grid.SelectedItem as modelEntityRelationship;
+                    RelationshipManagementWindow relWindow = new RelationshipManagementWindow(selectedRelationship, this);
+                    //relWindow.Owner = App.Current.MainWindow;
                     bool? result = relWindow.ShowDialog();
 
                     if (result == true)
                     {
                         this.RelationshipDataGrid.ItemsSource = this.Relationships;
                         this.RelationshipDataGrid.UpdateLayout();
-                    }*/
+                    }
                 }
             }
         }
@@ -1029,9 +1030,9 @@ namespace Microsoft.XmlTemplateDesigner
         /// </summary>
         public void AddNewRelationship()
         {
-            /*if (ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity != null)
+            if (SelectedEntity != null)
             {
-                EntityRelationshipModel rel = new EntityRelationshipModel();
+                modelEntityRelationship rel = new modelEntityRelationship();
                 bool notListed = false;
                 int i = 0;
                 while (!notListed)
@@ -1047,25 +1048,25 @@ namespace Microsoft.XmlTemplateDesigner
                     }
 
                     ++i;
-                    if (ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Relationships.FirstOrDefault(a => a.Name == tempName) == null)
+                    if (SelectedEntity.relationship.FirstOrDefault(a => a.name == tempName) == null)
                     {
                         notListed = true;
-                        rel.Name = tempName;
+                        rel.name = tempName;
                     }
                 }
 
-                RelationshipManagementWindow relWindow = new RelationshipManagementWindow(rel);
-                relWindow.Owner = App.Current.MainWindow;
+                RelationshipManagementWindow relWindow = new RelationshipManagementWindow(rel, this);
+                //relWindow.Owner = App.Current.MainWindow;
                 bool? result = relWindow.ShowDialog();
 
                 if (result == true)
                 {
-                    ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Relationships.Add(relWindow.EntityRelationshipModel);
+                    SelectedEntity.relationship.Add(relWindow.EntityRelationshipModel);
                     this.Relationships.Add(relWindow.EntityRelationshipModel);
                     this.RelationshipDataGrid.ItemsSource = this.Relationships;
                     this.RelationshipDataGrid.UpdateLayout();
                 }
-            }*/
+            }
         }
 
         /// <summary>
@@ -1085,33 +1086,36 @@ namespace Microsoft.XmlTemplateDesigner
         {
             if (this.RelationshipDataGrid.SelectedItem != null)
             {
-                /*EntityRelationshipModel selectedRelationship = this.RelationshipDataGrid.SelectedItem as EntityRelationshipModel;
+                List<modelEntity> entities = ((ViewModel)DataContext).XmlTemplateModel.entity;
+
+                modelEntityRelationship selectedRelationship = this.RelationshipDataGrid.SelectedItem as modelEntityRelationship;
                 if (selectedRelationship != null)
                 {
                     if (MessageBox.Show(MessageResources.DeleteRelationshipWarning, MessageResources.Confirmation, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
-                        foreach (EntityModel ent in ApplicationController.ApplicationMainController.CurrentModel.Entities)
+                        foreach (modelEntity ent in entities)
                         {
-                            if (ent != ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity)
+                            if (ent != SelectedEntity)
                             {
-                                List<EntityRelationshipModel> relationships = ent.Relationships.ToList();
-                                foreach (EntityRelationshipModel rel in relationships)
+                                List<modelEntityRelationship> relationships = ent.relationship.ToList();
+                                foreach (modelEntityRelationship rel in relationships)
                                 {
-                                    if (rel.TargetTableName == ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.Name && rel.InverseRelationshipName == selectedRelationship.Name)
+                                    if (rel.destinationEntity == SelectedEntity.name && rel.inverseEntity == selectedRelationship.name)
                                     {
-                                        rel.InverseRelationshipName = Resource.NoInverse;
+                                        rel.inverseEntity = WPFDesigner_XML.Resources.NoInverse;
                                     }
                                 }
                             }
                         }
 
-                        ApplicationController.ApplicationMainController.CurrentModel.SelectedEntity.DeleteRelationship(selectedRelationship);
+                        DeleteFunctionality newDelete = new DeleteFunctionality(SelectedEntity);
+                        newDelete.DeleteRelationship(selectedRelationship);
                         this.Relationships.Remove(selectedRelationship);
                         this.RelationshipDataGrid.ItemsSource = this.Relationships;
                         this.RelationshipDataGrid.UpdateLayout();
                         this.RelationshipDataGrid.SelectedIndex = 0;
                     }
-                }*/
+                }
             }
         }
 
@@ -1190,6 +1194,29 @@ namespace Microsoft.XmlTemplateDesigner
             {
                 SelectedEntity.friendlyName = friendlyName.Text;
             }
+        }
+
+        /*public void SaveEntityModel(DatabaseModel model)
+        {
+            if (model != null && !string.IsNullOrEmpty(model.Path) && model.Entities.Count > 0)
+            {
+                if (model.EntitiesRootCounter == 1)
+                {
+                    if (!XmlFileController.SaveRPXCDFile(model.Path, model, string.Empty))
+                    {
+                        MessageBox.Show(MessageResources.ErrorSavingModel, MessageResources.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(string.Format(MessageResources.ErrorEntityRoot, model.Name), MessageResources.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        */
+
+        private void SaveToXML_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            ((ViewModel)DataContext).SaveModelToXmlModel(string.Empty);
         }
     }
 }

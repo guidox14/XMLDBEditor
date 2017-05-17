@@ -80,6 +80,8 @@
 
 			<Grid x:Name="RightPanel" DockPanel.Dock="Right" Width="250">
 				<vstd:AttributeInfoUI x:Name="AttributeInformation"/>
+
+				<Button x:Name="SaveToXML_Btn" Content="Save to XML" Width="100" Height="30" Click="SaveToXML_Btn_Click" />
 			</Grid>
 
 			<Grid x:Name="CenterPanel">
@@ -171,7 +173,10 @@
 							<RowDefinition Height="*" />
 							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
-						<DataGrid x:Name="AttributeDataGrid" AutoGenerateColumns="False" Margin="5" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="True" CanUserResizeColumns="True" CellEditEnding="AttributeDataGrid_CellEditEnding" SelectionChanged="AttributeDataGrid_SelectionChanged" LoadingRow="AttributeDataGrid_LoadingRow" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" >
+						<DataGrid x:Name="AttributeDataGrid" AutoGenerateColumns="False" Margin="5" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False"
+								  CanUserSortColumns="True" CanUserResizeColumns="True" CellEditEnding="AttributeDataGrid_CellEditEnding"
+								  SelectionChanged="AttributeDataGrid_SelectionChanged" LoadingRow="AttributeDataGrid_LoadingRow" VerticalAlignment="Stretch"
+								  VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" >
 							<DataGrid.Columns>
 								<DataGridTemplateColumn Header="Attribute" Width="Auto">
 									<DataGridTemplateColumn.CellTemplate>
@@ -225,26 +230,29 @@
 							<RowDefinition Height="*" />
 							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
-						<DataGrid x:Name="RelationshipDataGrid" AutoGenerateColumns="False" Margin="5" SelectionMode="Single" Grid.Row="0" CanUserAddRows="False" CanUserDeleteRows="False"  CanUserSortColumns="True" CanUserResizeColumns="True" MouseDoubleClick="RelationshipDataGrid_MouseDoubleClick" SelectionChanged="RelationshipDataGrid_SelectionChanged" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" >
+						<DataGrid x:Name="RelationshipDataGrid" AutoGenerateColumns="False" Margin="5" SelectionMode="Single" Grid.Row="0" CanUserAddRows="False" CanUserDeleteRows="False"
+								  CanUserSortColumns="True" CanUserResizeColumns="True" MouseDoubleClick="RelationshipDataGrid_MouseDoubleClick"
+								  SelectionChanged="RelationshipDataGrid_SelectionChanged" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"
+								  VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" >
 							<DataGrid.Columns>
 								<DataGridTemplateColumn Header="Relationship" MinWidth="150">
 									<DataGridTemplateColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding Name}" Margin="4 0 0 0"/>
+											<TextBlock Text="{Binding name}" Margin="4 0 0 0"/>
 										</DataTemplate>
 									</DataGridTemplateColumn.CellTemplate>
 								</DataGridTemplateColumn>
 								<DataGridTemplateColumn Header="Destination" MinWidth="150">
 									<DataGridTemplateColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding TargetTableName}"  Margin="4 0 0 0" />
+											<TextBlock Text="{Binding destinationEntity}"  Margin="4 0 0 0" />
 										</DataTemplate>
 									</DataGridTemplateColumn.CellTemplate>
 								</DataGridTemplateColumn>
 								<DataGridTemplateColumn Header="Inverse" Width="*">
 									<DataGridTemplateColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding InverseRelationshipName}" Margin="4 0 0 0" />
+											<TextBlock Text="{Binding inverseEntity}" Margin="4 0 0 0" />
 										</DataTemplate>
 									</DataGridTemplateColumn.CellTemplate>
 								</DataGridTemplateColumn>

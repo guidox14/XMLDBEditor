@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBXTemplateDesigner.Models
+namespace DBXTemplateDesigner.CCModels
 {
     public class DeleteFunctionality
     {
