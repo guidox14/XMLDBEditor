@@ -47,7 +47,15 @@
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 				<TextBlock Text="Entities" Margin="0 0 0 5" FontWeight="Bold" Foreground="Gray" Grid.Row="0"  HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-				<DataGrid x:Name="EntitiesDataGrid" Grid.Row="1" GridLinesVisibility="None" HeadersVisibility="None" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Background="White" ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserSortColumns="False" CanUserResizeColumns="False" CellEditEnding="EntitiesDataGrid_CellEditEnding"  SelectionChanged="EntitiesDataGrid_SelectionChanged" Loaded="EntitiesDataGrid_Loaded" >
+				<DataGrid x:Name="EntitiesDataGrid" Grid.Row="1" GridLinesVisibility="None" HeadersVisibility="None" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+						  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Background="White" ScrollViewer.VerticalScrollBarVisibility="Auto"
+						  CanUserSortColumns="False" CanUserResizeColumns="False" CellEditEnding="EntitiesDataGrid_CellEditEnding"  SelectionChanged="EntitiesDataGrid_SelectionChanged"
+						  Loaded="EntitiesDataGrid_Loaded" >
+					<DataGrid.Resources>
+						<Style TargetType="ScrollBar">
+							<Setter Property="Background" Value="LightSlateGray"/>
+						</Style>
+					</DataGrid.Resources>
 					<DataGrid.Columns>
 						<DataGridTemplateColumn Header="Entities" Width="*">
 							<DataGridTemplateColumn.CellTemplate>
@@ -79,9 +87,16 @@
 			</Grid>
 
 			<Grid x:Name="RightPanel" DockPanel.Dock="Right" Width="250">
-				<vstd:AttributeInfoUI x:Name="AttributeInformation"/>
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+				<vstd:AttributeInfoUI x:Name="AttributeInformation" Grid.Row="0"/>
 
-				<Button x:Name="SaveToXML_Btn" Content="Save to XML" Width="100" Height="30" Click="SaveToXML_Btn_Click" />
+				<StackPanel Orientation="Horizontal" Margin="10,0" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="4">
+					<Button x:Name="SaveToXML_Btn" Content="Save to XML" Width="90" Click="SaveToXML_Btn_Click" Margin="5,0,5,10" Height="25" VerticalAlignment="Bottom" />
+					<Button x:Name="CreateDB_Btn" Content="Create DB" Width="90" Height="25" Margin="5,0,5,10" Click="CreateDB_Btn_Click" VerticalAlignment="Bottom" />
+				</StackPanel>
 			</Grid>
 
 			<Grid x:Name="CenterPanel">
@@ -177,6 +192,11 @@
 								  CanUserSortColumns="True" CanUserResizeColumns="True" CellEditEnding="AttributeDataGrid_CellEditEnding"
 								  SelectionChanged="AttributeDataGrid_SelectionChanged" LoadingRow="AttributeDataGrid_LoadingRow" VerticalAlignment="Stretch"
 								  VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" >
+							<DataGrid.Resources>
+								<Style TargetType="ScrollBar">
+									<Setter Property="Background" Value="LightSlateGray"/>
+								</Style>
+							</DataGrid.Resources>
 							<DataGrid.Columns>
 								<DataGridTemplateColumn Header="Attribute" Width="Auto">
 									<DataGridTemplateColumn.CellTemplate>
@@ -258,6 +278,11 @@
 								  CanUserSortColumns="True" CanUserResizeColumns="True" MouseDoubleClick="RelationshipDataGrid_MouseDoubleClick"
 								  SelectionChanged="RelationshipDataGrid_SelectionChanged" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"
 								  VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" >
+							<DataGrid.Resources>
+								<Style TargetType="ScrollBar">
+									<Setter Property="Background" Value="LightSlateGray"/>
+								</Style>
+							</DataGrid.Resources>
 							<DataGrid.Columns>
 								<DataGridTemplateColumn Header="Relationship" MinWidth="150">
 									<DataGridTemplateColumn.CellTemplate>

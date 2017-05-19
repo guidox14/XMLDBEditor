@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="model">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="entity" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attribute" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="optional" type="xs:string" />
+                  <xs:attribute name="syncable" type="xs:string" />
+                  <xs:attribute name="name" type="xs:string" />
+                  <xs:attribute name="attributeType" type="xs:string" />
+                  <xs:attribute name="isDefault" type="xs:string" />
+                  <xs:attribute name="indexed" type="xs:string" />
+                  <xs:attribute name="isEditable" type="xs:string" />
+                  <xs:attribute name="isPrimaryKey" type="xs:string" />
+                  <xs:attribute name="attributeLevel" type="xs:string" />
+                  <xs:attribute name="inSQLiteDB" type="xs:string" />
+                  <xs:attribute name="infoType" type="xs:string" />
+                  <xs:attribute name="maxChars" type="xs:string" />
+                  <xs:attribute name="canBeEmpty" type="xs:string" />
+                  <xs:attribute name="decimals" type="xs:string" />
+                  <xs:attribute name="moneySymbol" type="xs:string" />
+                  <xs:attribute name="isTimeOnly" type="xs:string" />
+                  <xs:attribute name="isDateOnly" type="xs:string" />
+                  <xs:attribute name="isClientKey" type="xs:string" />
+                  <xs:attribute name="description" type="xs:string" />
+                  <xs:attribute name="lookupScript" type="xs:string" />
+                  <xs:attribute name="allowForMap" type="xs:string" />
+                  <xs:attribute name="mapAlias" type="xs:string" />
+                  <xs:attribute name="defaultValue" type="xs:string" />
+                  <xs:attribute name="validate" type="xs:string" />
+                  <xs:attribute name="minValue" type="xs:string" />
+                  <xs:attribute name="maxValue" type="xs:string" />
+                  <xs:attribute name="step" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="relationship" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="clientKey" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="sourceName" type="xs:string" />
+                        <xs:attribute name="destinationName" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="optional" type="xs:string" />
+                  <xs:attribute name="syncable" type="xs:string" />
+                  <xs:attribute name="name" type="xs:string" />
+                  <xs:attribute name="destinationEntity" type="xs:string" />
+                  <xs:attribute name="minCount" type="xs:string" />
+                  <xs:attribute name="maxCount" type="xs:string" />
+                  <xs:attribute name="deletionRule" type="xs:string" />
+                  <xs:attribute name="inverseName" type="xs:string" />
+                  <xs:attribute name="inverseEntity" type="xs:string" />
+                  <xs:attribute name="toMany" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" />
+            <xs:attribute name="representedClassName" type="xs:string" />
+            <xs:attribute name="syncable" type="xs:string" />
+            <xs:attribute name="isRoot" type="xs:string" />
+            <xs:attribute name="syncOrder" type="xs:string" />
+            <xs:attribute name="defaultProcess" type="xs:string" />
+            <xs:attribute name="isDefault" type="xs:string" />
+            <xs:attribute name="externalReferences" type="xs:string" />
+            <xs:attribute name="isMediaEntity" type="xs:string" />
+            <xs:attribute name="conflictResolutionRule" type="xs:string" />
+            <xs:attribute name="syncType" type="xs:string" />
+            <xs:attribute name="description" type="xs:string" />
+            <xs:attribute name="friendlyName" type="xs:string" />
+            <xs:attribute name="allowForMaps" type="xs:string" />
+            <xs:attribute name="isRootRelated" type="xs:string" />
+            <xs:attribute name="enableTracing" type="xs:string" />
+            <xs:attribute name="backendQuery" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="database" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:attribute name="server" type="xs:string" />
+            <xs:attribute name="connector" type="xs:string" />
+            <xs:attribute name="databaseName" type="xs:string" />
+            <xs:attribute name="user" type="xs:string" />
+            <xs:attribute name="password" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" />
+      <xs:attribute name="databaseVersion" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="model" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

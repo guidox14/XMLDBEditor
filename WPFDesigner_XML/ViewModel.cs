@@ -68,6 +68,14 @@ namespace Microsoft.XmlTemplateDesigner
         }
 
         IServiceProvider _serviceProvider;
+        public IServiceProvider ServiceProvider
+        {
+            get
+            {
+                return _serviceProvider;
+            }
+        }
+
         IVsTextLines _buffer;
 
         bool _synchronizing;

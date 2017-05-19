@@ -9,10 +9,12 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 ***************************************************************************/
 
 using DBXTemplateDesigner.CCModels;
+using EDBFramework;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -1255,6 +1257,30 @@ namespace Microsoft.XmlTemplateDesigner
             if (SelectedRelationship != null)
             {
                 SelectedRelationship.toMany = Helper.ConvertBoolToString(indexedCB.IsChecked);
+            }
+        }
+
+        private void CreateDB_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            //Needs to be called in order to let the sqlraw to pickup a proper db provider.
+            //SQLitePCL.Batteries.Init();
+            //Reads XML
+            //EVTGlobals.SharedInstance.TokenParameters.TryGetValue("Email", out userName);
+            var fileName = ((EditorPane)((ViewModel)DataContext).ServiceProvider).FileName;
+            Stream xmlStream = File.OpenRead(fileName);
+            //Path to store the DB
+            //var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var dbName = fileName.Replace(".dbx", ".edb");
+            //String dbPath = Path.Combine(documents, dbName);
+
+            EDBContext dbContext = new EDBContext(xmlStream, fileName);
+            //EVTGlobals.SharedInstance.GlobalContext = dbContext;
+
+            int dbVersion = 0;
+            EDBEntity dbInfo = dbContext.query("DBInfo_mb").where("name = 'dbversion'").first();
+            if (dbInfo != null)
+            {
+                dbVersion = int.Parse(dbInfo.getStringValue("value"));
             }
         }
     }
