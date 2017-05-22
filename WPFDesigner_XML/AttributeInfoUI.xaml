@@ -25,7 +25,7 @@
 
 		<!--<conv:EnumToFriendlyNameConverter x:Key="EnumItemsConverter"/>-->
 	</UserControl.Resources>
-    <Grid Width="250" Margin="0,150,0,0">
+    <Grid Width="250" Margin="0,130,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />

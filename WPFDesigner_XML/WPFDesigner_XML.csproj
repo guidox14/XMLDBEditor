@@ -156,6 +156,9 @@
       <DependentUpon>ImagesResources.resx</DependentUpon>
     </Compile>
     <Compile Include="IViewModel.cs" />
+    <Compile Include="MBSyncServerConfiguration.xaml.cs">
+      <DependentUpon>MBSyncServerConfiguration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MessageResources1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -290,6 +293,10 @@
     <Page Include="AttributeInfoUI.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MBSyncServerConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RelationshipManagementWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
