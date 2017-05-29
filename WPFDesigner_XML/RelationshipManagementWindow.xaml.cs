@@ -120,12 +120,12 @@ namespace Microsoft.XmlTemplateDesigner
                 var inverseItem = InverseComboBox.SelectedItem.ToString();
                 if (inverseItem.Equals("No Inverse"))
                 {
-                    var messageResult = MessageBox.Show("Do you wanto to auto-generate it?", "Missing inverse relationship",
+                    var messageResult = MessageBox.Show("Do you want to auto-generate it?", "Missing inverse relationship",
                         MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (messageResult == MessageBoxResult.Yes)
                     {
                         var inverseRelation = new modelEntityRelationship();
-                        inverseRelation.name = "r_" + this.RelationshipNameTextBox.Text;
+                        inverseRelation.name = "r_" + parentWindow.SelectedEntity.name;
                         inverseRelation.destinationEntity = parentWindow.SelectedEntity.name;
                         inverseRelation.inverseName = this.EntityRelationshipModel.name;
                         inverseRelation.inverseEntity = destination;
