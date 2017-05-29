@@ -228,11 +228,11 @@ namespace Microsoft.XmlTemplateDesigner
                 {
                     _xmltemplatemodel = (model)serializer.Deserialize(reader);
                 }
-
-                /*if (_xmltemplatemodel == null || _xmltemplatemodel.TemplateData == null)
+                
+                if (_xmltemplatemodel == null )
                 {
                     throw new Exception(ResourceInfo.InvalidVsTemplateData);
-                }*/
+                }
             }
             catch (Exception e)
             {

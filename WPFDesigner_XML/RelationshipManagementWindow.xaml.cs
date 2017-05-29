@@ -116,7 +116,41 @@ namespace Microsoft.XmlTemplateDesigner
                 this.DialogResult = true;
                 this.EntityRelationshipModel.clientKey = clientKeys;
                 this.EntityRelationshipModel.destinationEntity = destination;
-                this.EntityRelationshipModel.inverseEntity = this.InverseComboBox.SelectedItem.ToString();
+                this.EntityRelationshipModel.toMany = Helper.ConvertBoolToString(MultipleRelationshipsCheckBox.IsChecked);
+                var inverseItem = InverseComboBox.SelectedItem.ToString();
+                if (inverseItem.Equals("No Inverse"))
+                {
+                    var messageResult = MessageBox.Show("Do you wanto to auto-generate it?", "Missing inverse relationship",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (messageResult == MessageBoxResult.Yes)
+                    {
+                        var inverseRelation = new modelEntityRelationship();
+                        inverseRelation.name = "r_" + this.RelationshipNameTextBox.Text;
+                        inverseRelation.destinationEntity = parentWindow.SelectedEntity.name;
+                        inverseRelation.inverseName = this.EntityRelationshipModel.name;
+                        inverseRelation.inverseEntity = destination;
+                        inverseRelation.toMany = Helper.ConvertBoolToString( !MultipleRelationshipsCheckBox.IsChecked );
+                        this.EntityRelationshipModel.inverseEntity = inverseRelation.destinationEntity;
+                        this.EntityRelationshipModel.inverseName = inverseRelation.name;
+                        var entities = ((ViewModel)parentWindow.DataContext).XmlTemplateModel.entity;
+                        modelEntity selectedEntity = null;
+                        foreach (var currentEntity in entities)
+                        {
+                            if (currentEntity.name.Equals(destination))
+                            {
+                                selectedEntity = currentEntity;
+                            }
+                        }
+                        if (selectedEntity != null)
+                        {
+                            selectedEntity.relationship.Add(inverseRelation);
+                        }
+                    }
+                    else if (messageResult == MessageBoxResult.No)
+                    {
+                        this.EntityRelationshipModel.inverseEntity = this.InverseComboBox.SelectedItem.ToString();
+                    }
+                }
             }
             else 
             {
@@ -131,11 +165,11 @@ namespace Microsoft.XmlTemplateDesigner
         private bool ValidateValues() 
         {
             bool isValid = false;
-            if (InverseComboBox.SelectedItem != null)
+            /*if (InverseComboBox.SelectedItem != null)
             {
                 MessageBox.Show(MessageResources.ErrorOneRelationshipNoDestination, MessageResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return isValid;
-            }
+            }*/
             if (!string.IsNullOrEmpty(this.RelationshipNameTextBox.Text))
             {
                 isValid = char.IsLetter(this.RelationshipNameTextBox.Text.FirstOrDefault()) && this.RelationshipNameTextBox.Text.FirstOrDefault() == char.ToLower(this.RelationshipNameTextBox.Text.FirstOrDefault());

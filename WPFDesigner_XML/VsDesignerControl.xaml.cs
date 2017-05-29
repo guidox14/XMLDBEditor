@@ -1264,7 +1264,8 @@ namespace Microsoft.XmlTemplateDesigner
         {
             try
             {
-                CreateDB();
+                /*MBSyncServerConfiguration relWindow = new MBSyncServerConfiguration();
+                bool? result = relWindow.ShowDialog();*/
             }
             catch (Exception ex)
             {
@@ -1272,8 +1273,5 @@ namespace Microsoft.XmlTemplateDesigner
             }
         }
 
-        private void CreateDB()
-        {
-        }
     }
 }

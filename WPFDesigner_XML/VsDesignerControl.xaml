@@ -309,7 +309,7 @@
 								<DataGridTemplateColumn Header="Destination" MinWidth="150">
 									<DataGridTemplateColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding name}"  Margin="4 0 0 0" />
+											<TextBlock Text="{Binding destinationEntity}"  Margin="4 0 0 0" />
 										</DataTemplate>
 									</DataGridTemplateColumn.CellTemplate>
 								</DataGridTemplateColumn>

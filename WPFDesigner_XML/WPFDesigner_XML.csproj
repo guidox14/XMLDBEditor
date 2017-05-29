@@ -191,6 +191,9 @@
     <Compile Include="VsTemplateSchema.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CCModels\CC_ModelTest.dbx">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="CCModels\CC_ModelTest.xsc">
       <DependentUpon>CC_ModelTest.xsd</DependentUpon>
     </None>
