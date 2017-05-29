@@ -165,11 +165,6 @@ namespace Microsoft.XmlTemplateDesigner
         private bool ValidateValues() 
         {
             bool isValid = false;
-            /*if (InverseComboBox.SelectedItem != null)
-            {
-                MessageBox.Show(MessageResources.ErrorOneRelationshipNoDestination, MessageResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                return isValid;
-            }*/
             if (!string.IsNullOrEmpty(this.RelationshipNameTextBox.Text))
             {
                 isValid = char.IsLetter(this.RelationshipNameTextBox.Text.FirstOrDefault()) && this.RelationshipNameTextBox.Text.FirstOrDefault() == char.ToLower(this.RelationshipNameTextBox.Text.FirstOrDefault());
