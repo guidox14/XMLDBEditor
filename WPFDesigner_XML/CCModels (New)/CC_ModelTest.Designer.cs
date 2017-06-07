@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace WPFDesigner_XML.CCModels {
+namespace WPFDesigner_XML.CCModels__New_ {
     
     
     /// <summary>

@@ -188,13 +188,88 @@ namespace Microsoft.XmlTemplateDesigner
             for (int i = 0; i < entityList.Count; i++)
             {
                 var currentEntity = entityList[i];
-                fillRequiredEntityAttributes(ref currentEntity);
+                FillRequiredEntityAttributes(ref currentEntity);
+                AddRequiredEntityFields(ref currentEntity);
             }
             this.EntitiesDataGrid.ItemsSource = entityList;
             this.EntitiesDataGrid.SelectedIndex = 0;
         }
 
-        void fillRequiredEntityAttributes(ref modelEntity currentEntity)
+        void AddRequiredEntityFields(ref modelEntity currentEntity)
+        {
+            var fieldList = currentEntity.attribute;
+            bool hasGuid = false;
+            bool hasRowStatus = false;
+            bool hasErrMsg = false;
+            if (fieldList == null)
+            {
+                fieldList = new List<modelEntityAttribute>();
+                currentEntity.attribute = fieldList;
+            }
+            foreach (var currentField in fieldList)
+            {
+                if (currentField.name.ToLower().Equals("guid_mb"))
+                {
+                    hasGuid = true;
+                }
+                if (currentField.name.ToLower().Equals("rowstatus_mb"))
+                {
+                    hasRowStatus = true;
+                }
+                if (currentField.name.ToLower().Equals("errmsg_mb"))
+                {
+                    hasErrMsg = true;
+                }
+            }
+            if (!hasGuid)
+            {
+                modelEntityAttribute newGuidField = new modelEntityAttribute(currentEntity);
+                newGuidField.name = "guid_mb";
+                newGuidField.attributeType = "GUID";
+                newGuidField.isDefault = "True";
+                newGuidField.indexed = "YES";
+                newGuidField.isEditable = "True";
+                newGuidField.isPrimaryKey = "True";
+                newGuidField.attributeLevel = "Level0";
+                newGuidField.inSQLiteDB = "True";
+
+                fieldList.Add(newGuidField);
+            }
+            if (!hasRowStatus)
+            {
+                modelEntityAttribute newRowStatusField = new modelEntityAttribute(currentEntity);
+                newRowStatusField.name = "rowStatus_mb";
+                newRowStatusField.attributeType = "String";
+                newRowStatusField.isDefault = "True";
+                newRowStatusField.indexed = "YES";
+                newRowStatusField.isEditable = "True";
+                newRowStatusField.isPrimaryKey = "False";
+                newRowStatusField.attributeLevel = "Level0";
+                newRowStatusField.inSQLiteDB = "True";
+                newRowStatusField.maxChars = "255";
+                newRowStatusField.canBeEmpty = "True";
+
+                fieldList.Add(newRowStatusField);
+            }
+            if (!hasErrMsg)
+            {
+                modelEntityAttribute newErrMsgField = new modelEntityAttribute(currentEntity);
+                newErrMsgField.name = "errMsg_mb";
+                newErrMsgField.attributeType = "String";
+                newErrMsgField.isDefault = "True";
+                newErrMsgField.indexed = "NO";
+                newErrMsgField.isEditable = "True";
+                newErrMsgField.isPrimaryKey = "False";
+                newErrMsgField.attributeLevel = "Level0";
+                newErrMsgField.inSQLiteDB = "True";
+                newErrMsgField.maxChars = "4000";
+                newErrMsgField.canBeEmpty = "True";
+
+                fieldList.Add(newErrMsgField);
+            }
+        }
+
+        void FillRequiredEntityAttributes(ref modelEntity currentEntity)
         {
             if (currentEntity.isRoot == null || (!currentEntity.isRoot.ToLower().Equals("false") && !currentEntity.isRoot.ToLower().Equals("true")))
             {
@@ -397,7 +472,8 @@ namespace Microsoft.XmlTemplateDesigner
                     newEntity.name = tempName;
                     newEntity.friendlyName = tempName;
 
-                    fillRequiredEntityAttributes(ref newEntity);
+                    FillRequiredEntityAttributes(ref newEntity);
+                    AddRequiredEntityFields(ref newEntity);
                 }
             }
             List<modelEntity> entities = ((ViewModel)DataContext).XmlTemplateModel.entity;

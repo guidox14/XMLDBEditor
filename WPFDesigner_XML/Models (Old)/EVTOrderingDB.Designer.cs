@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace WPFDesigner_XML.Models {
+namespace WPFDesigner_XML.Models__Old_ {
     
     
     /// <summary>

@@ -78,13 +78,13 @@
     <Compile Include="AttributeInfoUI.xaml.cs">
       <DependentUpon>AttributeInfoUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CCModels\CC_ModelTest.cs" />
-    <Compile Include="CCModels\CC_ModelTest.Designer.cs">
+    <Compile Include="CCModels %28New%29\CC_ModelTest.cs" />
+    <Compile Include="CCModels %28New%29\CC_ModelTest.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CC_ModelTest.xsd</DependentUpon>
     </Compile>
-    <Compile Include="CCModels\DeleteFunctionality.cs" />
+    <Compile Include="CCModels %28New%29\DeleteFunctionality.cs" />
     <Compile Include="Common\Converters\AttributeValueConverter.cs" />
     <Compile Include="Common\Converters\EnumToFriendlyNameConverter.cs" />
     <Compile Include="Common\Converters\StyleHelper.cs" />
@@ -164,9 +164,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MessageResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Models\DeleteFunctionality.cs" />
-    <Compile Include="Models\EVTOrderingDB.cs" />
-    <Compile Include="Models\EVTOrderingDB.Designer.cs">
+    <Compile Include="Models %28Old%29\DeleteFunctionality.cs" />
+    <Compile Include="Models %28Old%29\EVTOrderingDB.cs" />
+    <Compile Include="Models %28Old%29\EVTOrderingDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EVTOrderingDB.xsd</DependentUpon>
@@ -191,31 +191,31 @@
     <Compile Include="VsTemplateSchema.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CCModels\CC_ModelTest.dbx">
+    <None Include="CCModels %28New%29\CC_ModelTest.dbx">
       <SubType>Designer</SubType>
     </None>
-    <None Include="CCModels\CC_ModelTest.xsc">
+    <None Include="CCModels %28New%29\CC_ModelTest.xsc">
       <DependentUpon>CC_ModelTest.xsd</DependentUpon>
     </None>
-    <None Include="CCModels\CC_ModelTest.xsd">
+    <None Include="CCModels %28New%29\CC_ModelTest.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>CC_ModelTest.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="CCModels\CC_ModelTest.xss">
+    <None Include="CCModels %28New%29\CC_ModelTest.xss">
       <DependentUpon>CC_ModelTest.xsd</DependentUpon>
     </None>
     <None Include="Key.snk" />
-    <None Include="Models\EVTOrderingDB.dbx" />
-    <None Include="Models\EVTOrderingDB.xsc">
+    <None Include="Models %28Old%29\EVTOrderingDB.dbx" />
+    <None Include="Models %28Old%29\EVTOrderingDB.xsc">
       <DependentUpon>EVTOrderingDB.xsd</DependentUpon>
     </None>
-    <None Include="Models\EVTOrderingDB.xsd">
+    <None Include="Models %28Old%29\EVTOrderingDB.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>EVTOrderingDB.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Models\EVTOrderingDB.xss">
+    <None Include="Models %28Old%29\EVTOrderingDB.xss">
       <DependentUpon>EVTOrderingDB.xsd</DependentUpon>
     </None>
     <None Include="project.json" />
@@ -224,7 +224,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CCModels\CC_ModelTest.xml" />
+    <Content Include="CCModels %28New%29\CC_ModelTest.xml" />
+    <Content Include="CCModels %28New%29\DefaultMBEntities.xml" />
     <Content Include="Images\brick.png" />
     <Content Include="Images\customcontrol.png" />
     <Content Include="Images\database.png" />
@@ -237,7 +238,7 @@
     <Content Include="Images\picture.png" />
     <Content Include="Images\report.png" />
     <Content Include="Images\style.png" />
-    <Content Include="Models\EVTOrderingDB.xml">
+    <Content Include="Models %28Old%29\EVTOrderingDB.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Resources\Package.ico">
