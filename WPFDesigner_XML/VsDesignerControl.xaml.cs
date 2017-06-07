@@ -184,9 +184,61 @@ namespace Microsoft.XmlTemplateDesigner
         private void EntitiesDataGrid_Loaded(object sender, RoutedEventArgs e)
         {
             model newDataContext = ((ViewModel)DataContext).XmlTemplateModel;
-            this.EntitiesDataGrid.ItemsSource = newDataContext.entity.Where(ent => !ent.name.EndsWith("_mb")).ToList();
-            //this.EntitiesDataGrid.ItemsSource = ApplicationController.ApplicationMainController.CurrentModel.Entities.Where(ent => !ent.Name.EndsWith("_mb")).ToList();
+            List<modelEntity> entityList = newDataContext.entity.Where(ent => !ent.name.EndsWith("_mb")).ToList();
+            for (int i = 0; i < entityList.Count; i++)
+            {
+                var currentEntity = entityList[i];
+                fillRequiredEntityAttributes(ref currentEntity);
+            }
+            this.EntitiesDataGrid.ItemsSource = entityList;
             this.EntitiesDataGrid.SelectedIndex = 0;
+        }
+
+        void fillRequiredEntityAttributes(ref modelEntity currentEntity)
+        {
+            if (currentEntity.isRoot == null || (!currentEntity.isRoot.ToLower().Equals("false") && !currentEntity.isRoot.ToLower().Equals("true")))
+            {
+                currentEntity.isRoot = "False";
+            }
+
+            if (currentEntity.isDefault == null || (!currentEntity.isDefault.ToLower().Equals("false") && !currentEntity.isDefault.ToLower().Equals("true")))
+            {
+                currentEntity.isDefault = "False";
+            }
+
+            if (currentEntity.isMediaEntity == null || (!currentEntity.isMediaEntity.ToLower().Equals("false") && !currentEntity.isMediaEntity.ToLower().Equals("true")))
+            {
+                currentEntity.isMediaEntity = "False";
+            }
+
+            if (currentEntity.isRootRelated == null || (!currentEntity.isRootRelated.ToLower().Equals("false") && !currentEntity.isRootRelated.ToLower().Equals("true")))
+            {
+                currentEntity.isRootRelated = "False";
+            }
+
+            if (currentEntity.enableTracing == null || (!currentEntity.enableTracing.ToLower().Equals("false") && !currentEntity.enableTracing.ToLower().Equals("true")))
+            {
+                currentEntity.enableTracing = "False";
+            }
+
+            var mbSyncWin = Helper.ConvertConflictResRuleToString(ConflictResolutionRule.mbSyncWin);
+            var productionWin = Helper.ConvertConflictResRuleToString(ConflictResolutionRule.productionWin);
+            if (currentEntity.conflictResolutionRule == null || 
+                (!currentEntity.conflictResolutionRule.Equals(mbSyncWin) && !currentEntity.conflictResolutionRule.Equals(productionWin)))
+            {
+                currentEntity.conflictResolutionRule = mbSyncWin;
+            }
+
+            var bothDirections = Helper.ConvertSyncTypeToString(SyncType.syncBothDirections);
+            var toDevice = Helper.ConvertSyncTypeToString(SyncType.syncToDevice);
+            var syncToMiddleTier = Helper.ConvertSyncTypeToString(SyncType.syncToMiddleTier);
+            if (currentEntity.syncType == null ||
+                (!currentEntity.syncType.Equals(bothDirections) 
+                && !currentEntity.syncType.Equals(toDevice) 
+                && !currentEntity.syncType.Equals(syncToMiddleTier)))
+            {
+                currentEntity.syncType = bothDirections;
+            }
         }
 
         /// <summary>
@@ -344,6 +396,8 @@ namespace Microsoft.XmlTemplateDesigner
                     notListed = true;
                     newEntity.name = tempName;
                     newEntity.friendlyName = tempName;
+
+                    fillRequiredEntityAttributes(ref newEntity);
                 }
             }
             List<modelEntity> entities = ((ViewModel)DataContext).XmlTemplateModel.entity;
