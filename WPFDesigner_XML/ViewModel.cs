@@ -432,7 +432,7 @@ namespace Microsoft.XmlTemplateDesigner
                 var height = 0;
                 foreach (var relation in currentEntity.relationship)
                 {
-                    if (relation != null && (relation.toMany.ToLower().Equals("yes") || relation.toMany.ToLower().Equals("true")))
+                    if (relation != null && (relation.toMany.ToLower().Equals("no") || relation.toMany.ToLower().Equals("false")))
                     {
                         int entityIndex = FindEntityIndex(relation.name.Substring(2));
                         var relationEntity = _xmltemplatemodel.entity[entityIndex];
