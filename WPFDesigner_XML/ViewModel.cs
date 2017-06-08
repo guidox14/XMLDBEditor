@@ -24,6 +24,7 @@ using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.XmlEditor;
 using IOleServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 using DBXTemplateDesigner.CCModels;
+using System.Collections.Generic;
 
 namespace Microsoft.XmlTemplateDesigner
 {
@@ -353,6 +354,7 @@ namespace Microsoft.XmlTemplateDesigner
 
                 //PopulateModelFromReferencesBindingList();
                 //PopulateModelFromContentBindingList();
+                UpdateSyncOrder();
 
                 XmlSerializer serializer = new XmlSerializer(typeof(model));
                 XDocument documentFromDesignerState = new XDocument();
@@ -396,6 +398,66 @@ namespace Microsoft.XmlTemplateDesigner
                 langsvc.IsParsing = false;
                 _synchronizing = false;
             }*/
+        }
+
+        void UpdateSyncOrder()
+        {
+            foreach (var currentEntity in _xmltemplatemodel.entity)
+            {
+                if (currentEntity.relationship.Count == 0)
+                {
+                    currentEntity.syncOrder = "0";
+                }
+                else
+                {
+                    currentEntity.syncOrder = RelationshipHeight(currentEntity).ToString();
+                }
+            }
+        }
+
+        Dictionary<string, int> entityHeightProccessed = new Dictionary<string, int>();
+        int RelationshipHeight(modelEntity currentEntity)
+        {
+            int value;
+            var canGetValue = entityHeightProccessed.TryGetValue(currentEntity.name, out value);
+            if (canGetValue)
+                return value;
+            else if (currentEntity.relationship.Count == 0)
+            {
+                entityHeightProccessed[currentEntity.name] = 0;
+                return 0;
+            }
+            else
+            {
+                var height = 0;
+                foreach (var relation in currentEntity.relationship)
+                {
+                    if (relation != null && (relation.toMany.ToLower().Equals("yes") || relation.toMany.ToLower().Equals("true")))
+                    {
+                        int entityIndex = FindEntityIndex(relation.name.Substring(2));
+                        var relationEntity = _xmltemplatemodel.entity[entityIndex];
+                        entityHeightProccessed[currentEntity.name] = 1;
+                        var relatedHeight = RelationshipHeight(relationEntity) + 1;
+                        entityHeightProccessed[currentEntity.name] = relatedHeight;
+                        if (relatedHeight > height)
+                            height = relatedHeight;
+                    }
+                }
+                return height;
+            }
+        }
+
+        int FindEntityIndex(string entityName)
+        {
+            for (int i = 0; i < _xmltemplatemodel.entity.Count; i++)
+            {
+                var currentEntity = _xmltemplatemodel.entity[i];
+                if (currentEntity.name.Equals(entityName))
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
 
         /// <summary>
