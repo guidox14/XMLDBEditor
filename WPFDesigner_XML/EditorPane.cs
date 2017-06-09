@@ -22,6 +22,9 @@ using Microsoft.VisualStudio.XmlEditor;
 //using tom;
 
 using VSStd97CmdID = Microsoft.VisualStudio.VSConstants.VSStd97CmdID;
+using System.Xml.Linq;
+using System.Xml;
+using System.IO;
 
 namespace Microsoft.XmlTemplateDesigner
 {
@@ -42,6 +45,7 @@ namespace Microsoft.XmlTemplateDesigner
         private IOleUndoManager _undoManager;
         private XmlStore _store;
         private XmlModel _model;
+        XmlModel _defaultTables;
         #endregion
 
         #region "Window.Pane Overrides"
@@ -90,6 +94,17 @@ namespace Microsoft.XmlTemplateDesigner
             base.OnClose();
         }
         #endregion
+
+        // Method to convert XDocument to XmlDocument
+        public static XmlDocument ConvertToXmlDocument(XDocument input)
+        {
+            var xmlDocumentObj = new XmlDocument();
+            using (var xmlReader = input.CreateReader())
+            {
+                xmlDocumentObj.Load(xmlReader);
+                return xmlDocumentObj;
+            }
+        }
 
         /// <summary>
         /// Called after the WindowPane has been sited with an IServiceProvider from the environment
@@ -145,10 +160,16 @@ namespace Microsoft.XmlTemplateDesigner
 
             _model = _store.OpenXmlModel(new Uri(_fileName));
 
+            //XDocument xmlDoc = XDocument.Load(@".\CCModels_(New)\DefaultMBEntities.dbx", LoadOptions.None);
+
+            var uriAbsolutePath = Path.GetFullPath(@".\CCModels_(New)\DefaultMBEntities.dbx");
+            var newUri_DefaultTables = new Uri(uriAbsolutePath);
+            _defaultTables = _store.OpenXmlModel(newUri_DefaultTables);
+
             // This is the user control hosted by the tool window; Note that, even if this class implements IDisposable,
             // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on 
             // the object returned by the Content property.
-            _vsDesignerControl = new VsDesignerControl(new ViewModel(_store, _model, this, _textBuffer, _fileName));
+            _vsDesignerControl = new VsDesignerControl(new ViewModel(_store, _model, this, _textBuffer, _fileName, _defaultTables));
             Content = _vsDesignerControl;
 
             RegisterIndependentView(true);

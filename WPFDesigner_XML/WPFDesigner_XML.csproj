@@ -78,13 +78,13 @@
     <Compile Include="AttributeInfoUI.xaml.cs">
       <DependentUpon>AttributeInfoUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CCModels %28New%29\CC_ModelTest.cs" />
-    <Compile Include="CCModels %28New%29\CC_ModelTest.Designer.cs">
+    <Compile Include="CCModels_%28New%29\CC_ModelTest.cs" />
+    <Compile Include="CCModels_%28New%29\CC_ModelTest.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CC_ModelTest.xsd</DependentUpon>
     </Compile>
-    <Compile Include="CCModels %28New%29\DeleteFunctionality.cs" />
+    <Compile Include="CCModels_%28New%29\DeleteFunctionality.cs" />
     <Compile Include="Common\Converters\AttributeValueConverter.cs" />
     <Compile Include="Common\Converters\EnumToFriendlyNameConverter.cs" />
     <Compile Include="Common\Converters\StyleHelper.cs" />
@@ -191,20 +191,24 @@
     <Compile Include="VsTemplateSchema.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CCModels %28New%29\CC_ModelTest.dbx">
+    <None Include="CCModels_%28New%29\CC_ModelTest.dbx">
       <SubType>Designer</SubType>
     </None>
-    <None Include="CCModels %28New%29\CC_ModelTest.xsc">
+    <None Include="CCModels_%28New%29\CC_ModelTest.xsc">
       <DependentUpon>CC_ModelTest.xsd</DependentUpon>
     </None>
-    <None Include="CCModels %28New%29\CC_ModelTest.xsd">
+    <None Include="CCModels_%28New%29\CC_ModelTest.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>CC_ModelTest.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="CCModels %28New%29\CC_ModelTest.xss">
+    <None Include="CCModels_%28New%29\CC_ModelTest.xss">
       <DependentUpon>CC_ModelTest.xsd</DependentUpon>
     </None>
+    <Content Include="CCModels_%28New%29\DefaultMBEntities.dbx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="Key.snk" />
     <None Include="Models %28Old%29\EVTOrderingDB.dbx" />
     <None Include="Models %28Old%29\EVTOrderingDB.xsc">
@@ -224,8 +228,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CCModels %28New%29\CC_ModelTest.xml" />
-    <Content Include="CCModels %28New%29\DefaultMBEntities.xml" />
+    <Content Include="CCModels_%28New%29\CC_ModelTest.xml" />
+    <Content Include="CCModels_%28New%29\DefaultMBEntities.xml" />
     <Content Include="Images\brick.png" />
     <Content Include="Images\customcontrol.png" />
     <Content Include="Images\database.png" />
