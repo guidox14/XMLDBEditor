@@ -205,9 +205,12 @@
     <None Include="CCModels_%28New%29\CC_ModelTest.xss">
       <DependentUpon>CC_ModelTest.xsd</DependentUpon>
     </None>
-    <Content Include="CCModels_%28New%29\DefaultMBEntities.dbx">
+    <Content Include="DefaultMBEntities.dbx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
+      <TargetPath>DefaultMBEntities.dbx</TargetPath>
+      <InstallRoot>MSBuild</InstallRoot>
+      <VSIXSubPath>WPFDesigner_Resources</VSIXSubPath>
     </Content>
     <None Include="Key.snk" />
     <None Include="Models %28Old%29\EVTOrderingDB.dbx" />
@@ -229,7 +232,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CCModels_%28New%29\CC_ModelTest.xml" />
-    <Content Include="CCModels_%28New%29\DefaultMBEntities.xml" />
+    <Content Include="DefaultMBEntities.xml" />
     <Content Include="Images\brick.png" />
     <Content Include="Images\customcontrol.png" />
     <Content Include="Images\database.png" />

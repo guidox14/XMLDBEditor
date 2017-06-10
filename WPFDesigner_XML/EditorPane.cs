@@ -162,7 +162,7 @@ namespace Microsoft.XmlTemplateDesigner
 
             //XDocument xmlDoc = XDocument.Load(@".\CCModels_(New)\DefaultMBEntities.dbx", LoadOptions.None);
 
-            var uriAbsolutePath = Path.GetFullPath(@".\CCModels_(New)\DefaultMBEntities.dbx");
+            var uriAbsolutePath = Path.GetFullPath(@"..\..\MSBuild\WPFDesigner_Resources\DefaultMBEntities.dbx");
             var newUri_DefaultTables = new Uri(uriAbsolutePath);
             _defaultTables = _store.OpenXmlModel(newUri_DefaultTables);
 
