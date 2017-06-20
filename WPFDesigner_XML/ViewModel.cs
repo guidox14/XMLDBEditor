@@ -25,6 +25,7 @@ using Microsoft.VisualStudio.XmlEditor;
 using IOleServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 using DBXTemplateDesigner.CCModels;
 using System.Collections.Generic;
+using WPFDesigner_XML;
 
 namespace Microsoft.XmlTemplateDesigner
 {
@@ -371,6 +372,7 @@ namespace Microsoft.XmlTemplateDesigner
                     InsertDefaultTablesInModel();
                 }
 
+                UpdateAttTypes();
                 UpdateSyncOrder();
 
                 XmlSerializer serializer = new XmlSerializer(typeof(model));
@@ -415,6 +417,29 @@ namespace Microsoft.XmlTemplateDesigner
                 langsvc.IsParsing = false;
                 _synchronizing = false;
             }*/
+        }
+
+        void UpdateAttTypes()
+        {
+            foreach (var currentEntity in XmlTemplateModel.entity)
+            {
+                foreach (var currentAttribute in currentEntity.attribute)
+                {
+                    string attType = currentAttribute.attributeType;
+                    switch (attType)
+                    {
+                        case "Integer16":
+                            currentAttribute.attributeType = "Integer 16";
+                            break;
+                        case "Integer32":
+                            currentAttribute.attributeType = "Integer 32";
+                            break;
+                        case "Integer64":
+                            currentAttribute.attributeType = "Integer 64";
+                            break;
+                    }
+                }
+            }
         }
 
         void UpdateSyncOrder()

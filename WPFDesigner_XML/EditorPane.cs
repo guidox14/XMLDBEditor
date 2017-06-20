@@ -8,6 +8,7 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 
 ***************************************************************************/
 
+
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
@@ -36,6 +37,7 @@ namespace Microsoft.XmlTemplateDesigner
     [ComVisible(true)]
     public sealed class EditorPane : WindowPane, IOleComponent, IVsDeferredDocView, IVsLinkedUndoClient
     {
+
         #region Fields
         private VsTemplateDesignerPackage _thisPackage;
         private string _fileName = string.Empty;
@@ -160,9 +162,11 @@ namespace Microsoft.XmlTemplateDesigner
 
             _model = _store.OpenXmlModel(new Uri(_fileName));
 
-            //XDocument xmlDoc = XDocument.Load(@".\CCModels_(New)\DefaultMBEntities.dbx", LoadOptions.None);
-
+#if DEBUG
+            var uriAbsolutePath = Path.GetFullPath(@".\DefaultMBEntities.dbx");
+#else
             var uriAbsolutePath = Path.GetFullPath(@"..\..\MSBuild\WPFDesigner_Resources\DefaultMBEntities.dbx");
+#endif
             var newUri_DefaultTables = new Uri(uriAbsolutePath);
             _defaultTables = _store.OpenXmlModel(newUri_DefaultTables);
 
@@ -328,7 +332,7 @@ namespace Microsoft.XmlTemplateDesigner
             return resourceValue;
         }
 
-        #region Commands
+#region Commands
 
         private void OnQueryNewWindow(object sender, EventArgs e)
         {
@@ -385,18 +389,18 @@ namespace Microsoft.XmlTemplateDesigner
             ErrorHandler.ThrowOnFailure(frame.Show());
         }
 
-        #endregion
+#endregion
 
-        #region IVsLinkedUndoClient
+#region IVsLinkedUndoClient
 
         public int OnInterveningUnitBlockingLinkedUndo()
         {
             return VSConstants.E_FAIL;
         }
 
-        #endregion
+#endregion
 
-        #region IVsDeferredDocView
+#region IVsDeferredDocView
 
         /// <summary>
         /// Assigns out parameter with the Guid of the EditorFactory.
@@ -421,9 +425,9 @@ namespace Microsoft.XmlTemplateDesigner
             return VSConstants.S_OK;
         }
 
-        #endregion
+#endregion
 
-        #region IOleComponent
+#region IOleComponent
 
         int IOleComponent.FContinueMessageLoop(uint uReason, IntPtr pvLoopData, MSG[] pMsgPeeked)
         {
@@ -465,6 +469,6 @@ namespace Microsoft.XmlTemplateDesigner
         void IOleComponent.OnLoseActivation() { }
         void IOleComponent.Terminate() { }
 
-        #endregion
+#endregion
     }
 }

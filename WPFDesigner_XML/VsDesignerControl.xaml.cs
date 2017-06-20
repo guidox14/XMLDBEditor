@@ -1263,18 +1263,18 @@ namespace Microsoft.XmlTemplateDesigner
 
         private void AttributeTypeComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            List<AttributeType> attTypeList = new List<AttributeType>();
-            attTypeList.Add(AttributeType.Undefined);
-            attTypeList.Add(AttributeType.Integer16);
-            attTypeList.Add(AttributeType.Integer32);
-            attTypeList.Add(AttributeType.Integer64);
-            attTypeList.Add(AttributeType.Boolean);
-            attTypeList.Add(AttributeType.Double);
-            attTypeList.Add(AttributeType.String);
-            attTypeList.Add(AttributeType.Date);
-            attTypeList.Add(AttributeType.BLOB);
-            attTypeList.Add(AttributeType.GUID);
-            attTypeList.Add(AttributeType.Text);
+            List<string> attTypeList = new List<string>();
+            attTypeList.Add(AttributeType.Undefined.ToString());
+            attTypeList.Add(Helper.ConvertAttTypeToString(AttributeType.Integer16) );
+            attTypeList.Add(Helper.ConvertAttTypeToString(AttributeType.Integer32));
+            attTypeList.Add( Helper.ConvertAttTypeToString( AttributeType.Integer64) );
+            attTypeList.Add(AttributeType.Boolean.ToString());
+            attTypeList.Add(AttributeType.Double.ToString());
+            attTypeList.Add(AttributeType.String.ToString());
+            attTypeList.Add(AttributeType.Date.ToString());
+            attTypeList.Add(AttributeType.BLOB.ToString());
+            attTypeList.Add(AttributeType.GUID.ToString());
+            attTypeList.Add(AttributeType.Text.ToString());
 
             ComboBox attTypeComboBox = (ComboBox)sender;
             attTypeComboBox.ItemsSource = attTypeList;

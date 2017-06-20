@@ -21,21 +21,21 @@ namespace WPFDesigner_XML.Common.Models.Entity
         Undefined = 0,
 
         /// <summary>
-        /// The type is an Integer16.
+        /// The type is an Integer 16.
         /// </summary>
-        [LocalizableDescription(@"Integer16", typeof(Resources))]
+        [LocalizableDescription(@"Integer 16", typeof(Resources))]
         Integer16 = 1,
 
         /// <summary>
         /// The type is an Integer32.
         /// </summary>
-        [LocalizableDescription(@"Integer32", typeof(Resources))]
+        [LocalizableDescription(@"Integer 32", typeof(Resources))]
         Integer32 = 2,
 
         /// <summary>
         /// The type is an Integer64.
         /// </summary>
-        [LocalizableDescription(@"Integer64", typeof(Resources))]
+        [LocalizableDescription(@"Integer 64", typeof(Resources))]
         Integer64 = 3,
 
         /// <summary>
