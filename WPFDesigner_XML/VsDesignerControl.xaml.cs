@@ -1285,7 +1285,7 @@ namespace Microsoft.XmlTemplateDesigner
             ComboBox attTypeComboBox = (ComboBox)sender;
             if (this.SelectedAttribute != null)
             {
-                this.SelectedAttribute.attributeType = Helper.ConvertAttTypeToString((AttributeType)attTypeComboBox.SelectedItem);
+                this.SelectedAttribute.attributeType = attTypeComboBox.SelectedItem.ToString();
             }
         }
 
