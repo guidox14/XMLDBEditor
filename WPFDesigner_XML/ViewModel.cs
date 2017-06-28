@@ -425,6 +425,9 @@ namespace Microsoft.XmlTemplateDesigner
             {
                 foreach (var currentAttribute in currentEntity.attribute)
                 {
+                    if (currentAttribute.isClientKey == null)
+                        currentAttribute.isClientKey = "False";
+
                     string attType = currentAttribute.attributeType;
                     switch (attType)
                     {

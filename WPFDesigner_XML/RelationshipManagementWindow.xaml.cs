@@ -88,7 +88,8 @@ namespace Microsoft.XmlTemplateDesigner
             if (parentWindow.SelectedEntity != null)
             {
                 List<string> attrsName = new List<string>();
-                parentWindow.SelectedEntity.attribute.Where(a => a != null && Helper.ValidateBoolFromString( a.isClientKey) ).ToList().ForEach(a => attrsName.Add(a.name));
+                //parentWindow.SelectedEntity.attribute.Where(a => a != null && Helper.ValidateBoolFromString( a.isClientKey) ).ToList().ForEach(a => attrsName.Add(a.name));
+                parentWindow.SelectedEntity.attribute.Where(a => a != null).ToList().ForEach(a => attrsName.Add(a.name));
                 this.SourceKeyComboBox.ItemsSource = new ObservableCollection<string>(attrsName);
             }
         }

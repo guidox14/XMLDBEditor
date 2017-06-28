@@ -590,6 +590,8 @@ namespace DBXTemplateDesigner.CCModels {
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public string isClientKey {
             get {
+                if (isClientKeyField == null)
+                    isClientKeyField = "False";
                 return this.isClientKeyField;
             }
             set {
