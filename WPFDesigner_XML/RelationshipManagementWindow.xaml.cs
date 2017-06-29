@@ -260,7 +260,7 @@ namespace Microsoft.XmlTemplateDesigner
                 this.InverseComboBox.ItemsSource = new ObservableCollection<string>(values);
                 this.InverseComboBox.UpdateLayout();
 
-                string selected = values.FirstOrDefault(a => a == this.EntityRelationshipModel.inverseEntity);
+                string selected = values.FirstOrDefault(a => a.Contains(this.EntityRelationshipModel.inverseEntity) );
                 this.InverseComboBox.SelectedItem = selected;
             }
         }

@@ -26,6 +26,7 @@ using IOleServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 using DBXTemplateDesigner.CCModels;
 using System.Collections.Generic;
 using WPFDesigner_XML;
+using System.Linq;
 
 namespace Microsoft.XmlTemplateDesigner
 {
@@ -423,6 +424,8 @@ namespace Microsoft.XmlTemplateDesigner
         {
             foreach (var currentEntity in XmlTemplateModel.entity)
             {
+                CheckIsRootRelated(currentEntity);
+
                 foreach (var currentAttribute in currentEntity.attribute)
                 {
                     if (currentAttribute.isClientKey == null)
@@ -440,6 +443,24 @@ namespace Microsoft.XmlTemplateDesigner
                         case "Integer64":
                             currentAttribute.attributeType = "Integer 64";
                             break;
+                    }
+                }
+            }
+        }
+
+        void CheckIsRootRelated(modelEntity selectedEntity)
+        {
+            if (selectedEntity != null && selectedEntity.isRootRelated.Equals("True"))
+            {
+                List<modelEntityAttribute> parcelNumberAtts = selectedEntity.attribute.Where(a => a.name.Contains("parcelNbr_mb")).ToList();
+                modelEntityAttribute rootIdAtt = selectedEntity.attribute.Where(a => a.name.Contains("rootId_mb")).First();
+                foreach (var currentAtt in parcelNumberAtts)
+                {
+                    selectedEntity.attribute.Remove(currentAtt);
+                    if (rootIdAtt == null)
+                    {
+                        currentAtt.name = "rootId_mb";
+                        selectedEntity.attribute.Add(currentAtt);
                     }
                 }
             }

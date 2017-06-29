@@ -104,7 +104,7 @@ namespace Microsoft.XmlTemplateDesigner
             DataContext = viewModel;
             InitializeComponent();
             // wait until we're initialized to handle events
-            viewModel.ViewModelChanged += new EventHandler(ViewModelChanged);
+            //viewModel.ViewModelChanged += new EventHandler(ViewModelChanged);
         }
 
         internal void DoIdle()
@@ -359,6 +359,14 @@ namespace Microsoft.XmlTemplateDesigner
                         MessageBox.Show(MessageResources.EmptyEntityName, MessageResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
+
+                var selectedIndex = EntitiesDataGrid.SelectedIndex;
+                this.EntitiesDataGrid.ItemsSource = null;
+                this.EntitiesDataGrid.ItemsSource = new ObservableCollection<modelEntity>(entities.Where(a => !a.name.EndsWith("_mb")).ToList());
+                this.EntitiesDataGrid.UpdateLayout();
+
+                this.EntitiesDataGrid.SelectedIndex = selectedIndex;
+
             }
         }
 
@@ -413,6 +421,7 @@ namespace Microsoft.XmlTemplateDesigner
                 this.ChbEnableTracing.IsChecked = false;
                 this.TxtSyncOrder.Text = "0";
                 this.TxtDescription.Text = string.Empty;
+                this.TxtFriendlyName.Text = string.Empty;
                 this.CkbIsMediaEntity.IsChecked = false;
                 this.txtBackendQuery.Text = string.Empty;
             }
@@ -647,7 +656,7 @@ namespace Microsoft.XmlTemplateDesigner
         private void TxtDescription_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox tb = sender as TextBox;
-            if (tb != null)
+            if (tb != null && SelectedEntity != null)
             {
                 SelectedEntity.description = tb.Text;
             }
@@ -656,7 +665,7 @@ namespace Microsoft.XmlTemplateDesigner
         private void TxtFriendlyName_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox tb = sender as TextBox;
-            if (tb != null)
+            if (tb != null && SelectedEntity != null)
             {
                 SelectedEntity.friendlyName = tb.Text;
             }
@@ -683,9 +692,11 @@ namespace Microsoft.XmlTemplateDesigner
             if (SelectedEntity != null)
             {
                 SelectedEntity.isRootRelated = "True";
-                AddAttibute("parcelNbr_mb", "string");
+
+                AddAttibute("rootId_mb", "string");
+
                 this.AttributeDataGrid.ItemsSource = null;
-                this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.name.EndsWith("_mb")).ToList();
+                this.AttributeDataGrid.ItemsSource = Attributes.Where(a => !a.name.EndsWith("_mb")).ToList();
             }
         }
 
@@ -694,7 +705,7 @@ namespace Microsoft.XmlTemplateDesigner
             if (SelectedEntity != null)
             {
                 SelectedEntity.isRootRelated = "False";
-                RemoveAttribute("parcelNbr_mb");
+                RemoveAttribute("rootId_mb");
                 this.AttributeDataGrid.ItemsSource = null;
                 this.AttributeDataGrid.ItemsSource = this.Attributes.Where(a => !a.name.EndsWith("_mb")).ToList();
             }
@@ -1018,25 +1029,67 @@ namespace Microsoft.XmlTemplateDesigner
 
                     FrameworkElement element2 = AttributeDataGrid.Columns[1].GetCellContent(e.Row);
                     ComboBox attributeTypeComboBox = GetChildControl(element2, "TypeComboBox") as ComboBox;
-                    if (attributeTypeComboBox != null)
+                    if (attributeTypeComboBox != null )
                     {
-                        if (attr == null && attributeNameTextBox == null)
+                        if (attributeTypeComboBox.SelectedItem != null)
+                        {
+                            if (attr == null && SelectedEntity != null)
+                            {
+                                attr = this.SelectedEntity.attribute.FirstOrDefault(a => a.name == this.SelectedAttribute.name);
+                            }
+
+                            if (attr != null)
+                            {
+                                if (!attr.attributeType.Equals(attributeTypeComboBox.SelectedItem.ToString()))
+                                {
+                                    attr.attributeType = attributeTypeComboBox.SelectedItem.ToString();
+                                    //attr.AttributeInfo = DatabaseManagementHelper.GetAttributeInfoFromType(attr.AttributeType);
+                                    this.AttributeInformation.SetAttribute(attr);
+                                }
+                            }
+
+                            this.SelectedAttribute.attributeType = attributeTypeComboBox.SelectedItem.ToString();
+                        }
+                        else if (attributeTypeComboBox.SelectedItem == null)
+                        {
+                            attributeTypeComboBox.SelectedItem = "Undefined";
+                            this.SelectedAttribute.attributeType = attributeTypeComboBox.SelectedItem.ToString();
+                        }
+                    }
+
+                    FrameworkElement element3 = AttributeDataGrid.Columns[2].GetCellContent(e.Row);
+                    CheckBox isIndexedChkBox = GetChildControl(element3, "AttributeIndexedCheckBox") as CheckBox;
+                    if (isIndexedChkBox != null)
+                    {
+                        if (attr == null && SelectedEntity != null)
                         {
                             attr = this.SelectedEntity.attribute.FirstOrDefault(a => a.name == this.SelectedAttribute.name);
                         }
-
-                        if (attr != null)
-                        {
-                            if (!attr.attributeType.Equals(attributeTypeComboBox.SelectedItem.ToString()))
-                            {
-                                attr.attributeType = attributeTypeComboBox.SelectedItem.ToString();
-                                //attr.AttributeInfo = DatabaseManagementHelper.GetAttributeInfoFromType(attr.AttributeType);
-                                this.AttributeInformation.SetAttribute(attr);
-                            }
-                        }
-
-                        this.SelectedAttribute.attributeType = attributeTypeComboBox.SelectedItem.ToString();
+                        attr.indexed = Helper.ConvertBoolToString(isIndexedChkBox.IsChecked);
                     }
+
+                    FrameworkElement element4 = AttributeDataGrid.Columns[3].GetCellContent(e.Row);
+                    CheckBox isClientKeyChkBox = GetChildControl(element4, "AttributeIsClientKeyCheckBox") as CheckBox;
+                    if (isClientKeyChkBox != null)
+                    {
+                        if (attr == null && SelectedEntity != null)
+                        {
+                            attr = this.SelectedEntity.attribute.FirstOrDefault(a => a.name == this.SelectedAttribute.name);
+                        }
+                        attr.isClientKey = Helper.ConvertBoolToString(isClientKeyChkBox.IsChecked);
+                    }
+
+                    FrameworkElement element5 = AttributeDataGrid.Columns[4].GetCellContent(e.Row);
+                    TextBox descriptionTextBox = GetChildControl(element5, "AttributeDescriptionTextBox") as TextBox;
+                    if (descriptionTextBox != null && descriptionTextBox.Text != null)
+                    {
+                        if (attr == null && SelectedEntity != null)
+                        {
+                            attr = this.SelectedEntity.attribute.FirstOrDefault(a => a.name == this.SelectedAttribute.name);
+                        }
+                        attr.description = descriptionTextBox.Text;
+                    }
+
                 }
                 else
                 {
@@ -1331,6 +1384,13 @@ namespace Microsoft.XmlTemplateDesigner
         private void SaveToXML_Btn_Click(object sender, RoutedEventArgs e)
         {
             ((ViewModel)DataContext).SaveModelToXmlModel(string.Empty);
+
+            /*var viewModel = (ViewModel)DataContext;
+
+            InitializeComponent();
+
+            EntitiesDataGrid.ItemsSource = null;
+            EntitiesDataGrid_Loaded(viewModel, new RoutedEventArgs());*/
         }
 
         private void AttributeIndexedCheckBox_Loaded(object sender, RoutedEventArgs e)
