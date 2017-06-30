@@ -176,7 +176,7 @@ namespace Microsoft.XmlTemplateDesigner
         /// <summary>
         /// Called on idle time. This is when we check if the designer is out of sync with the underlying text buffer.
         /// </summary>
-        public void DoIdle()
+        /*public void DoIdle()
         {
             if (BufferDirty || DesignerDirty)
             {
@@ -204,7 +204,7 @@ namespace Microsoft.XmlTemplateDesigner
                     }
                 }
             }
-        }
+        }*/
 
         /// <summary>
         /// Load the model from the underlying text buffer.
@@ -453,11 +453,11 @@ namespace Microsoft.XmlTemplateDesigner
             if (selectedEntity != null && selectedEntity.isRootRelated.Equals("True"))
             {
                 List<modelEntityAttribute> parcelNumberAtts = selectedEntity.attribute.Where(a => a.name.Contains("parcelNbr_mb")).ToList();
-                modelEntityAttribute rootIdAtt = selectedEntity.attribute.Where(a => a.name.Contains("rootId_mb")).First();
+                List<modelEntityAttribute> rootIdAtt = selectedEntity.attribute.Where(a => a.name.Contains("rootId_mb")).ToList();
                 foreach (var currentAtt in parcelNumberAtts)
                 {
                     selectedEntity.attribute.Remove(currentAtt);
-                    if (rootIdAtt == null)
+                    if (rootIdAtt.Count == 0)
                     {
                         currentAtt.name = "rootId_mb";
                         selectedEntity.attribute.Add(currentAtt);

@@ -436,10 +436,10 @@ namespace Microsoft.XmlTemplateDesigner
 
         int IOleComponent.FDoIdle(uint grfidlef)
         {
-            if (_vsDesignerControl != null)
+            /*if (_vsDesignerControl != null)
             {
                 _vsDesignerControl.DoIdle();
-            }
+            }*/
             return VSConstants.S_OK;
         }
 

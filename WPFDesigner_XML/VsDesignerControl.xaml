@@ -195,8 +195,8 @@
 								  VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" >
 							<DataGrid.Resources>
 								<Style TargetType="ScrollBar">
-									<Setter Property="Background" Value="Gray"/>
-									<Setter Property="Foreground" Value="LightSlateGray" />
+									<Setter Property="Background" Value="LightSlateGray"/>
+									<Setter Property="Foreground" Value="Gray" />
 								</Style>
 							</DataGrid.Resources>
 							<DataGrid.Columns>
@@ -282,8 +282,8 @@
 								  VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" >
 							<DataGrid.Resources>
 								<Style TargetType="ScrollBar">
-									<Setter Property="Background" Value="Gray"/>
-									<Setter Property="Foreground" Value="LightSlateGray" />
+									<Setter Property="Background" Value="LightSlateGray"/>
+									<Setter Property="Foreground" Value="Gray" />
 								</Style>
 							</DataGrid.Resources>
 							<DataGrid.Columns>
@@ -333,16 +333,16 @@
 				<GroupBox Grid.Row="3" Header="Backend Data Query" Margin="5">
 					<GroupBox.Resources>
 						<Style TargetType="{x:Type ScrollBar}">
-							<Setter Property="Background" Value="Gray"/>
-							<Setter Property="Foreground" Value="LightSlateGray" />
+							<Setter Property="Background" Value="LightSlateGray"/>
+							<Setter Property="Foreground" Value="Gray" />
 						</Style>
 					</GroupBox.Resources>
 					<TextBox Margin="5" x:Name="txtBackendQuery" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Visible"
 							 VerticalScrollBarVisibility="Visible" TextChanged="txtBackendQuery_TextChanged" TextWrapping="Wrap">
 						<TextBox.Resources>
 							<Style TargetType="{x:Type ScrollBar}">
-								<Setter Property="Background" Value="Gray"/>
-								<Setter Property="Foreground" Value="LightSlateGray" />
+								<Setter Property="Background" Value="LightSlateGray"/>
+								<Setter Property="Foreground" Value="Gray" />
 							</Style>
 						</TextBox.Resources>
 					</TextBox>

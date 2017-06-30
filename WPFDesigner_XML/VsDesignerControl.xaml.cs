@@ -112,11 +112,12 @@ namespace Microsoft.XmlTemplateDesigner
             // only call the view model DoIdle if this control has focus
             // otherwise, we should skip and this will be called again
             // once focus is regained
-            ViewModel viewModel = DataContext as ViewModel;
+
+            /*ViewModel viewModel = DataContext as ViewModel;
             if (viewModel != null && this.IsKeyboardFocusWithin)
             {
                 viewModel.DoIdle();
-            }
+            }*/
         }
 
         /// <summary>
@@ -131,14 +132,14 @@ namespace Microsoft.XmlTemplateDesigner
             }
         }
 
-        private void ViewModelChanged(object sender, EventArgs e)
+        /*private void ViewModelChanged(object sender, EventArgs e)
         {
             // this gets called when the view model is updated because the Xml Document was updated
             // since we don't get individual PropertyChanged events, just re-set the DataContext
             ViewModel viewModel = DataContext as ViewModel;
             DataContext = null; // first, set to null so that we see the change and rebind
             DataContext = viewModel;
-        }
+        }*/
 
         private void treeContent_Loaded(object sender, RoutedEventArgs e)
         {
@@ -714,7 +715,7 @@ namespace Microsoft.XmlTemplateDesigner
         private void txtBackendQuery_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox tb = sender as TextBox;
-            if (tb != null)
+            if (tb != null && SelectedEntity != null)
             {
                 SelectedEntity.backendQuery = tb.Text;
             }
@@ -976,126 +977,134 @@ namespace Microsoft.XmlTemplateDesigner
         /// <param name="e">The <see cref="System.Windows.Controls.DataGridCellEditEndingEventArgs"/> Instance containing the event data.</param>
         private void AttributeDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            if (this.SelectedAttribute != null)
+            try
             {
-                if (!Helper.ValidateBoolFromString(this.SelectedAttribute.isDefault == null ? "False" : this.SelectedAttribute.isDefault))
+                if (this.SelectedAttribute != null)
                 {
-                    FrameworkElement element1 = AttributeDataGrid.Columns[0].GetCellContent(e.Row);
-                    modelEntityAttribute attr = null;
-                    TextBox attributeNameTextBox = GetChildControl(element1, "AttributeNameTextBox") as TextBox;
-                    if (attributeNameTextBox != null)
+                    if (!Helper.ValidateBoolFromString(this.SelectedAttribute.isDefault == null ? "False" : this.SelectedAttribute.isDefault))
                     {
-                        if (this.SelectedEntity != null)
+                        FrameworkElement element1 = AttributeDataGrid.Columns[0].GetCellContent(e.Row);
+                        modelEntityAttribute attr = null;
+                        TextBox attributeNameTextBox = GetChildControl(element1, "AttributeNameTextBox") as TextBox;
+                        if (attributeNameTextBox != null)
                         {
-                            attr = this.SelectedEntity.attribute.FirstOrDefault(a => a.name == attributeNameTextBox.Text);
-                        }
-
-                        if (attr == null && this.SelectedAttribute != null)
-                        {
-                            if (!string.IsNullOrEmpty(attributeNameTextBox.Text))
+                            if (this.SelectedEntity != null)
                             {
-                                bool isValid = char.IsLetter(attributeNameTextBox.Text.FirstOrDefault()) && attributeNameTextBox.Text.FirstOrDefault() == char.ToLower(attributeNameTextBox.Text.FirstOrDefault());
-                                if (isValid)
-                                {
-                                    isValid = !reservedWords.Contains(attributeNameTextBox.Text);
+                                attr = this.SelectedEntity.attribute.FirstOrDefault(a => a.name == attributeNameTextBox.Text);
+                            }
 
+                            if (attr == null && this.SelectedAttribute != null)
+                            {
+                                if (!string.IsNullOrEmpty(attributeNameTextBox.Text))
+                                {
+                                    bool isValid = char.IsLetter(attributeNameTextBox.Text.FirstOrDefault()) && attributeNameTextBox.Text.FirstOrDefault() == char.ToLower(attributeNameTextBox.Text.FirstOrDefault());
                                     if (isValid)
                                     {
-                                        this.SelectedAttribute.name = attributeNameTextBox.Text;
+                                        isValid = !reservedWords.Contains(attributeNameTextBox.Text);
+
+                                        if (isValid)
+                                        {
+                                            this.SelectedAttribute.name = attributeNameTextBox.Text;
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show(MessageResources.ReservedWordUsed, MessageResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                                        }
                                     }
                                     else
                                     {
-                                        MessageBox.Show(MessageResources.ReservedWordUsed, MessageResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                                        MessageBox.Show(MessageResources.InvalidAttributeName, MessageResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                                     }
                                 }
                                 else
                                 {
-                                    MessageBox.Show(MessageResources.InvalidAttributeName, MessageResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MessageBox.Show(MessageResources.EmptyAttributeName, MessageResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                                 }
                             }
                             else
                             {
-                                MessageBox.Show(MessageResources.EmptyAttributeName, MessageResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                                if (attr != this.SelectedAttribute)
+                                {
+                                    MessageBox.Show(MessageResources.NameBeenUsedAttribute, MessageResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                                }
                             }
                         }
-                        else
-                        {
-                            if (attr != this.SelectedAttribute)
-                            {
-                                MessageBox.Show(MessageResources.NameBeenUsedAttribute, MessageResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                            }
-                        }
-                    }
 
-                    FrameworkElement element2 = AttributeDataGrid.Columns[1].GetCellContent(e.Row);
-                    ComboBox attributeTypeComboBox = GetChildControl(element2, "TypeComboBox") as ComboBox;
-                    if (attributeTypeComboBox != null )
-                    {
-                        if (attributeTypeComboBox.SelectedItem != null)
+                        FrameworkElement element2 = AttributeDataGrid.Columns[1].GetCellContent(e.Row);
+                        ComboBox attributeTypeComboBox = GetChildControl(element2, "TypeComboBox") as ComboBox;
+                        if (attributeTypeComboBox != null)
+                        {
+                            if (attributeTypeComboBox.SelectedItem != null)
+                            {
+                                if (attr == null && SelectedEntity != null)
+                                {
+                                    attr = this.SelectedEntity.attribute.FirstOrDefault(a => a.name == this.SelectedAttribute.name);
+                                }
+
+                                if (attr != null)
+                                {
+                                    if (!attr.attributeType.Equals(attributeTypeComboBox.SelectedItem.ToString()))
+                                    {
+                                        attr.attributeType = attributeTypeComboBox.SelectedItem.ToString();
+                                        //attr.AttributeInfo = DatabaseManagementHelper.GetAttributeInfoFromType(attr.AttributeType);
+                                        this.AttributeInformation.SetAttribute(attr);
+                                    }
+                                }
+
+                                this.SelectedAttribute.attributeType = attributeTypeComboBox.SelectedItem.ToString();
+                            }
+                            else if (attributeTypeComboBox.SelectedItem == null)
+                            {
+                                attributeTypeComboBox.SelectedItem = "Undefined";
+                                this.SelectedAttribute.attributeType = attributeTypeComboBox.SelectedItem.ToString();
+                            }
+                        }
+
+                        FrameworkElement element3 = AttributeDataGrid.Columns[2].GetCellContent(e.Row);
+                        CheckBox isIndexedChkBox = GetChildControl(element3, "AttributeIndexedCheckBox") as CheckBox;
+                        if (isIndexedChkBox != null)
                         {
                             if (attr == null && SelectedEntity != null)
                             {
                                 attr = this.SelectedEntity.attribute.FirstOrDefault(a => a.name == this.SelectedAttribute.name);
                             }
+                            attr.indexed = Helper.ConvertBoolToString(isIndexedChkBox.IsChecked);
+                        }
 
-                            if (attr != null)
+                        FrameworkElement element4 = AttributeDataGrid.Columns[3].GetCellContent(e.Row);
+                        CheckBox isClientKeyChkBox = GetChildControl(element4, "AttributeIsClientKeyCheckBox") as CheckBox;
+                        if (isClientKeyChkBox != null)
+                        {
+                            if (attr == null && SelectedEntity != null)
                             {
-                                if (!attr.attributeType.Equals(attributeTypeComboBox.SelectedItem.ToString()))
-                                {
-                                    attr.attributeType = attributeTypeComboBox.SelectedItem.ToString();
-                                    //attr.AttributeInfo = DatabaseManagementHelper.GetAttributeInfoFromType(attr.AttributeType);
-                                    this.AttributeInformation.SetAttribute(attr);
-                                }
+                                attr = this.SelectedEntity.attribute.FirstOrDefault(a => a.name == this.SelectedAttribute.name);
                             }
-
-                            this.SelectedAttribute.attributeType = attributeTypeComboBox.SelectedItem.ToString();
+                            attr.isClientKey = Helper.ConvertBoolToString(isClientKeyChkBox.IsChecked);
                         }
-                        else if (attributeTypeComboBox.SelectedItem == null)
+
+                        FrameworkElement element5 = AttributeDataGrid.Columns[4].GetCellContent(e.Row);
+                        TextBox descriptionTextBox = GetChildControl(element5, "AttributeDescriptionTextBox") as TextBox;
+                        if (descriptionTextBox != null && descriptionTextBox.Text != null)
                         {
-                            attributeTypeComboBox.SelectedItem = "Undefined";
-                            this.SelectedAttribute.attributeType = attributeTypeComboBox.SelectedItem.ToString();
+                            if (attr == null && SelectedEntity != null)
+                            {
+                                attr = this.SelectedEntity.attribute.FirstOrDefault(a => a.name == this.SelectedAttribute.name);
+                            }
+                            attr.description = descriptionTextBox.Text;
                         }
-                    }
 
-                    FrameworkElement element3 = AttributeDataGrid.Columns[2].GetCellContent(e.Row);
-                    CheckBox isIndexedChkBox = GetChildControl(element3, "AttributeIndexedCheckBox") as CheckBox;
-                    if (isIndexedChkBox != null)
+                    }
+                    else
                     {
-                        if (attr == null && SelectedEntity != null)
-                        {
-                            attr = this.SelectedEntity.attribute.FirstOrDefault(a => a.name == this.SelectedAttribute.name);
-                        }
-                        attr.indexed = Helper.ConvertBoolToString(isIndexedChkBox.IsChecked);
+                        MessageBox.Show(MessageResources.DefaultAttributeChanges, MessageResources.Information, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-
-                    FrameworkElement element4 = AttributeDataGrid.Columns[3].GetCellContent(e.Row);
-                    CheckBox isClientKeyChkBox = GetChildControl(element4, "AttributeIsClientKeyCheckBox") as CheckBox;
-                    if (isClientKeyChkBox != null)
-                    {
-                        if (attr == null && SelectedEntity != null)
-                        {
-                            attr = this.SelectedEntity.attribute.FirstOrDefault(a => a.name == this.SelectedAttribute.name);
-                        }
-                        attr.isClientKey = Helper.ConvertBoolToString(isClientKeyChkBox.IsChecked);
-                    }
-
-                    FrameworkElement element5 = AttributeDataGrid.Columns[4].GetCellContent(e.Row);
-                    TextBox descriptionTextBox = GetChildControl(element5, "AttributeDescriptionTextBox") as TextBox;
-                    if (descriptionTextBox != null && descriptionTextBox.Text != null)
-                    {
-                        if (attr == null && SelectedEntity != null)
-                        {
-                            attr = this.SelectedEntity.attribute.FirstOrDefault(a => a.name == this.SelectedAttribute.name);
-                        }
-                        attr.description = descriptionTextBox.Text;
-                    }
-
-                }
-                else
-                {
-                    MessageBox.Show(MessageResources.DefaultAttributeChanges, MessageResources.Information, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
+            catch (Exception ex)
+            {
+                var error = ex.Message;
+            }
+
         }
 
         /// <summary>
@@ -1105,21 +1114,26 @@ namespace Microsoft.XmlTemplateDesigner
         /// <param name="e">The <see cref="System.Windows.Controls.SelectionChangedEventArgs"/> Instance containing the event data.</param>
         private void AttributeDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.SelectedAttribute = (modelEntityAttribute)this.AttributeDataGrid.SelectedItem;
-
-            if (this.AttributeDataGrid.SelectedItem != null)
+            try
             {
-                this.SelectedAttribute = (modelEntityAttribute)this.AttributeDataGrid.SelectedItem;
-                if (this.SelectedAttribute != null)
+                if (this.AttributeDataGrid.SelectedItem != null)
                 {
-                    //this.SelectedAttribute.AttributeTypeChanged += new EventHandler(SelectedAttribute_AttributeTypeChanged);
-                    this.AttributeInformation.SetAttribute(this.SelectedAttribute);
-                    this.AttributeInformation.IsEnabled = !Helper.ValidateBoolFromString(this.SelectedAttribute.isDefault == null ? "False" : this.SelectedAttribute.isDefault);
+                    this.SelectedAttribute = (modelEntityAttribute)this.AttributeDataGrid.SelectedItem;
+                    if (this.SelectedAttribute != null)
+                    {
+                        //this.SelectedAttribute.AttributeTypeChanged += new EventHandler(SelectedAttribute_AttributeTypeChanged);
+                        this.AttributeInformation.SetAttribute(this.SelectedAttribute);
+                        this.AttributeInformation.IsEnabled = !Helper.ValidateBoolFromString(this.SelectedAttribute.isDefault == null ? "False" : this.SelectedAttribute.isDefault);
+                    }
+                }
+                else
+                {
+                    this.AttributeInformation.SetAttribute(null);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                this.AttributeInformation.SetAttribute(null);
+                var error = ex.Message;
             }
         }
 
