@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vstd="clr-namespace:Microsoft.XmlTemplateDesigner"
 			 xmlns:conv="clr-namespace:WPFDesigner_XML.Common.Converters"
+			 xmlns:models="clr-namespace:WPFDesigner_XML.Common.Models.Entity"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
 			 xmlns:model="clr-namespace:DBXTemplateDesigner"
              mc:Ignorable="d" 
@@ -37,6 +38,7 @@
 		</ObjectDataProvider>-->
 
 		<conv:EnumToFriendlyNameConverter x:Key="EnumItemsConverter"/>
+		<!--<models:SyncType x:Key="SyncronizationType" />-->
 	</UserControl.Resources>
 	<Grid>
 		<DockPanel Name="dcPanel" Grid.Row="1">
@@ -157,7 +159,7 @@
 								<ComboBox Grid.Column="1" x:Name="SyncComboBox" SelectedIndex="0" HorizontalAlignment="Left" MinWidth="150" VerticalAlignment="Center" Margin="12,5,-41,5" SelectionChanged="SyncComboBox_SelectionChanged"  Width="199" Loaded="SyncComboBox_Loaded">
 									<!--<ComboBox.ItemTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding Converter={StaticResource EnumItemsConverter}, Mode=OneWay}"/>
+											<TextBlock Text="{Binding Converter={StaticResource SyncronizationType}, Mode=OneWay}"/>
 										</DataTemplate>
 									</ComboBox.ItemTemplate>-->
 								</ComboBox>

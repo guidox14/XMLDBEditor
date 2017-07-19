@@ -403,7 +403,8 @@ namespace Microsoft.XmlTemplateDesigner
                 this.CkbIsMediaEntity.IsChecked = Helper.ValidateBoolFromString(SelectedEntity.isMediaEntity == null ? "False" : SelectedEntity.isMediaEntity);
                 this.txtBackendQuery.Text = SelectedEntity.backendQuery;
                 this.RuleComboBox.SelectedItem = SelectedEntity.conflictResolutionRule;
-                this.SyncComboBox.SelectedItem = SelectedEntity.syncType;
+                SyncType sync = Helper.ConvertStringToSyncType(SelectedEntity.syncType);
+                this.SyncComboBox.SelectedIndex = Helper.ConvertSyncTypeToInt(sync);
                 this.AttributeDataGrid.ItemsSource = SelectedEntity.attribute.Where(a => !a.name.EndsWith("_mb")).ToList();
                 this.AttributeDataGrid.SelectedIndex = 0;
                 this.RelationshipDataGrid.ItemsSource = this.Relationships;
@@ -415,7 +416,7 @@ namespace Microsoft.XmlTemplateDesigner
                 this.AttributeDataGrid.SelectedIndex = -1;
                 this.RelationshipDataGrid.ItemsSource = new ObservableCollection<modelEntityRelationship>();
                 this.RuleComboBox.SelectedItem = ConflictResolutionRule.mbSyncWin;
-                this.SyncComboBox.SelectedItem = SyncType.syncBothDirections;
+                this.SyncComboBox.SelectedIndex = 0;
                 this.RelationshipDataGrid.SelectedIndex = -1;
                 this.CkbIsRoot.IsChecked = false;
                 this.CkbIsRootRelated.IsChecked = false;
@@ -1326,6 +1327,8 @@ namespace Microsoft.XmlTemplateDesigner
             newSyncType.Add(SyncType.syncToMiddleTier);
 
             SyncComboBox.ItemsSource = newSyncType;
+
+            var syncType = this.SelectedEntity.syncType;
         }
 
         private void AttributeTypeComboBox_Loaded(object sender, RoutedEventArgs e)

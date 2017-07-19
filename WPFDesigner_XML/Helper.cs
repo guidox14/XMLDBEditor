@@ -37,7 +37,22 @@ namespace WPFDesigner_XML
             return newSyncType;
         }
 
-        public static string ConvertAttTypeToString(AttributeType attType)
+        public static SyncType ConvertStringToSyncType(string syncType)
+        {
+            switch (syncType)
+            {
+                case "syncBothDirections":
+                    return SyncType.syncBothDirections;
+                case "syncToDevice":
+                    return SyncType.syncToDevice;
+                case "syncToMiddleTier":
+                    return SyncType.syncToMiddleTier;
+                default:
+                    return SyncType.syncBothDirections;
+            }
+        }
+
+            public static string ConvertAttTypeToString(AttributeType attType)
         {
             string newAttType = attType.ToString();
             switch (newAttType)
