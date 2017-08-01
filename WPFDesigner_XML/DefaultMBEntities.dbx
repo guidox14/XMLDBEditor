@@ -309,7 +309,7 @@
     <attribute optional="YES" syncable="YES" name="syncDate_mb" attributeType="Double" isDefault="False" indexed="NO" isEditable="true" isPrimaryKey="false" attributeLevel="Level0" inSQLiteDB="true" decimals="2" moneySymbol="None" />
     <attribute optional="YES" syncable="YES" name="syncOrder_mb" attributeType="Integer 32" isDefault="False" indexed="NO" isEditable="true" isPrimaryKey="false" attributeLevel="Level0" inSQLiteDB="true" infoType="Numeric" />
     <attribute optional="YES" syncable="YES" name="syncType_mb" attributeType="Integer 32" isDefault="False" indexed="NO" isEditable="true" isPrimaryKey="false" attributeLevel="Level0" inSQLiteDB="true" infoType="Numeric" />
-    <relationship optional="YES" syncable="YES" name="downloadSyncChunk_mb" destinationEntity="DownloadSyncChunk_mb" toMany="YES" deletionRule="Cascade" inverseName="downloadSyncHeader_mb" inverseEntity="DownloadSyncChunk_mb" toMany="false" />
+    <relationship optional="YES" syncable="YES" name="downloadSyncChunk_mb" destinationEntity="DownloadSyncChunk_mb" deletionRule="Cascade" inverseName="downloadSyncHeader_mb" inverseEntity="DownloadSyncChunk_mb" toMany="false" />
   </entity>
   <entity name="LastSync_mb" representedClassName="LastSync_mb" syncable="YES" isRoot="false" syncOrder="0" defaultProcess="true" isDefault="true" isMediaEntity="false" conflictResolutionRule="mbSyncWin" syncType="noSyncDeviceOnly" description="" friendlyName="" allowForMaps="false" isRootRelated="false" enableTracing="false" backendQuery="">
     <attribute optional="YES" syncable="YES" name="guid_mb" attributeType="GUID" isDefault="True" indexed="YES" isEditable="true" isPrimaryKey="true" attributeLevel="Level0" inSQLiteDB="true" />

@@ -185,7 +185,7 @@ namespace Microsoft.XmlTemplateDesigner
         private void EntitiesDataGrid_Loaded(object sender, RoutedEventArgs e)
         {
             model newDataContext = ((ViewModel)DataContext).XmlTemplateModel;
-            List<modelEntity> entityList = newDataContext.entity.Where(ent => !ent.name.EndsWith("_mb")).ToList();
+            List<modelEntity> entityList = newDataContext.entity.Where(ent => !ent.name.EndsWith("_mb") && !ent.name.Contains("MBUserTask") ).ToList();
             for (int i = 0; i < entityList.Count; i++)
             {
                 var currentEntity = entityList[i];
@@ -1327,8 +1327,6 @@ namespace Microsoft.XmlTemplateDesigner
             newSyncType.Add(SyncType.syncToMiddleTier);
 
             SyncComboBox.ItemsSource = newSyncType;
-
-            var syncType = this.SelectedEntity.syncType;
         }
 
         private void AttributeTypeComboBox_Loaded(object sender, RoutedEventArgs e)
